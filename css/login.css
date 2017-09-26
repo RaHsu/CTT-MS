@@ -1,0 +1,26 @@
+#login{
+    margin: 90px auto 0;
+    width: 600px;
+    height: 500px;
+}
+
+#header{
+    height: 120px;
+    background-size: cover;
+    background-image: url("../img/yidong_logo.jpg");
+}
+
+#content h1{
+    margin: 20px auto;
+    text-align: center;
+}
+
+#content form{
+    padding: 0px 50px;
+    font-size: 20px;
+}
+
+#footer{
+    text-align: center;
+}
+
