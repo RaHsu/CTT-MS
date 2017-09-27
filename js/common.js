@@ -26,11 +26,21 @@ function get_cookie(){
 function check_auth() {
     var send_cookie= get_cookie();
     var send_username = send_cookie.username;
-    $.post('http://10.2.130.178/CTT-MS-server/checkauth',send_username,function(result){
-        console.log(result);
-        var getData = JSON.parse(result);
-        console.log("Json::"+result);
-
-
+    $.ajax({
+        url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+        type : 'POST',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            console.log(result);
+            var getData = JSON.parse(result);
+            console.log("j:"+getData);
+        }
     });
+
+
+
+
 }
