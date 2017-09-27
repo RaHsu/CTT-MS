@@ -20,3 +20,12 @@ function get_cookie(){
 
     return cookie_obj;
 }
+
+
+// 查询某单个权限是否存在
+function check_auth(url) {
+    $.post('index.php',data,function(result){
+        var getData = JSON.parse(result);
+
+    });
+}
