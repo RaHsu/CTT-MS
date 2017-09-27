@@ -12,7 +12,7 @@
         <div id="content">
             <h1>CTT-MS 物资管理系统</h1>
 
-                <i-form ref="formValidate" :model="formValidate" :label-width="80" method="post" action="" id="loginForm">
+                <i-form ref="formValidate" :model="formValidate" :label-width="80" method="post" action="CTT-MS-server/login" id="loginForm">
                     <form-item label="用户名" prop="name">
                         <i-input v-model="formValidate.name.value" placeholder="请输入用户名" name="username"></i-input>
                     </form-item>

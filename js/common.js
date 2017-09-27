@@ -27,8 +27,8 @@ function check_auth() {
     var send_cookie= get_cookie();
     var send_username = send_cookie.username;
     $.ajax({
-        url : '/CTT-MS-server/checkauth',
-        //url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+        //url : '/CTT-MS-server/checkauth',
+        url : 'http://10.2.130.178/CTT-MS-server/checkauth',
         type : 'POST',
         success:function (result) {
             console.log(result);
