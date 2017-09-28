@@ -12,7 +12,7 @@
         <div id="content">
             <h1>CTT-MS 物资管理系统</h1>
 
-                <i-form ref="formValidate" :model="formValidate" :label-width="80" method="post" action="CTT-MS-server/login" id="loginForm">
+                <i-form ref="formValidate" :model="formValidate" :label-width="80" method="post" action="http://10.2.130.178/CTT-MS-server/login" id="loginForm">
                     <form-item label="用户名" prop="name">
                         <i-input v-model="formValidate.name.value" placeholder="请输入用户名" name="username"></i-input>
                     </form-item>
@@ -51,7 +51,7 @@
                         },
                         password:{
                             value:'',
-                            check:['empty','number'],
+                            check:['empty'],
                             alertText:{
                                 empty:'密码不能为空',
                                 number:'密码必须为数字'
