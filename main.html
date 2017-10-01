@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<Spin size="large" fix v-if="spinShow" id="spin">
+    <Icon type="load-c" size=70 class="demo-spin-icon-load"></Icon>
+    <div>数据获取中</div>
+</Spin>
 <div>
     <div class="layout">
         <!--吊顶菜单-->
@@ -17,7 +21,7 @@
             </div>
         </div>
         <!--顶部菜单-->
-        <i-menu mode="horizontal" theme="dark" active-name="1" id="topMenu">
+        <i-menu mode="horizontal" theme="dark" active-name="desktop.html" id="topMenu">
             <div class="layout-logo">
 
             </div>
@@ -26,7 +30,7 @@
                     <Icon type="locked"></Icon>
                     修改密码
                 </menu-item>
-                <menu-item name="2">
+                <menu-item name="desktop.html">
                     <Icon type="home"></Icon>
                     显示桌面
                 </menu-item>
@@ -35,44 +39,68 @@
         <!--侧边菜单-->
         <Row type="flex">
             <i-col span="4" class="layout-menu-left" id="sideMenu">
-                <i-menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" @on-select="href">
+                <i-menu active-name="1" theme="dark" width="auto" @on-select="href" open-names="1">
                     <div class="layout-logo-left"></div>
                     <Submenu name="1">
                         <template slot="title">
-                            <Icon type="ios-navigate"></Icon>
-                            导航一
+                            <Icon type="hammer"></Icon>
+                            材料操作
                         </template>
-                        <menu-item name="desktop.html">{{item.no1}}</menu-item>
-                        <menu-item name="1-2">选项 2</menu-item>
-                        <menu-item name="1-3">选项 3</menu-item>
+                        <menu-item name="desktop.html">材料发放</menu-item>
+                        <menu-item name="1-2">材料入库</menu-item>
+                        <menu-item name="1-4">装维退料</menu-item>
+                        <menu-item name="1-5">退回公司</menu-item>
+                        <menu-item name="1-6">库存调拨</menu-item>
+                        <menu-item name="1-7">材料报废（丢失）</menu-item>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
-                            <Icon type="ios-keypad"></Icon>
-                            导航二
+                            <Icon type="search"></Icon>
+                            材料查询
                         </template>
-                        <menu-item name="2-1">选项 1</menu-item>
-                        <menu-item name="2-2">选项 2</menu-item>
+                        <menu-item name="2-1">发放记录</menu-item>
+                        <menu-item name="2-2">入库记录</menu-item>
+                        <menu-item name="2-3">装维退料记录</menu-item>
+                        <menu-item name="2-4">退回公司记录</menu-item>
+                        <menu-item name="2-5">调拨记录</menu-item>
+                        <menu-item name="2-6">报废（丢失）记录</menu-item>
+                        <menu-item name="2-7">材料来源记录</menu-item>
+                        <menu-item name="2-8">材料盘库统计</menu-item>
+                        <menu-item name="2-9">装维领取统计</menu-item>
                     </Submenu>
                     <Submenu name="3">
                         <template slot="title">
-                            <Icon type="ios-analytics"></Icon>
-                            导航三
+                            <Icon type="person-stalker"></Icon>
+                            装维人员管理
                         </template>
-                        <menu-item name="3-1">选项 1</menu-item>
-                        <menu-item name="3-2">选项 2</menu-item>
+                        <menu-item name="3-1">添加装维人员</menu-item>
+                        <menu-item name="3-2">查看/修改资料</menu-item>
+                    </Submenu>
+                    <Submenu name="4">
+                        <template slot="title">
+                            <Icon type="settings"></Icon>
+                            系统设置
+                        </template>
+                        <menu-item name="3-1">基本信息设置</menu-item>
+                        <menu-item name="3-2">添加管理员</menu-item>
+                        <menu-item name="3-3">查看、修改管理员</menu-item>
+                        <menu-item name="3-4">片区设置</menu-item>
+                        <menu-item name="3-5">材料设置</menu-item>
+                        <menu-item name="3-6">工具设置</menu-item>
+                        <menu-item name="3-7">安全用品设置</menu-item>
+                        <menu-item name="3-8">系统登录日志</menu-item>
                     </Submenu>
                 </i-menu>
             </i-col>
-            <i-col span="20" class="layout-menu-right">
-                <iframe src="desktop.html" frameborder="0" width="83.3333333%" height="700px" id="content"></iframe>
+            <i-col span="20">
+                <iframe src="desktop.html" frameborder="0" scrolling="yes" width="83.3333333%" id="content"></iframe>
             </i-col>
         </Row>
 
 
 
         <div class="layout-copy">
-            2011-2016 &copy; TalkingData
+            2017 &copy; wingstudio
         </div>
     </div>
 </div>
@@ -82,7 +110,16 @@
 <script src="js/check-input.js"></script>
 <script src="js/common.js"></script>
 <script>
-    check_auth();
+    set_height();
+
+    var spin = new Vue({
+        el:'#spin',
+        data:{
+            spinShow: false
+        }
+    });
+
+    //check_auth();
 
 
     var celling = new Vue({
@@ -90,7 +127,14 @@
     });
 
     var topMenu = new Vue({
-        el:'#topMenu'
+        el:'#topMenu',
+        methods:{
+            href: function (name) {
+                var iframe = document.getElementById("content");
+                iframe.src = name;
+
+            }
+        }
     });
     var sideMenu = new Vue({
         el: '#sideMenu',
@@ -98,9 +142,7 @@
             show:{
                 no1:false
             },
-            item:{
-                no1:'仓库管理'
-            }
+
 
 
         },
@@ -113,6 +155,8 @@
         }
 
     });
+
+
 
 
 </script>

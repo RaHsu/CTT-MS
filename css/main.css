@@ -1,13 +1,23 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/*整体布局*/
 .layout{
-    border: 1px solid #d7dde4;
-    background: #f5f7f9;
+    background: white;
     position: relative;
-    border-radius: 4px;
     overflow: hidden;
 }
+/*侧边栏样式*/
+#sideMenu{
+    overflow-y: auto;
+}
+
+/*logo样式*/
 .layout-logo{
     width: 120px;
-    height: 40px;
+    height: 30px;
     background: #5b6270;
     border-radius: 3px;
     float: left;
@@ -17,6 +27,7 @@
     margin-right: 150px;
     background-image: url("../img/timg.jpg");
     background-size: cover;
+    background-position-y: -5px;
 }
 .layout-header{
     height: 60px;
@@ -39,4 +50,20 @@
 }
 .layout-ceiling-main a{
     color: #9ba7b5;
+}
+
+.layout-copy{
+    background-color: white;
+    color: #464c5b;
+    margin-top: -10px;
+    padding-bottom: 0px;
+}
+/*loading动画*/
+@keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+}
+.demo-spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
 }

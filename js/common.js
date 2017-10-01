@@ -21,20 +21,37 @@ function get_cookie(){
     return cookie_obj;
 }
 
+//设置iframe窗口高度
+function set_height() {
+    //document.getElementById('content').style.height = document.body.clientHeight;
+    var screen_height = window.innerHeight
+        || document.documentElement.clientHeight
+        || document.body.clientHeight;
 
-// 查询某单个权限是否存在
+    document.getElementById('content').style.height = screen_height - 126 + "px";
+    document.getElementById('sideMenu').style.height = screen_height - 98 + "px";
+}
+
+// 查询菜单项权限
 function check_auth() {
+
+
     $.ajax({
         //url : '/CTT-MS-server/checkauth',
         url : 'http://10.2.130.178/CTT-MS-server/checkauth',
         type : 'POST',
         //dataType:"json",
         success:function (result) {
+            spin.spinShow =false;
+
             console.log(result.state);
             if(result.state === 'error'){
                 alert(result.message);
                 window.location.href = "login.html";
             }
+        },
+        error:function () {
+            alert('数据请求失败，请检查你的网络连接');
         }
     });
 
