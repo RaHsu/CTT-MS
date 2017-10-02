@@ -39,7 +39,7 @@
         <!--侧边菜单-->
         <Row type="flex">
             <i-col span="4" class="layout-menu-left" id="sideMenu">
-                <i-menu active-name="1" theme="dark" width="auto" @on-select="href" open-names="1">
+                <i-menu active-name="1" theme="dark" width="auto" @on-select="href">
                     <div class="layout-logo-left"></div>
                     <Submenu name="1">
                         <template slot="title">
@@ -73,7 +73,7 @@
                             <Icon type="person-stalker"></Icon>
                             装维人员管理
                         </template>
-                        <menu-item name="3-1">添加装维人员</menu-item>
+                        <menu-item name="add_stuff.html">添加装维人员</menu-item>
                         <menu-item name="3-2">查看/修改资料</menu-item>
                     </Submenu>
                     <Submenu name="4">

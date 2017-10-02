@@ -3,7 +3,6 @@
  */
 
 // 获取cookie并将其转化为js对象
-
 function get_cookie(){
     var cookie = document.cookie;
 
@@ -21,7 +20,7 @@ function get_cookie(){
     return cookie_obj;
 }
 
-//设置iframe窗口高度
+// 设置iframe窗口高度
 function set_height() {
     //document.getElementById('content').style.height = document.body.clientHeight;
     var screen_height = window.innerHeight
@@ -58,4 +57,13 @@ function check_auth() {
 
 
 
+}
+
+// 将vue.data中的value提取出来
+function extract_value(data) {
+    var extracted_data = {};
+    for(var key in data){
+        extracted_data[key] = data[key].value;
+    }
+    return extracted_data;
 }

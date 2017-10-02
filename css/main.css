@@ -12,6 +12,7 @@
 /*侧边栏样式*/
 #sideMenu{
     overflow-y: auto;
+    background-color: #495060;
 }
 
 /*logo样式*/
