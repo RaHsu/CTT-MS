@@ -213,15 +213,11 @@
                 //console.log(data);
                 data = extract_value(data);
                 for(var key in data){
-
                     formData.append(key,data[key]);
                 }
-                for(var key in data){
-                    console.log(formData.get(key));
-                }
 
 
-                /*$.ajax({
+                $.ajax({
                     //url : 'http://10.2.130.178/CTT-MS-server/checkauth',
                     url:'http://192.168.1.11/test/test.php',
                     type : 'POST',
@@ -236,7 +232,7 @@
                     error:function () {
                         alert('数据请求失败，请检查你的网络连接');
                     }
-                });*/
+                });
             }
         }
     })
