@@ -59,6 +59,34 @@ function check_auth() {
 
 }
 
+// 查询某项菜单项权限
+function check_single_auth(auth) {
+
+    $.ajax({
+        //url : '/CTT-MS-server/checkauth',
+        url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+        type : 'POST',
+        //dataType:"json",
+        success:function (result) {
+            spin.spinShow =false;
+
+            console.log(result.state);
+            if(result.state === 'error'){
+                alert(result.message);
+                window.location.href = "login.html";
+            }else{
+                if(result[auth] === false ){
+                    alert("你现在还没有该项权限，请于管理员联系");
+                    history.go(-1);
+                }
+            }
+        },
+        error:function () {
+            alert('数据请求失败，请检查你的网络连接');
+        }
+    });
+}
+
 // 将vue.data中的value提取出来
 function extract_value(data) {
     var extracted_data = {};

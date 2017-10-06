@@ -57,6 +57,9 @@
     <form-item label="入职时间">
         <date-picker type="date" placeholder="请输入入职时间" v-model="formItem.employment_date.value" style="width: 200px"></date-picker>
     </form-item>
+    <form-item label="备注（选填）">
+        <i-input v-model="formItem.remark.value" placeholder="请输入备注"></i-input>
+    </form-item>
     <form-item label="个人照片">
         <Upload action="" :format="['jpg','jpeg','png']" :before-upload="upload_per_pic">
             <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
@@ -76,8 +79,6 @@
         <div v-if="formItem.idcard_back_pic.value !== null">待上传文件：{{ formItem.idcard_back_pic.value.name }}</div>
     </form-item>
 
-
-
     <form-item>
         <i-button type="primary" @click="upload(formItem)">提交</i-button>
     </form-item>
@@ -88,6 +89,7 @@
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
 <script>
+    //待实现的功能：权限检查，表单检查
     var add_stuff_form = new Vue({
         el:'#add_stuff_form',
         data:{
@@ -168,6 +170,10 @@
                     alertText: {
                         empty:'入职时间不能为空'
                     }
+                },
+                remark:{
+                    value:'',
+                    check:['empty']
                 },
                 per_pic:{
                     value:null,

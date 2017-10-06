@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看/修改资料</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/check_stuff.css">
+</head>
+<body>
+<div id="search">
+    <div class="search-text">
+        <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
+        <span>模糊查询：</span>
+        <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 200px"></i-input>
+    </div>
+    <div class="search-area">
+        <Cascader :data="data" v-model="search_area" width="250px" change-on-select></Cascader>
+    </div>
+    <span>按地区查询：</span>
+    <span>装维查询：</span>
+</div>
+<br>
+<div id="table">
+    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
+</div>
+<br>
+<Page :total="total" id="page" show-total show-elevator @on-change="get_page_data"></Page>
+<Modal  id="modal"
+        v-model="show"
+        title="个人信息">
+    <p>姓名：{{data.name}}</p>
+    <p>性别：{{data.sex}}</p>
+    <p>是否在岗：{{data.on_guard}}</p>
+    <p>身份证号：{{data.idcard}}</p>
+    <p>所在片区：{{data.area}}</p>
+    <p>联系电话：{{data.phone}}</p>
+    <p>qq号码：{{data.qq}}</p>
+    <p>第二联系人：{{data.sec_linkman}}</p>
+    <p>第二联系人电话：{{data.sec_phone}}</p>
+    <p>家庭住址：{{data.address}}</p>
+    <p>学历：{{data.education}}</p>
+    <p>毕业学校：{{data.school}}</p>
+    <p>经办人：{{data.operator}}</p>
+    <p>入职时间：{{data.employment_date}}</p>
+    <p>备注：{{data.remark}}</p>
+    <p>个人照片：<img :src="data.per_pic"></p>
+    <p>身份证正面照片：<img :src="data.idcard_front_pic"></p>
+    <p>身份证背面照片：<img :src="data.idcard_back_pic"></p>
+</Modal>
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>$.noConflict();</script>
+<script src="js/vue.js"></script>
+<script src="js/iview.js"></script>
+
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    // 获取各种条件下员工数据的第一页
+    function get_page1_data(){
+        // 设置数据
+        var page1_data={
+            pageinfo:{
+                curpage: 1,
+                pageinate: 10
+            }
+        };
+
+
+        // 首先判断有无查询条件
+        if(search.search_area !== []){
+            page1_data.condition = {
+                like:["area","%"+ search.search_area.join('') + "%"]
+            }
+        }
+        if(search.search_text !==''){
+            page1_data.condition = {
+                like:["area|name|sec_linkman|address","%"+ search.search_text + "%"]
+            }
+        }
+
+        // 判断有无排序
+        if(table.order !== ''){
+            page1_data.order = table.order;
+        }
+
+        // 判断有无筛选
+        if(table.filter !== []){
+            page1_data.condition.where = table.filter;
+        }
+
+        // 发送数据
+        jQuery.ajax({
+            url : server+url.check_staff,
+            data: JSON.stringify(page1_data),
+            type : 'POST',
+            success:function (result) {
+                table.showData = JSON.parse(result);
+            },
+            error:function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
+    var modal = new Vue({
+        el:'#modal',
+        data:{
+            show:false,
+            data:{}
+        }
+
+    });
+    var search = new Vue({
+        el: '#search',
+        data: {
+            search_area: [],
+            data: [{
+                value: 'beijing',
+                label: '北京',
+                children: [
+                    {
+                        value: 'gugong',
+                        label: '故宫'
+                    },
+                    {
+                        value: 'tiantan',
+                        label: '天坛'
+                    },
+                    {
+                        value: 'wangfujing',
+                        label: '王府井'
+                    }
+                ]
+            },
+                   {
+                    value: 'jiangsu',
+                    label: '江苏',
+                    children: [
+                        {
+                            value: 'nanjing',
+                            label: '南京',
+                            children: [
+                                {
+                                    value: 'fuzimiao',
+                                    label: '夫子庙',
+                                }
+                            ]
+                        },
+                        {
+                            value: 'suzhou',
+                            label: '苏州',
+                            children: [
+                                {
+                                    value: 'zhuozhengyuan',
+                                    label: '拙政园',
+                                },
+                                {
+                                    value: 'shizilin',
+                                    label: '狮子林',
+                                }
+                            ]
+                        }
+                    ],
+                }],
+            search_text: ''
+        },
+        methods:{
+            // 获取查询的结果
+            get_search_result:function () {
+                get_page1_data();
+            }
+
+        }
+    });
+    var table = new Vue({
+        el: "#table",
+        data:{
+            order:"",
+            filter:[],
+            header: [
+                {
+                    title: '身份证号码',
+                    key: 'idcard'
+                },
+                {
+                    title: '姓名',
+                    key: 'name'
+                },
+                {
+                    title: '性别',
+                    key: 'sex',
+                    filters: [
+                        {
+                            label: '男',
+                            value: '男'
+                        },
+                        {
+                            label: '女',
+                            value: '女'
+                        }
+                    ],
+                    filterMultiple: false,
+                    filterMethod: function(value) {
+                        table.filter = ['sex',value];
+                        get_page1_data();
+                    }
+                },
+                {
+                    title: '联系电话',
+                    key: 'phone'
+                },
+                {
+                    title: '入职时间',
+                    key: 'employment_date',
+                    sortable: 'custom'
+                },
+                {
+                    title: '是否在岗',
+                    key: 'on_guard'
+                },
+                {
+                    title: '片区',
+                    key: 'on_guard',
+                    sortable: 'custom',
+                    filters: [
+                        {
+                            label: '是',
+                            value: '是'
+                        },
+                        {
+                            label: '否',
+                            value: '否'
+                        }
+                    ],
+                    filterMultiple: false,
+                    filterMethod: function(value) {
+                        table.filter = ['on_guard',value];
+                        get_page1_data();
+                    }
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 180,
+                    align: 'center',
+                    render: function (h, params) {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: function (){
+                                        modal.show = true;
+                                        modal.data = table.showData[params.index];
+                                    }
+                                }
+                            }, '查看'),
+                            h('Button',{
+                                props:{
+                                    type:'warning',
+                                    size:'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on:{
+                                    click:function(){
+
+                                    }
+                                }
+                            },'修改'),
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: function(){
+                                        jQuery.ajax({
+                                            url : server+url.delete_staff,
+                                            data: JSON.stringify(table.showData[params.index].id),
+                                            type : 'POST',
+                                            success:function (result) {
+                                                if(result.state === 'success'){
+                                                    table.$Message.success('删除成功');
+                                                    table.showData.splice(params.index,1);
+                                                }else{
+                                                    table.$Message.warning('删除失败');
+                                                }
+                                            },
+                                            error:function () {
+                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            }
+                                        });
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                    }
+                }
+
+            ],
+            showData: [
+                {
+                    id:'1',
+                    name: '王小明',
+                    idcard: '32132132',
+                    sex: '男',
+                    on_guard: '是',
+                    area: '成都市',
+                    phone: '121321321',
+                    qq: '6546543',
+                    sec_linkman: '王小波',
+                    sec_phone: '4213214',
+                    address: '成都市金牛区',
+                    education: '本科',
+                    school: '四川大学',
+                    operator: '王小见',
+                    employment_date: '2016-09-09',
+                    per_pic: "img/exp.jpg",
+                    idcard_front_pic: "img/exp.jpg",
+                    idcard_back_pic: "img/exp.jpg",
+                    remark: '无'
+
+                }
+            ]
+        },
+        methods: {
+            change_sort_data: function (column) {
+                table.order = column.key + " " + column.order;
+                get_page1_data();
+            }
+        }
+
+    });
+    var page = new Vue({
+        el: '#page',
+        data:{
+            total:100
+        },
+        methods:{
+            get_page_data: function (page) {
+
+                // 设置数据
+                var sendData={
+                    pageinfo:{
+                        curpage: page,
+                        pageinate: 10
+                    }
+                };
+
+
+                // 首先判断有无查询条件
+                if(search.search_area !== []){
+                    sendData.condition = {
+                        like:["area","%"+ search.search_area.join('') + "%"]
+                    }
+                }
+                if(search.search_text !==''){
+                    sendData.condition = {
+                        like:["area|name|sec_linkman|address","%"+ search.search_text + "%"]
+                    }
+                }
+
+                // 判断有无排序
+                if(table.order !== ''){
+                    sendData.order = table.order;
+                }
+
+                // 判断有无筛选
+                if(table.filter !== []){
+                    sendData.condition.where = table.filter;
+                }
+
+                // 发送数据
+                jQuery.ajax({
+                    url : server+url.check_staff,
+                    data: JSON.stringify(sendData),
+                    type : 'POST',
+                    success:function (result) {
+                        table.showData = JSON.parse(result);
+                    },
+                    error:function () {
+                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    }
+                });
+
+
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>
