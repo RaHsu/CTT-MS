@@ -97,7 +97,8 @@
             data: JSON.stringify(page1_data),
             type : 'POST',
             success:function (result) {
-                table.showData = JSON.parse(result);
+                //table.showData = JSON.parse(result);
+                console.log(result);
             },
             error:function () {
                 table.$Message.warning('连接服务器失败，请检查你的网络连接');
@@ -308,30 +309,7 @@
                 }
 
             ],
-            showData: [
-                {
-                    id:'1',
-                    name: '王小明',
-                    idcard: '32132132',
-                    sex: '男',
-                    on_guard: '是',
-                    area: '成都市',
-                    phone: '121321321',
-                    qq: '6546543',
-                    sec_linkman: '王小波',
-                    sec_phone: '4213214',
-                    address: '成都市金牛区',
-                    education: '本科',
-                    school: '四川大学',
-                    operator: '王小见',
-                    employment_date: '2016-09-09',
-                    per_pic: "img/exp.jpg",
-                    idcard_front_pic: "img/exp.jpg",
-                    idcard_back_pic: "img/exp.jpg",
-                    remark: '无'
-
-                }
-            ]
+            showData: []
         },
         methods: {
             change_sort_data: function (column) {
@@ -397,6 +375,8 @@
             }
         }
     })
+
+    get_page1_data();
 
 
 </script>
