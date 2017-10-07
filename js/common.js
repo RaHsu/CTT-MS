@@ -5,9 +5,11 @@
 // 获取cookie并将其转化为js对象
 function get_cookie(){
     var cookie = document.cookie;
+    console.log(cookie);
 
     var cookie_obj={};
     var cookie_array = cookie.split(';');
+
 
 
     for(var i = 0;i < cookie_array.length;i++){
@@ -37,7 +39,7 @@ function check_auth() {
 
     $.ajax({
         //url : '/CTT-MS-server/checkauth',
-        url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+        url : server+url.check_auth,
         type : 'POST',
         //dataType:"json",
         success:function (result) {
@@ -64,7 +66,7 @@ function check_single_auth(auth) {
 
     $.ajax({
         //url : '/CTT-MS-server/checkauth',
-        url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+        url : server+url.check_auth,
         type : 'POST',
         //dataType:"json",
         success:function (result) {

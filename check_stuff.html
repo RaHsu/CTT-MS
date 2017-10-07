@@ -96,6 +96,11 @@
             url : server+url.check_staff,
             data: JSON.stringify(page1_data),
             type : 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType:"json",
+            crossDomain: true,
             success:function (result) {
                 //table.showData = JSON.parse(result);
                 console.log(result);

@@ -17,7 +17,7 @@
         <div class="layout-ceiling" id="celling">
             <div class="layout-ceiling-main">
                 <a href="#">关于系统</a> |
-                <a href="#">安全退出</a>
+                <a href="#" id="exit">安全退出</a>
             </div>
         </div>
         <!--顶部菜单-->
@@ -109,8 +109,13 @@
 <script src="js/iview.js"></script>
 <script src="js/check-input.js"></script>
 <script src="js/common.js"></script>
+<script src="js/url.js"></script>
 <script>
     set_height();
+    get_cookie();
+    /*function set_exit() {
+        document.getElementById('exit').setAttribute('href',)
+    }*/
 
     var spin = new Vue({
         el:'#spin',

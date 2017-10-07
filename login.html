@@ -35,9 +35,11 @@
     </div>
     <script src="js/vue.js"></script>
     <script src="js/iview.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/url.js"></script>
     <script src="js/check-input.js"></script>
     <script>
-        new Vue({
+        var loginForm = new Vue({
             el:'#login',
             data:function() {
                 return {
@@ -71,8 +73,39 @@
                 check: checkInput,
                 submit: function (tof) {
                     if(tof === true){
-                        form = document.getElementById("loginForm");
-                        form.submit();
+                        /*form = document.getElementById("loginForm");
+                        form.submit();*/
+
+                        var loginData = {
+                            username:loginForm.formValidate.name.value,
+                            password:loginForm.formValidate.password.value
+
+                        }
+                        console.log(JSON.stringify(loginData));
+
+                        jQuery.ajax({
+                            url : server+url.login,
+                            data: 'username='+loginData.username+'&password='+loginData.password,
+                            type : 'POST',
+                           /* xhrFields: {
+                                withCredentials: true
+                            },*/
+                            /*dataType:"json",*/
+                            crossDomain: true,
+                            success:function (result) {
+                                console.log(result);
+                                if(result.state === 'success'){
+                                    window.location.href = "main.html";
+                                }else {
+                                    alert(result.message);
+                                }
+
+                                console.log(result);
+                            },
+                            error:function () {
+                                loginForm.$Message.warning('连接服务器失败，请检查你的网络连接');
+                            }
+                        });
                     }
                 }
 
