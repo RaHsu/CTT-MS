@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加装维人员</title>
+    <title>修改装维人员</title>
     <link rel="stylesheet" href="css/iview.css">
     <style>
         form{
@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<i-form :label-width="180" id="add_stuff_form" label-position="right">
+<i-form :label-width="180" id="modify_staff_form" label-position="right">
     <form-item label="姓名">
         <i-input v-model="formItem.name.value" placeholder="请输入员工姓名"></i-input>
     </form-item>
@@ -24,8 +24,11 @@
     <form-item label="是否在岗" prop="on_guard">
         <radio-group v-model="formItem.on_guard.value">
             <Radio label="是">是</Radio>
-                <Radio label="否">否</Radio>
+            <Radio label="否">否</Radio>
         </radio-group>
+    </form-item>
+    <form-item label="身份证号">
+        <i-input v-model="formItem.idcard.value" placeholder="请输入身份证号"></i-input>
     </form-item>
     <form-item label="所在片区">
         <i-input v-model="formItem.area.value" placeholder="请输入所在片区"></i-input>
@@ -55,7 +58,7 @@
         <i-input v-model="formItem.operator.value" placeholder="请输入经办人"></i-input>
     </form-item>
     <form-item label="入职时间">
-        <date-picker type="date" placeholder="请输入入职时间" v-model="formItem.employment_date.value" style="width: 200px"></date-picker>
+        <date-picker type="date" placeholder="请输入入职时间" @on-change="format_date" v-model="formItem.employment_date.value" style="width: 200px"></date-picker>
     </form-item>
     <form-item label="备注（选填）">
         <i-input v-model="formItem.remark.value" placeholder="请输入备注"></i-input>
@@ -80,7 +83,7 @@
     </form-item>
 
     <form-item>
-        <i-button type="primary" @click="upload(formItem)">提交</i-button>
+        <i-button type="primary" @click="upload(check(formItem),formItem)">提交</i-button>
     </form-item>
 </i-form>
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -88,10 +91,11 @@
 <script src="js/iview.js"></script>
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
 <script>
-    //待实现的功能：权限检查，表单检查
-    var add_stuff_form = new Vue({
-        el:'#add_stuff_form',
+    //初始化表单
+    var modify_staff_form = new Vue({
+        el:'#modify_staff_form',
         data:{
             formItem: {
                 name:{
@@ -173,7 +177,7 @@
                 },
                 remark:{
                     value:'',
-                    check:['empty']
+                    check:[]
                 },
                 per_pic:{
                     value:null,
@@ -186,14 +190,14 @@
                     value:null,
                     check:['empty'],
                     alertText: {
-                        empty:'个人照片不能为空'
+                        empty:'身份证正面照片不能为空'
                     }
                 },
                 idcard_back_pic:{
                     value:null,
                     check:['empty'],
                     alertText: {
-                        empty:'个人照片不能为空'
+                        empty:'身份证背面照片不能为空'
                     }
                 }
             }
@@ -214,34 +218,89 @@
                 console.log(file);
                 return false;
             },
-            upload:function (data) {
-                var formData = new FormData();
-                //console.log(data);
-                data = extract_value(data);
-                for(var key in data){
-                    formData.append(key,data[key]);
-                }
-
-
-                $.ajax({
-                    //url : 'http://10.2.130.178/CTT-MS-server/checkauth',
-                    url:'http://192.168.1.11/test/test.php',
-                    type : 'POST',
-                    data:  ,
-                    processData: false,
-                    contentType: false,
-                    crossDomain: true,
-                    success:function (result) {
-                        console.log(result);
-
-                    },
-                    error:function () {
-                        alert('数据请求失败，请检查你的网络连接');
+            check:checkInput,
+            upload:function (tof,data) {
+                if(tof === true){
+                    var formData = new FormData();
+                    console.log(data);
+                    data = extract_value(data);
+                    for(var key in data){
+                        formData.append(key,data[key]);
                     }
-                });
+                    formData.append('cookie',get_cookie().username);
+                    formData.append('id',modify_id);
+                    formData.append('per_pic',modify_staff_form.formItem.per_pic.value);
+                    formData.append('idcard_front_pic',modify_staff_form.formItem.idcard_front_pic.value);
+                    formData.append('idcard_back_pic',modify_staff_form.formItem.idcard_back_pic.value);
+                    console.log(get_cookie().username);
+
+                    $.ajax({
+                        //url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+                        url:server+url.change_staff,
+                        type : 'POST',
+                        data : formData,
+                        //dataType:'json',
+                        processData: false,
+                        contentType: false,
+                        crossDomain: true,
+                        success:function (result) {
+                            if(result.state === 'error'||result.state === 'warning'){
+                                modify_staff_form.$Message.error(result.message);
+                                console.log(result);
+
+                            }else {
+                                modify_staff_form.$Message.success(result.message);
+                                console.log(result);
+                            }
+                        },
+                        error:function () {
+                            modify_staff_form.$Message.error('数据请求失败，请检查你的网络连接');
+                        }
+                    });
+                }
+            },
+            format_date:function (date) {
+                modify_staff_form.formItem.employment_date.value = date;
             }
         }
-    })
+    });
+
+
+    // 将表单填入员工信息
+    var modify_id = window.location.search.slice(1);
+    console.log(modify_id);
+    var search_data = {
+        pageinfo:{
+            curpage:1,
+            pageinate:1
+        },
+        condition:{
+            where:["id",modify_id]
+        }
+    };
+    console.log(send_with_cookie_data('query',search_data));
+    $.ajax({
+        url:server+url.check_staff,
+        type : 'POST',
+        data : send_with_cookie_data('query',search_data),
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            console.log(result);
+            var old_form_data = result[1];
+            console.log(old_form_data);
+            for(var key in modify_staff_form.formItem){
+                console.log(key+":"+old_form_data[key]);
+                console.log(key+":"+modify_staff_form.formItem[key].value);
+                modify_staff_form.formItem[key].value = old_form_data[key];
+            }
+        },
+        error:function () {
+            modify_staff_form.$Message.error('数据请求失败，请检查你的网络连接');
+        }
+    });
 </script>
 </body>
 </html>

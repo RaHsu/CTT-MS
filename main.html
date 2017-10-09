@@ -73,8 +73,8 @@
                             <Icon type="person-stalker"></Icon>
                             装维人员管理
                         </template>
-                        <menu-item name="add_stuff.html">添加装维人员</menu-item>
-                        <menu-item name="check_stuff.html">查看/修改资料</menu-item>
+                        <menu-item name="add_staff.html">添加装维人员</menu-item>
+                        <menu-item name="check_staff.html">查看/修改资料</menu-item>
                     </Submenu>
                     <Submenu name="4">
                         <template slot="title">
@@ -97,8 +97,6 @@
             </i-col>
         </Row>
 
-
-
         <div class="layout-copy">
             2017 &copy; wingstudio
         </div>
@@ -113,9 +111,7 @@
 <script>
     set_height();
     get_cookie();
-    /*function set_exit() {
-        document.getElementById('exit').setAttribute('href',)
-    }*/
+
 
     var spin = new Vue({
         el:'#spin',
@@ -160,7 +156,30 @@
         }
 
     });
+    function set_exit() {
 
+        document.getElementById('exit').onclick=function () {
+            alert('是否退出？');
+            $.ajax({
+                url : server+url.logout,
+                type : 'POST',
+                crossDomain: true,
+                data:send_with_cookie_data(),
+                success:function (result) {
+                    if(result.state === 'success'){
+                        setCookie('username','',-1);
+                        window.location.href = "login.html";
+                    }else{
+                        alert('注销失败');
+                    }
+                },
+                error:function () {
+                    alert('数据请求失败，请检查你的网络连接');
+                }
+            });
+        }
+    }
+    set_exit();
 
 
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5756af5b-2aa2-453a-96cc-771776ee9851" name="localhost" url="http://10.2.130.195:8000">
+        <fileTransfer port="0" mountedRoot="F:\project\CTT-MS" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

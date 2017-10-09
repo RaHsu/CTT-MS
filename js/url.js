@@ -8,6 +8,9 @@ var url = {
 	login:'/CTT-MS-server/login',
 	delete_staff:'/CTT-MS-server/staff/delete',
     check_staff:'/CTT-MS-server/staff/check',
-	check_auth:'/CTT-MS-server/staff/checkauth'
+	check_auth:'/CTT-MS-server/checkauth',
+	add_staff:'/CTT-MS-server/staff/add',
+    logout:'/CTT-MS-server/logout',
+	change_staff:'/CTT-MS-server/staff/change'
 };
 

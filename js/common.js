@@ -5,8 +5,6 @@
 // 获取cookie并将其转化为js对象
 function get_cookie(){
     var cookie = document.cookie;
-    console.log(cookie);
-
     var cookie_obj={};
     var cookie_array = cookie.split(';');
 
@@ -20,6 +18,10 @@ function get_cookie(){
     }
 
     return cookie_obj;
+}
+// 设置cookie
+function set_cookie(cookie,value) {
+    document.cookie = cookie+'='+value;
 }
 
 // 设置iframe窗口高度
@@ -96,4 +98,23 @@ function extract_value(data) {
         extracted_data[key] = data[key].value;
     }
     return extracted_data;
+}
+
+// 在ajax的data中添加cookie
+function send_with_cookie_data(key,data) {
+    if(key){
+        return "cookie="+get_cookie().username+"&"+key+'='+JSON.stringify(data);
+    }else{
+        return "cookie="+get_cookie().username;
+    }
+
+}
+
+// 设置cookie
+function setCookie(c_name,value,expiredays)
+{
+    var exdate=new Date()
+    exdate.setDate(exdate.getDate()+expiredays)
+    document.cookie=c_name+ "=" +escape(value)+
+        ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
 }

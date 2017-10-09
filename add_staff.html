@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加装维人员</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <style>
+        form{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<i-form :label-width="180" id="add_stuff_form" label-position="right">
+    <form-item label="姓名">
+        <i-input v-model="formItem.name.value" placeholder="请输入员工姓名"></i-input>
+    </form-item>
+    <form-item label="性别" prop="sex">
+        <radio-group v-model="formItem.sex.value">
+            <Radio label="男">男</Radio>
+            <Radio label="女">女</Radio>
+        </radio-group>
+    </form-item>
+    <form-item label="是否在岗" prop="on_guard">
+        <radio-group v-model="formItem.on_guard.value">
+            <Radio label="是">是</Radio>
+                <Radio label="否">否</Radio>
+        </radio-group>
+    </form-item>
+    <form-item label="身份证号">
+        <i-input v-model="formItem.idcard.value" placeholder="请输入身份证号"></i-input>
+    </form-item>
+    <form-item label="所在片区">
+        <i-input v-model="formItem.area.value" placeholder="请输入所在片区"></i-input>
+    </form-item>
+    <form-item label="联系电话（选填）">
+        <i-input v-model="formItem.phone.value" placeholder="请输入联系电话"></i-input>
+    </form-item>
+    <form-item label="QQ号码（选填）">
+        <i-input v-model="formItem.qq.value" placeholder="请输入QQ号码"></i-input>
+    </form-item>
+    <form-item label="第二联系人（选填）">
+        <i-input v-model="formItem.sec_linkman.value" placeholder="请输入第二联系人"></i-input>
+    </form-item>
+    <form-item label="第二联系人电话（选填）">
+        <i-input v-model="formItem.sec_phone.value" placeholder="请输入第二联系人电话"></i-input>
+    </form-item>
+    <form-item label="家庭住址（选填）">
+        <i-input v-model="formItem.address.value" placeholder="请输入家庭住址"></i-input>
+    </form-item>
+    <form-item label="学历（选填）">
+        <i-input v-model="formItem.education.value" placeholder="请输入学历"></i-input>
+    </form-item>
+    <form-item label="毕业学校（选填）">
+        <i-input v-model="formItem.school.value" placeholder="请输入毕业学校"></i-input>
+    </form-item>
+    <form-item label="经办人">
+        <i-input v-model="formItem.operator.value" placeholder="请输入经办人"></i-input>
+    </form-item>
+    <form-item label="入职时间">
+        <date-picker type="date" placeholder="请输入入职时间" @on-change="format_date" v-model="formItem.employment_date.value" style="width: 200px"></date-picker>
+    </form-item>
+    <form-item label="备注（选填）">
+        <i-input v-model="formItem.remark.value" placeholder="请输入备注"></i-input>
+    </form-item>
+    <form-item label="个人照片">
+        <Upload action="" :format="['jpg','jpeg','png']" :before-upload="upload_per_pic">
+            <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
+        </Upload>
+        <div v-if="formItem.per_pic.value !== null">待上传文件：{{ formItem.per_pic.value.name }}</div>
+    </form-item>
+    <form-item label="身份证正面照片">
+        <Upload action="" :format="['jpg','jpeg','png']" :before-upload="upload_idcard_front_pic">
+            <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
+        </Upload>
+        <div v-if="formItem.idcard_front_pic.value !== null">待上传文件：{{ formItem.idcard_front_pic.value.name }}</div>
+    </form-item>
+    <form-item label="身份证反面照片">
+        <Upload action="" :format="['jpg','jpeg','png']" :before-upload="upload_idcard_back_pic">
+            <i-button type="ghost" icon="ios-cloud-upload-outline">上传文件</i-button>
+        </Upload>
+        <div v-if="formItem.idcard_back_pic.value !== null">待上传文件：{{ formItem.idcard_back_pic.value.name }}</div>
+    </form-item>
+
+    <form-item>
+        <i-button type="primary" @click="upload(check(formItem),formItem)">提交</i-button>
+    </form-item>
+</i-form>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/iview.js"></script>
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    //待实现的功能：权限检查，表单检查
+    var add_stuff_form = new Vue({
+        el:'#add_stuff_form',
+        data:{
+            formItem: {
+                name:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'用户名不能为空'
+                    }
+                },
+                sex:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'性别不能为空'
+                    }
+                },
+                on_guard:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'是否在岗不能为空'
+                    }
+                },
+                idcard:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'身份证号不能为空'
+                    }
+                },
+                area:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'所在片区不能为空'
+                    }
+                },
+                phone:{
+                    value:'',
+                    check:[]
+                },
+                qq:{
+                    value:'',
+                    check:[]
+                },
+                sec_linkman:{
+                    value:'',
+                    check:[]
+                },
+                sec_phone:{
+                    value:'',
+                    check:[]
+                },
+                address:{
+                    value:'',
+                    check:[]
+                },
+                education:{
+                    value:'',
+                    check:[]
+                },
+                school:{
+                    value:'',
+                    check:[]
+                },
+                operator:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'经办人不能为空'
+                    }
+                },
+                employment_date:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'入职时间不能为空'
+                    }
+                },
+                remark:{
+                    value:'',
+                    check:[]
+                },
+                per_pic:{
+                    value:null,
+                    check:['empty'],
+                    alertText: {
+                        empty:'个人照片不能为空'
+                    }
+                },
+                idcard_front_pic:{
+                    value:null,
+                    check:['empty'],
+                    alertText: {
+                        empty:'身份证正面照片不能为空'
+                    }
+                },
+                idcard_back_pic:{
+                    value:null,
+                    check:['empty'],
+                    alertText: {
+                        empty:'身份证背面照片不能为空'
+                    }
+                }
+            }
+        },
+        methods:{
+            upload_per_pic: function(file) {
+                this.formItem.per_pic.value = file;
+                console.log(file);
+                return false;
+            },
+            upload_idcard_front_pic: function(file) {
+                this.formItem.idcard_front_pic.value = file;
+                console.log(file);
+                return false;
+            },
+            upload_idcard_back_pic: function(file) {
+                this.formItem.idcard_back_pic.value = file;
+                console.log(file);
+                return false;
+            },
+            check:checkInput,
+            upload:function (tof,data) {
+                if(tof === true){
+                    var formData = new FormData();
+                    console.log(data);
+                    data = extract_value(data);
+                    for(var key in data){
+                        formData.append(key,data[key]);
+                    }
+                    formData.append('cookie',get_cookie().username);
+                    formData.append('img[]',add_stuff_form.formItem.per_pic.value);
+                    formData.append('img[]',add_stuff_form.formItem.idcard_front_pic.value);
+                    formData.append('img[]',add_stuff_form.formItem.idcard_back_pic.value);
+                    console.log(get_cookie().username);
+
+                    $.ajax({
+                        //url : 'http://10.2.130.178/CTT-MS-server/checkauth',
+                        url:server+url.add_staff,
+                        type : 'POST',
+                        data : formData,
+                        processData: false,
+                        contentType: false,
+                        crossDomain: true,
+                        success:function (result) {
+                            if(result.state === 'error'||result.state === 'warning'){
+                                add_stuff_form.$Message.error(result.message);
+                            }else if(result.state === 'success'){
+                                add_stuff_form.$Message.success(result.message);
+
+                            }
+                            console.log(result);
+
+                        },
+                        error:function () {
+                            alert('数据请求失败，请检查你的网络连接');
+                        }
+                    });
+                }
+            },
+            format_date:function (date) {
+                add_stuff_form.formItem.employment_date.value = date;
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -24,8 +24,8 @@
     <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
 </div>
 <br>
-<Page :total="total" id="page" show-total show-elevator @on-change="get_page_data"></Page>
-<Modal  id="modal"
+<Page :total="total" id="page" show-total show-elevator @on-change="get_data"></Page>
+<Modal  id="showModel"
         v-model="show"
         title="个人信息">
     <p>姓名：{{data.name}}</p>
@@ -58,43 +58,44 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
-    // 获取各种条件下员工数据的第一页
-    function get_page1_data(){
+    // 获取各种条件下的员工数据（排序，查询，页数）
+    function get_staff_page_data(page_count){
         // 设置数据
-        var page1_data={
+        var page_data={
             pageinfo:{
                 curpage: 1,
                 pageinate: 10
             }
         };
+        if(page_count){
+            page_data.pageinfo.curpage = page_count;
+        }
 
 
         // 首先判断有无查询条件
         if(search.search_area !== []){
-            page1_data.condition = {
+            page_data.condition = {
                 like:["area","%"+ search.search_area.join('') + "%"]
             }
         }
         if(search.search_text !==''){
-            page1_data.condition = {
+            page_data.condition = {
                 like:["area|name|sec_linkman|address","%"+ search.search_text + "%"]
             }
+
         }
 
         // 判断有无排序
         if(table.order !== ''){
-            page1_data.order = table.order;
+            page_data.order = table.order;
         }
 
-        // 判断有无筛选
-        if(table.filter !== []){
-            page1_data.condition.where = table.filter;
-        }
+        console.log(JSON.stringify(page_data));
 
         // 发送数据
         jQuery.ajax({
             url : server+url.check_staff,
-            data: JSON.stringify(page1_data),
+            data: send_with_cookie_data('query',page_data),
             type : 'POST',
             xhrFields: {
                 withCredentials: true
@@ -102,8 +103,16 @@
             dataType:"json",
             crossDomain: true,
             success:function (result) {
-                //table.showData = JSON.parse(result);
-                console.log(result);
+                if(result.state === 'error'||result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else{
+                    console.log(result);
+                    page.total = result[0].datacount;
+                    result.splice(0,1);
+                    table.showData = result;
+                }
+
             },
             error:function () {
                 table.$Message.warning('连接服务器失败，请检查你的网络连接');
@@ -111,14 +120,15 @@
         });
     }
 
-    var modal = new Vue({
-        el:'#modal',
+    var showModel = new Vue({
+        el:'#showModel',
         data:{
             show:false,
             data:{}
         }
 
     });
+
     var search = new Vue({
         el: '#search',
         data: {
@@ -176,7 +186,7 @@
         methods:{
             // 获取查询的结果
             get_search_result:function () {
-                get_page1_data();
+                get_staff_page_data();
             }
 
         }
@@ -185,7 +195,6 @@
         el: "#table",
         data:{
             order:"",
-            filter:[],
             header: [
                 {
                     title: '身份证号码',
@@ -198,21 +207,7 @@
                 {
                     title: '性别',
                     key: 'sex',
-                    filters: [
-                        {
-                            label: '男',
-                            value: '男'
-                        },
-                        {
-                            label: '女',
-                            value: '女'
-                        }
-                    ],
-                    filterMultiple: false,
-                    filterMethod: function(value) {
-                        table.filter = ['sex',value];
-                        get_page1_data();
-                    }
+                    sortable: 'custom'
                 },
                 {
                     title: '联系电话',
@@ -225,27 +220,14 @@
                 },
                 {
                     title: '是否在岗',
-                    key: 'on_guard'
+                    key: 'on_guard',
+                    sortable: 'custom'
                 },
                 {
                     title: '片区',
-                    key: 'on_guard',
-                    sortable: 'custom',
-                    filters: [
-                        {
-                            label: '是',
-                            value: '是'
-                        },
-                        {
-                            label: '否',
-                            value: '否'
-                        }
-                    ],
-                    filterMultiple: false,
-                    filterMethod: function(value) {
-                        table.filter = ['on_guard',value];
-                        get_page1_data();
-                    }
+                    key: 'area',
+                    sortable: 'custom'
+
                 },
                 {
                     title: '操作',
@@ -264,8 +246,8 @@
                                 },
                                 on: {
                                     click: function (){
-                                        modal.show = true;
-                                        modal.data = table.showData[params.index];
+                                        showModel.show = true;
+                                        showModel.data = table.showData[params.index];
                                     }
                                 }
                             }, '查看'),
@@ -279,7 +261,7 @@
                                 },
                                 on:{
                                     click:function(){
-
+                                        window.location.href = "modify_staff.html?"+table.showData[params.index].id;
                                     }
                                 }
                             },'修改'),
@@ -290,22 +272,36 @@
                                 },
                                 on: {
                                     click: function(){
-                                        jQuery.ajax({
-                                            url : server+url.delete_staff,
-                                            data: JSON.stringify(table.showData[params.index].id),
-                                            type : 'POST',
-                                            success:function (result) {
-                                                if(result.state === 'success'){
-                                                    table.$Message.success('删除成功');
-                                                    table.showData.splice(params.index,1);
-                                                }else{
-                                                    table.$Message.warning('删除失败');
-                                                }
+                                        table.$Modal.confirm({
+                                            title:'删除确认',
+                                            content:'确认删除这条信息吗？',
+                                            okText:'确认',
+                                            cancelText:'取消删除',
+                                            onOk:function () {
+                                                //alert(send_with_cookie_data('id',table.showData[params.index].id));
+                                                jQuery.ajax({
+                                                    url : server+url.delete_staff,
+                                                    data: send_with_cookie_data('id',table.showData[params.index].id),
+                                                    type : 'POST',
+                                                    success:function (result) {
+                                                        if(result.state === 'success'){
+                                                            table.$Message.success('删除成功');
+                                                            table.showData.splice(params.index,1);
+                                                        }else{
+                                                            table.$Message.warning('删除失败');
+                                                        }
+                                                    },
+                                                    error:function () {
+                                                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                                    }
+                                                });
                                             },
-                                            error:function () {
-                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            onCancel:function () {
+                                                table.$Message.info("取消删除");
                                             }
-                                        });
+                                        })
+
+
                                     }
                                 }
                             }, '删除')
@@ -314,12 +310,32 @@
                 }
 
             ],
-            showData: []
+            showData: [
+                /*{
+                    name:"赵浩云",
+                    sex:"男",
+                    on_guard:"是",
+                    idcard:"510107199611014219",
+                    area:"四川-雅安",
+                    phone:"18728193218",
+                    sec_linkman:null,
+                    sec_phone:null,
+                    address:null,
+                    education:null,
+                    school:null,
+                    operator:'Horol',
+                    employment_date:"2017-10-03",
+                    per_pic:"333",
+                    idcard_front_pic:"333",
+                    idcard_back_pic:"333",
+                    remark:null
+                }*/
+            ]
         },
         methods: {
             change_sort_data: function (column) {
                 table.order = column.key + " " + column.order;
-                get_page1_data();
+                get_staff_page_data();
             }
         }
 
@@ -327,10 +343,13 @@
     var page = new Vue({
         el: '#page',
         data:{
-            total:100
+            total:30
         },
         methods:{
-            get_page_data: function (page) {
+            get_data: function (page) {
+                get_staff_page_data(page);
+            }
+            /*function (page) {
 
                 // 设置数据
                 var sendData={
@@ -360,6 +379,7 @@
 
                 // 判断有无筛选
                 if(table.filter !== []){
+                    console.log(table.fliter);
                     sendData.condition.where = table.filter;
                 }
 
@@ -368,20 +388,26 @@
                     url : server+url.check_staff,
                     data: JSON.stringify(sendData),
                     type : 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
                     success:function (result) {
-                        table.showData = JSON.parse(result);
+                        console.log(result);
+                        page.total = result[0].pagecount;
+                        result.splice(0,1);
+                        table.showData = result;
                     },
                     error:function () {
                         table.$Message.warning('连接服务器失败，请检查你的网络连接');
                     }
-                });
+                });*/
 
 
             }
-        }
+
     })
 
-    get_page1_data();
+    get_staff_page_data();
 
 
 </script>
