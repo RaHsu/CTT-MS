@@ -11,6 +11,10 @@ var url = {
 	check_auth:'/CTT-MS-server/checkauth',
 	add_staff:'/CTT-MS-server/staff/add',
     logout:'/CTT-MS-server/logout',
-	change_staff:'/CTT-MS-server/staff/change'
+	change_staff:'/CTT-MS-server/staff/change',
+	check_user:'/CTT-MS-server/user/check',
+	delete_user:'/CTT-MS-server/user/delete',
+	add_user:'/CTT-MS-server/user/add',
+
 };
 

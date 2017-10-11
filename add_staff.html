@@ -54,9 +54,6 @@
     <form-item label="毕业学校（选填）">
         <i-input v-model="formItem.school.value" placeholder="请输入毕业学校"></i-input>
     </form-item>
-    <form-item label="经办人">
-        <i-input v-model="formItem.operator.value" placeholder="请输入经办人"></i-input>
-    </form-item>
     <form-item label="入职时间">
         <date-picker type="date" placeholder="请输入入职时间" @on-change="format_date" v-model="formItem.employment_date.value" style="width: 200px"></date-picker>
     </form-item>
@@ -161,13 +158,7 @@
                     value:'',
                     check:[]
                 },
-                operator:{
-                    value:'',
-                    check:['empty'],
-                    alertText: {
-                        empty:'经办人不能为空'
-                    }
-                },
+
                 employment_date:{
                     value:'',
                     check:['empty'],
@@ -222,7 +213,6 @@
             upload:function (tof,data) {
                 if(tof === true){
                     var formData = new FormData();
-                    console.log(data);
                     data = extract_value(data);
                     for(var key in data){
                         formData.append(key,data[key]);
@@ -231,13 +221,13 @@
                     formData.append('img[]',add_stuff_form.formItem.per_pic.value);
                     formData.append('img[]',add_stuff_form.formItem.idcard_front_pic.value);
                     formData.append('img[]',add_stuff_form.formItem.idcard_back_pic.value);
-                    console.log(get_cookie().username);
+                    console.log(formData);
 
                     $.ajax({
-                        //url : 'http://10.2.130.178/CTT-MS-server/checkauth',
                         url:server+url.add_staff,
                         type : 'POST',
                         data : formData,
+                        //dataType:'json',
                         processData: false,
                         contentType: false,
                         crossDomain: true,

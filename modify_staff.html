@@ -54,9 +54,6 @@
     <form-item label="毕业学校（选填）">
         <i-input v-model="formItem.school.value" placeholder="请输入毕业学校"></i-input>
     </form-item>
-    <form-item label="经办人">
-        <i-input v-model="formItem.operator.value" placeholder="请输入经办人"></i-input>
-    </form-item>
     <form-item label="入职时间">
         <date-picker type="date" placeholder="请输入入职时间" @on-change="format_date" v-model="formItem.employment_date.value" style="width: 200px"></date-picker>
     </form-item>
@@ -160,13 +157,6 @@
                 school:{
                     value:'',
                     check:[]
-                },
-                operator:{
-                    value:'',
-                    check:['empty'],
-                    alertText: {
-                        empty:'经办人不能为空'
-                    }
                 },
                 employment_date:{
                     value:'',
