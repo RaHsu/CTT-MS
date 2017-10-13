@@ -32,28 +32,31 @@ function checkInput(data){
     //首先遍历每个表单元素
     for(i in data){
         //再判断要使用哪些方法来验证表单元素
-        for(j = 0;j<data[i].check.length;j++){
+        if(data[i].check){
+            for(j = 0;j<data[i].check.length;j++){
 
-            //判断一个表单数据是否为空
-            if(data[i].check[j] === 'empty'){
-                if(isEmpty(data[i].value)===false){
-                    flag = false;
-                    this.$Message.error(data[i].alertText.empty);
-                    return false;
+                //判断一个表单数据是否为空
+                if(data[i].check[j] === 'empty'){
+                    if(isEmpty(data[i].value)===false){
+                        flag = false;
+                        this.$Message.error(data[i].alertText.empty);
+                        return false;
+                    }
                 }
-            }
 
-            // 判断一个表单数据是否为数字
-            if(data[i].check[j] === 'number'){
-                if(isNumber(data[i].value)===false){
-                    flag = false;
-                    this.$Message.error(data[i].alertText.number);
-                    return false;
+                // 判断一个表单数据是否为数字
+                if(data[i].check[j] === 'number'){
+                    if(isNumber(data[i].value)===false){
+                        flag = false;
+                        this.$Message.error(data[i].alertText.number);
+                        return false;
+                    }
                 }
-            }
 
-            // 待添加的函数
+                // 待添加的函数
+            }
         }
+
 
 
     }

@@ -118,3 +118,27 @@ function setCookie(c_name,value,expiredays)
     document.cookie=c_name+ "=" +escape(value)+
         ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
 }
+
+// 将权限的0，1表示转为真值表示
+function trans_auth_to_display(obj){
+    for(var auths in obj){
+        if(obj[auths] === 1||obj[auths] === '1'){
+            obj[auths] = true;
+        }
+        if(obj[auths] === 0||obj[auths] === '0'){
+            obj[auths] = false;
+        }
+    }
+}
+
+// 将权限的真值表示表示转为0,1
+function trans_auth_to_submit(obj){
+    for(var auths in obj){
+        if(obj[auths] === true){
+            obj[auths] = 1;
+        }
+        if(obj[auths] === false){
+            obj[auths] = 0;
+        }
+    }
+}

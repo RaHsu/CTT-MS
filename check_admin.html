@@ -5,6 +5,11 @@
     <title>查看管理员</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
+    <style>
+        .ivu-checkbox-disabled.ivu-checkbox-checked .ivu-checkbox-inner{
+            background-color: #2b85e4;
+        }
+    </style>
 </head>
 <body>
 <div id="search">
@@ -37,6 +42,42 @@
     <p>邮箱：{{data.email}}</p>
     <p>家庭住址：{{data.address}}</p>
     <p>身份证号：{{data.idcard}}</p>
+    <p>身份证号：{{data.idcard}}</p>
+    <p>身份证号：{{data.idcard}}</p>
+    <p>权限信息：</p>
+    <p>材料管理</p>
+    <p>
+        <Checkbox v-model="filter(data.auth.stuff_in)" disabled>材料入库</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_out)" disabled>材料出库</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_back)" disabled>材料退库</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_leave)" disabled>材料调库</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_use)" disabled>材料消耗</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_count)" disabled>材料统计</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_inventory)" disabled>材料盘存</Checkbox>
+    </p>
+    <p>工具管理</p>
+    <p>
+        <Checkbox v-model="filter(data.auth.tool_in)" disabled>工具入库</Checkbox>
+        <Checkbox v-model="filter(data.auth.tool_out)" disabled>工具出库</Checkbox>
+        <Checkbox v-model="filter(data.auth.tool_back)" disabled>工具退库</Checkbox>
+        <Checkbox v-model="filter(data.auth.tool_leave)" disabled>工具调库</Checkbox>
+        <Checkbox v-model="filter(data.auth.tool_count)" disabled>工具统计</Checkbox>
+        <Checkbox v-model="filter(data.auth.tool_infoconsummate)" disabled>工具信息完善</Checkbox>
+    </p>
+    <p>安全品管理</p>
+    <p>
+        <Checkbox v-model="filter(data.auth.safty_in)" disabled>安全品入库</Checkbox>
+        <Checkbox v-model="filter(data.auth.safty_out)" disabled>安全品出库</Checkbox>
+        <Checkbox v-model="filter(data.auth.safty_back)" disabled>安全品退库</Checkbox>
+        <Checkbox v-model="filter(data.auth.safty_count)" disabled>安全品统计</Checkbox>
+        <Checkbox v-model="filter(data.auth.safty_infoconsummate)" disabled>安全品信息完善</Checkbox>
+    </p>
+    <p>人员管理</p>
+    <p>
+        <Checkbox v-model="filter(data.auth.staff_manage)" disabled>装维人员管理</Checkbox>
+        <Checkbox v-model="filter(data.auth.user_manage)" disabled>管理员管理</Checkbox>
+    </p>
+
 </Modal>
 
 
@@ -51,7 +92,7 @@
 <script>
     // 获取各种条件下的管理员数据（排序，查询，页数）
     function get_admin_page_data(page_count) {
-// 设置数据
+        // 设置数据
         var page_data = {
             pageinfo: {
                 curpage: 1,
@@ -63,7 +104,7 @@
         }
 
 
-// 首先判断有无查询条件
+        // 首先判断有无查询条件
         if (search.search_area !== []) {
             page_data.condition = {
                 like: ["area", "%" + search.search_area.join('') + "%"]
@@ -76,14 +117,14 @@
 
         }
 
-// 判断有无排序
+        // 判断有无排序
         if (table.order !== '') {
             page_data.order = table.order;
         }
 
         console.log(JSON.stringify(page_data));
 
-// 发送数据
+        // 发送数据
         jQuery.ajax({
             url: server + url.check_user,
             data: send_with_cookie_data('query', page_data),
@@ -95,6 +136,7 @@
             crossDomain: true,
             success: function (result) {
                 if (result.state === 'error' || result.state === 'warning') {
+                    console.log(result);
                     table.$Message.error(result.message);
                 }
                 else {
@@ -116,6 +158,16 @@
         data: {
             show: false,
             data: {}
+        },
+        methods:{
+            filter:function (string) {
+                if(string === 1){
+                    return true;
+                }
+                if(string === 0){
+                    return false;
+                }
+            }
         }
 
     });
@@ -175,7 +227,7 @@
             search_text: ''
         },
         methods: {
-// 获取查询的结果
+            // 获取查询的结果
             get_search_result: function () {
                 get_admin_page_data();
             }
@@ -242,7 +294,7 @@
                                 },
                                 on: {
                                     click: function () {
-                                        window.location.href = "modify_staff.html?" + table.showData[params.index].id;
+                                        window.location.href = "modify_admin.html?" + table.showData[params.index].id;
                                     }
                                 }
                             }, '修改'),

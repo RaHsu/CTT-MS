@@ -15,6 +15,7 @@ var url = {
 	check_user:'/CTT-MS-server/user/check',
 	delete_user:'/CTT-MS-server/user/delete',
 	add_user:'/CTT-MS-server/user/add',
+	change_user:'/CTT-MS-server/user/change'
 
 };
 

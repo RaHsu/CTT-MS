@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加管理员</title>
+    <title>修改管理员</title>
     <link rel="stylesheet" href="css/iview.css">
     <style>
         form{
@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<i-form :label-width="180" id="add_user_form" label-position="right">
+<i-form :label-width="180" id="modify_user_form" label-position="right">
     <form-item label="员工编号">
         <i-input v-model="formItem.username.value" placeholder="请输入员工编号"></i-input>
     </form-item>
@@ -54,29 +54,29 @@
     </form-item>
     <form-item label="权限设置">
         <p>材料管理</p>
-        <Checkbox v-model="formItem.auth.stuff_in" true-value="1" false-value="0">材料入库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_out" true-value="1" false-value="0">材料出库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_back" true-value="1" false-value="0">材料退库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_leave" true-value="1" false-value="0">材料调库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_use" true-value="1" false-value="0">材料消耗</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_count" true-value="1" false-value="0">材料统计</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_inventory" true-value="1" false-value="0">材料盘存</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_in">材料入库</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_out">材料出库</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_back">材料退库</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_leave">材料调库</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_use">材料消耗</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_count">材料统计</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_inventory">材料盘存</Checkbox>
         <p>工具管理</p>
-        <Checkbox v-model="formItem.auth.tool_in" true-value="1" false-value="0">工具入库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_out" true-value="1" false-value="0">工具出库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_back" true-value="1" false-value="0">工具退库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_leave" true-value="1" false-value="0">工具调库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_count" true-value="1" false-value="0">工具统计</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_infoconsummate" true-value="1" false-value="0">工具信息完善</Checkbox>
+        <Checkbox v-model="formItem.auth.tool_in">工具入库</Checkbox>
+        <Checkbox v-model="formItem.auth.tool_out">工具出库</Checkbox>
+        <Checkbox v-model="formItem.auth.tool_back">工具退库</Checkbox>
+        <Checkbox v-model="formItem.auth.tool_leave">工具调库</Checkbox>
+        <Checkbox v-model="formItem.auth.tool_count">工具统计</Checkbox>
+        <Checkbox v-model="formItem.auth.tool_infoconsummate">工具信息完善</Checkbox>
         <p>安全品管理</p>
-        <Checkbox v-model="formItem.auth.safty_in" true-value="1" false-value="0">安全品入库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_out" true-value="1" false-value="0">安全品出库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_back" true-value="1" false-value="0">安全品退库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_count" true-value="1" false-value="0">安全品统计</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_infoconsummate" true-value="1" false-value="0">安全品信息完善</Checkbox>
+        <Checkbox v-model="formItem.auth.safty_in">安全品入库</Checkbox>
+        <Checkbox v-model="formItem.auth.safty_out">安全品出库</Checkbox>
+        <Checkbox v-model="formItem.auth.safty_back">安全品退库</Checkbox>
+        <Checkbox v-model="formItem.auth.safty_count">安全品统计</Checkbox>
+        <Checkbox v-model="formItem.auth.safty_infoconsummate">安全品信息完善</Checkbox>
         <p>人员管理</p>
-        <Checkbox v-model="formItem.auth.staff_manage" true-value="1" false-value="0">装维人员管理</Checkbox>
-        <Checkbox v-model="formItem.auth.user_manage" true-value="1" false-value="0">管理员管理</Checkbox>
+        <Checkbox v-model="formItem.auth.staff_manage">装维人员管理</Checkbox>
+        <Checkbox v-model="formItem.auth.user_manage">管理员管理</Checkbox>
 
 
 
@@ -93,9 +93,9 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
-    //待实现的功能：权限检查，表单检查
-    var add_user_form = new Vue({
-        el:'#add_user_form',
+    //待实现的功能：权限检查
+    var modify_user_form = new Vue({
+        el:'#modify_user_form',
         data:{
             formItem: {
                 username:{
@@ -164,27 +164,28 @@
                     }
                 },
                 auth:{
-                    stuff_in:'0',
-                    stuff_out:'0',
-                    stuff_back:'0',
-                    stuff_leave:'0',
-                    stuff_use:'0',
-                    stuff_count:'0',
-                    stuff_inventory:'0',
-                    tool_in:'0',
-                    tool_out:'0',
-                    tool_back:'0',
-                    tool_leave:'0',
-                    tool_count:'0',
-                    tool_infoconsummate:'0',
-                    safty_in:'0',
-                    safty_out:'0',
-                    safty_back:'0',
-                    safty_count:'0',
-                    safty_infoconsummate:'0',
-                    staff_manage:'0',
-                    user_manage:'0'
+                    stuff_in:false,
+                    stuff_out:false,
+                    stuff_back:false,
+                    stuff_leave:false,
+                    stuff_use:false,
+                    stuff_count:false,
+                    stuff_inventory:false,
+                    tool_in:false,
+                    tool_out:false,
+                    tool_back:false,
+                    tool_leave:false,
+                    tool_count:false,
+                    tool_infoconsummate:false,
+                    safty_in:false,
+                    safty_out:false,
+                    safty_back:false,
+                    safty_count:false,
+                    safty_infoconsummate:false,
+                    staff_manage:false,
+                    user_manage:false
                 }
+
             }
         },
         methods:{
@@ -193,14 +194,23 @@
                 if(tof === true){
                     var send_data = [];
                     send_data[0] = extract_value(data);
-                    send_data[1] = add_user_form.formItem.auth;
-                    console.log(send_with_cookie_data('json',send_data));
+                    send_data[0].id = modify_id;
+                    // 深拷贝auth
+                    var send_auth = {};
+                    for(var key in modify_user_form.formItem.auth){
+                        send_auth[key] = modify_user_form.formItem.auth[key];
+                    }
+
                     if(send_data.password !== send_data.confirm_password){
-                        add_user_form.$Message.error("两次输入密码不相符");
+                        modify_user_form.$Message.error("两次输入密码不相符");
                     }
                     else {
+
+                        trans_auth_to_submit(send_auth);
+                        send_data[1] = send_auth;
+                        console.log(send_with_cookie_data('json',send_data));
                         $.ajax({
-                            url:server+url.add_user,
+                            url:server+url.change_user,
                             type : 'POST',
                             //data : JSON.stringify({cookie:get_cookie().username,json:send_data}),
                             data : send_with_cookie_data('json',send_data),
@@ -208,10 +218,11 @@
                             processData: false,
                             crossDomain: true,
                             success:function (result) {
+
                                 if(result.state === 'error'||result.state === 'warning'){
-                                    add_user_form.$Message.error(result.message);
+                                    modify_user_form.$Message.error(result.message);
                                 }else if(result.state === 'success'){
-                                    add_user_form.$Message.success(result.message);
+                                    modify_user_form.$Message.success(result.message);
 
                                 }
                                 console.log(result);
@@ -226,7 +237,53 @@
                 }
             }
         }
-    })
+    });
+
+    var modify_id = window.location.search.slice(1);
+    console.log(modify_id);
+    var search_data = {
+        pageinfo:{
+            curpage:1,
+            pageinate:1
+        },
+        condition:{
+            where:["id",modify_id]
+        }
+    };
+    console.log(send_with_cookie_data('query',search_data));
+    $.ajax({
+        url:server+url.check_user,
+        type : 'POST',
+        data : send_with_cookie_data('query',search_data),
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            if(result.state === "warning" || result.state === "error"){
+                console.log(result);
+            }else{
+                var old_form_data = result[1];
+                modify_user_form.formItem.name.value = old_form_data.name;
+                modify_user_form.formItem.username.value = old_form_data.username;
+                modify_user_form.formItem.area.value = old_form_data.area;
+                modify_user_form.formItem.sex.value = old_form_data.sex;
+                modify_user_form.formItem.phone.value = old_form_data.phone;
+                modify_user_form.formItem.qq.value = old_form_data.qq;
+                modify_user_form.formItem.email.value = old_form_data.email;
+                modify_user_form.formItem.address.value = old_form_data.address;
+                modify_user_form.formItem.idcard.value = old_form_data.idcard;
+                modify_user_form.formItem.auth = old_form_data.auth;
+                trans_auth_to_display(modify_user_form.formItem.auth);
+                console.log(modify_user_form.formItem);
+            }
+
+
+        },
+        error:function () {
+            modify_user_form.$Message.error('数据请求失败，请检查你的网络连接');
+        }
+    });
 </script>
 </body>
 </html>
