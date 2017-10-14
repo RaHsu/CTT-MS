@@ -142,3 +142,30 @@ function trans_auth_to_submit(obj){
         }
     }
 }
+
+// 获取地区并将数据填充到选择器中(级联选择器中的数据统一叫area_data)
+function get_area() {
+    var that = this;
+    jQuery.ajax({
+        url : server+url.get_area,
+        data: send_with_cookie_data(),
+        type : 'POST',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            if(result.state === 'error'||result.state === 'warning'){
+                table.$Message.error(result.message);
+            }
+            else{
+                console.log("成功请求到地区数据");
+                that.area_data = result;
+            }
+
+        },
+        error:function () {
+            table.$Message.warning('连接服务器失败，请检查你的网络连接');
+        }
+    });
+}

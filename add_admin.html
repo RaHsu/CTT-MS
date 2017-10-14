@@ -35,7 +35,7 @@
         </radio-group>
     </form-item>
     <form-item label="所在片区">
-        <i-input v-model="formItem.area.value" placeholder="请输入所在片区"></i-input>
+        <Cascader :data="area_data" v-model="formItem.area.value" width="250px" change-on-select></Cascader>
     </form-item>
     <form-item label="联系电话（选填）">
         <i-input v-model="formItem.phone.value" placeholder="请输入联系电话"></i-input>
@@ -97,6 +97,7 @@
     var add_user_form = new Vue({
         el:'#add_user_form',
         data:{
+            area_data:[],
             formItem: {
                 username:{
                     value:'',
@@ -127,7 +128,7 @@
                     }
                 },
                 area:{
-                    value:'',
+                    value:[],
                     check:['empty'],
                     alertText: {
                         empty:'所在片区不能为空'
@@ -194,7 +195,8 @@
                     var send_data = [];
                     send_data[0] = extract_value(data);
                     send_data[1] = add_user_form.formItem.auth;
-                    console.log(send_with_cookie_data('json',send_data));
+                    send_data[0].area = send_data[0].area.join("^");
+                    //console.log(send_with_cookie_data('json',send_data));
                     if(send_data.password !== send_data.confirm_password){
                         add_user_form.$Message.error("两次输入密码不相符");
                     }
@@ -202,9 +204,7 @@
                         $.ajax({
                             url:server+url.add_user,
                             type : 'POST',
-                            //data : JSON.stringify({cookie:get_cookie().username,json:send_data}),
                             data : send_with_cookie_data('json',send_data),
-                            //dataType:'json',
                             processData: false,
                             crossDomain: true,
                             success:function (result) {
@@ -225,7 +225,8 @@
 
                 }
             }
-        }
+        },
+        created:get_area
     })
 </script>
 </body>

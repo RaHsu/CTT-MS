@@ -35,7 +35,7 @@
         </radio-group>
     </form-item>
     <form-item label="所在片区">
-        <i-input v-model="formItem.area.value" placeholder="请输入所在片区"></i-input>
+        <Cascader :data="area_data" v-model="formItem.area.value" width="250px" change-on-select></Cascader>
     </form-item>
     <form-item label="联系电话（选填）">
         <i-input v-model="formItem.phone.value" placeholder="请输入联系电话"></i-input>
@@ -97,6 +97,7 @@
     var modify_user_form = new Vue({
         el:'#modify_user_form',
         data:{
+            area_data:[],
             formItem: {
                 username:{
                     value:'',
@@ -127,7 +128,7 @@
                     }
                 },
                 area:{
-                    value:'',
+                    value:[],
                     check:['empty'],
                     alertText: {
                         empty:'所在片区不能为空'
@@ -195,6 +196,7 @@
                     var send_data = [];
                     send_data[0] = extract_value(data);
                     send_data[0].id = modify_id;
+                    send_data[0].area = send_data[0].area.join("^");
 
                     // 深拷贝auth
                     var send_auth = {};
@@ -242,7 +244,9 @@
 
                 }
             }
-        }
+
+        },
+        created:get_area
     });
 
     var modify_id = window.location.search.slice(1);
@@ -257,6 +261,7 @@
         }
     };
     console.log(send_with_cookie_data('query',search_data));
+
     $.ajax({
         url:server+url.check_user,
         type : 'POST',
@@ -266,13 +271,14 @@
         },
         crossDomain: true,
         success:function (result) {
+            console.log(result);
             if(result.state === "warning" || result.state === "error"){
                 console.log(result);
             }else{
                 var old_form_data = result[1];
                 modify_user_form.formItem.name.value = old_form_data.name;
                 modify_user_form.formItem.username.value = old_form_data.username;
-                modify_user_form.formItem.area.value = old_form_data.area;
+                modify_user_form.formItem.area.value = old_form_data.area.split('^');
                 modify_user_form.formItem.sex.value = old_form_data.sex;
                 modify_user_form.formItem.phone.value = old_form_data.phone;
                 modify_user_form.formItem.qq.value = old_form_data.qq;
@@ -281,7 +287,7 @@
                 modify_user_form.formItem.idcard.value = old_form_data.idcard;
                 modify_user_form.formItem.auth = old_form_data.auth;
                 trans_auth_to_display(modify_user_form.formItem.auth);
-                console.log(modify_user_form.formItem);
+                console.log(modify_user_form.formItem.area.value);
             }
 
 

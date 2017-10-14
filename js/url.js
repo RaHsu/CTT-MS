@@ -15,7 +15,12 @@ var url = {
 	check_user:'/CTT-MS-server/user/check',
 	delete_user:'/CTT-MS-server/user/delete',
 	add_user:'/CTT-MS-server/user/add',
-	change_user:'/CTT-MS-server/user/change'
+	change_user:'/CTT-MS-server/user/change',
+	get_area:'/CTT-MS-server/areaquery',
+	add_area:'/CTT-MS-server/area/add',
+	check_area:'/CTT-MS-server/area/check',
+	delete_area:'/CTT-MS-server/area/delete',
+	change_area:'/CTT-MS-server/area/change'
 
 };
 

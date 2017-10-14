@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看/修改资料</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/check_stuff.css">
+    <style>
+        #add_button{
+            margin-left: 50px;
+        }
+        #table{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="search">
+    <div class="search-text">
+        <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
+        <span>模糊查询：</span>
+        <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 200px"></i-input>
+    </div>
+</div>
+<br>
+<div id="add_button">
+    <i-button type="primary" @click="show_form">添加地区</i-button>
+</div>
+<div id="table">
+    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
+</div>
+<br>
+<Page :total="total" id="page" show-total show-elevator @on-change="get_data"></Page>
+<Modal  id="addArea"
+        v-model="show"
+        title="添加地区"
+        ok-text="提交"
+        cancel-text="取消"
+        @on-ok="submit(check(data))">
+    <i-form :label-width="60">
+        <form-item label="省份">
+            <i-input v-model="data.province.value" placeholder="请输入省份"></i-input>
+        </form-item>
+        <form-item label="市">
+            <i-input v-model="data.city.value" placeholder="请输入市"></i-input>
+        </form-item>
+        <form-item label="区县">
+            <i-input v-model="data.district.value" placeholder="请输入区县"></i-input>
+        </form-item>
+    </i-form>
+</Modal>
+<Modal  id="modifyArea"
+        v-model="show"
+        title="修改地区"
+        ok-text="提交"
+        cancel-text="取消"
+        @on-ok="submit(check(data))">
+    <i-form :label-width="60">
+        <form-item label="省份">
+            <i-input v-model="data.province.value" placeholder="请输入省份"></i-input>
+        </form-item>
+        <form-item label="市">
+            <i-input v-model="data.city.value" placeholder="请输入市"></i-input>
+        </form-item>
+        <form-item label="区县">
+            <i-input v-model="data.district.value" placeholder="请输入区县"></i-input>
+        </form-item>
+    </i-form>
+</Modal>
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>$.noConflict();</script>
+<script src="js/vue.js"></script>
+<script src="js/iview.js"></script>
+
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    // 获取各种条件下的员工数据（排序，查询，页数）
+    function get_area_page_data(page_count){
+        // 设置数据
+        var page_data={
+            pageinfo:{
+                curpage: 1,
+                pageinate: 10
+            },
+            condition:{
+                where:[]
+            }
+        };
+        if(page_count){
+            page_data.pageinfo.curpage = page_count;
+        }
+
+
+        // 首先判断有无查询条件
+        if(search.search_text !==''){
+            page_data.condition = {
+                like:["province|city|district","%"+ search.search_text + "%"]
+            }
+
+        }
+
+        // 判断有无排序
+        if(table.order !== ''){
+            page_data.order = table.order;
+        }
+
+        console.log(JSON.stringify(page_data));
+
+        // 发送数据
+        jQuery.ajax({
+            url : server+url.check_area,
+            data: send_with_cookie_data('query',page_data),
+            type : 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success:function (result) {
+                if(result.state === 'error'||result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else{
+                    console.log(result);
+                    page.total = result[0].datacount;
+                    result.splice(0,1);
+                    table.showData = result;
+                }
+
+            },
+            error:function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
+    var addArea = new Vue({
+        el:'#addArea',
+        data:{
+            show:false,
+            loading:true,
+            data:{
+                province:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'省份不能为空'
+                    }
+                },
+                city:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'市不能为空'
+                    }
+                },
+                district:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'区县不能为空'
+                    }
+                }
+            }
+        },
+        methods:{
+            check:checkInput,
+            submit:function (tof) {
+                if(tof === true){
+                    var send_data = extract_value(addArea.data);
+                    console.log(send_with_cookie_data('json',send_data));
+                    jQuery.ajax({
+                        url:server+url.add_area,
+                        type : 'POST',
+                        data : send_with_cookie_data('json',send_data),
+                        processData: false,
+                        crossDomain: true,
+                        success:function (result) {
+                            if(result.state === 'error'||result.state === 'warning'){
+                                addArea.$Message.error(result.message);
+                            }else if(result.state === 'success'){
+                                addArea.$Message.success(result.message);
+
+                            }
+                            console.log(result);
+
+                        },
+                        error:function () {
+                            alert('数据请求失败，请检查你的网络连接');
+                        }
+                    });
+                }
+            }
+        }
+
+    });
+    var modifyArea = new Vue({
+        el:'#modifyArea',
+        data:{
+            show:false,
+            loading:true,
+            data:{
+                id:{
+                    value:'',
+                    check:[]
+                },
+                province:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'省份不能为空'
+                    }
+                },
+                city:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'市不能为空'
+                    }
+                },
+                district:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'区县不能为空'
+                    }
+                }
+            }
+        },
+        methods:{
+            check:checkInput,
+            submit:function (tof) {
+                if(tof === true){
+                    var send_data = extract_value(modifyArea.data);
+                    console.log(send_with_cookie_data('json',send_data));
+                    jQuery.ajax({
+                        url:server+url.change_area,
+                        type : 'POST',
+                        data : send_with_cookie_data('json',send_data),
+                        processData: false,
+                        crossDomain: true,
+                        success:function (result) {
+                            if(result.state === 'error'||result.state === 'warning'){
+                                modifyArea.$Message.error(result.message);
+                            }else if(result.state === 'success'){
+                                modifyArea.$Message.success(result.message+",即将刷新");
+                                setTimeout("location.reload();",2000);
+                            }
+                            console.log(result);
+
+                        },
+                        error:function () {
+                            alert('数据请求失败，请检查你的网络连接');
+                        }
+                    });
+                }
+            }
+        }
+
+    });
+    var addButton = new Vue({
+       el:"#add_button",
+        methods:{
+           show_form:function () {
+               addArea.show = true;
+           }
+        }
+    });
+    var search = new Vue({
+        el: '#search',
+        data: {
+            search_text: ''
+        },
+        methods:{
+            // 获取查询的结果
+            get_search_result:function () {
+                get_area_page_data();
+            }
+
+        }
+    });
+    var table = new Vue({
+        el: "#table",
+        data:{
+            order:"",
+            header: [
+                {
+                    title: '省',
+                    key: 'province',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '市',
+                    key: 'city',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '区县',
+                    key: 'district',
+                    sortable: 'custom'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 180,
+                    align: 'center',
+                    render: function (h, params) {
+                        return h('div', [
+                            h('Button',{
+                                props:{
+                                    type:'warning',
+                                    size:'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on:{
+                                    click:function(){
+                                        //window.location.href = "modify_staff.html?"+table.showData[params.index].id;
+                                        modifyArea.show = true;
+                                        modifyArea.data.id.value = table.showData[params.index].id;
+                                        modifyArea.data.province.value = table.showData[params.index].province;
+                                        modifyArea.data.city.value = table.showData[params.index].city;
+                                        modifyArea.data.district.value = table.showData[params.index].district;
+                                        console.log(table.showData[params.index]);
+                                    }
+                                }
+                            },'修改'),
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: function(){
+                                        table.$Modal.confirm({
+                                            title:'删除确认',
+                                            content:'确认删除这条信息吗？',
+                                            okText:'确认',
+                                            cancelText:'取消删除',
+                                            onOk:function () {
+                                                jQuery.ajax({
+                                                    url : server+url.delete_area,
+                                                    data: send_with_cookie_data('id',table.showData[params.index].id),
+                                                    type : 'POST',
+                                                    success:function (result) {
+                                                        console.log(result);
+                                                        if(result.state === 'success'){
+                                                            table.$Message.success('删除成功');
+                                                            table.showData.splice(params.index,1);
+                                                        }else{
+                                                            table.$Message.warning('删除失败');
+                                                        }
+                                                    },
+                                                    error:function () {
+                                                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                                    }
+                                                });
+                                            },
+                                            onCancel:function () {
+                                                table.$Message.info("取消删除");
+                                            }
+                                        })
+
+
+                                    }
+                                }
+                            }, '删除')
+                        ]);
+                    }
+                }
+
+            ],
+            showData: [
+                {
+                    province:'四川',
+                    city:'成都',
+                    district:'金牛区'
+
+                }
+            ]
+        },
+        methods: {
+            change_sort_data: function (column) {
+                table.order = column.key + " " + column.order;
+                get_area_page_data();
+            }
+        }
+
+    });
+    var page = new Vue({
+        el: '#page',
+        data:{
+            total:30
+        },
+        methods:{
+            get_data: function (page) {
+                get_area_page_data(page);
+            }
+
+
+
+        }
+
+    });
+
+    get_area_page_data();
+
+
+</script>
+</body>
+</html>

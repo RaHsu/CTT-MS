@@ -19,7 +19,7 @@
         <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 200px"></i-input>
     </div>
     <div class="search-area">
-        <Cascader :data="data" v-model="search_area" width="250px" change-on-select></Cascader>
+        <Cascader :data="area_data" v-model="search_area" width="250px" change-on-select></Cascader>
     </div>
     <span>按地区查询：</span>
     <span>管理员查询：</span>
@@ -105,7 +105,7 @@
         // 首先判断有无查询条件
         if (search.search_area !== []) {
             page_data.condition = {
-                like: ["area", "%" + search.search_area.join('') + "%"]
+                like: ["area", "%" + search.search_area.join('^') + "%"]
             }
         }
         if (search.search_text !== '') {
@@ -141,6 +141,9 @@
                     console.log(result);
                     page.total = result[0].datacount;
                     result.splice(0, 1);
+                    for(var i=0;i<result.length;i++){
+                        result[i].area = result[i].area.split('^').join(' ');
+                    }
                     table.showData = result;
                 }
 
@@ -174,54 +177,7 @@
         el: '#search',
         data: {
             search_area: [],
-            data: [{
-                value: 'beijing',
-                label: '北京',
-                children: [
-                    {
-                        value: 'gugong',
-                        label: '故宫'
-                    },
-                    {
-                        value: 'tiantan',
-                        label: '天坛'
-                    },
-                    {
-                        value: 'wangfujing',
-                        label: '王府井'
-                    }
-                ]
-            },
-                {
-                    value: 'jiangsu',
-                    label: '江苏',
-                    children: [
-                        {
-                            value: 'nanjing',
-                            label: '南京',
-                            children: [
-                                {
-                                    value: 'fuzimiao',
-                                    label: '夫子庙',
-                                }
-                            ]
-                        },
-                        {
-                            value: 'suzhou',
-                            label: '苏州',
-                            children: [
-                                {
-                                    value: 'zhuozhengyuan',
-                                    label: '拙政园',
-                                },
-                                {
-                                    value: 'shizilin',
-                                    label: '狮子林',
-                                }
-                            ]
-                        }
-                    ],
-                }],
+            area_data:[],
             search_text: ''
         },
         methods: {
@@ -230,7 +186,8 @@
                 get_admin_page_data();
             }
 
-        }
+        },
+        created:get_area
     });
     var table = new Vue({
         el: "#table",
