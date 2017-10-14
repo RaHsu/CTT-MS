@@ -42,8 +42,6 @@
     <p>邮箱：{{data.email}}</p>
     <p>家庭住址：{{data.address}}</p>
     <p>身份证号：{{data.idcard}}</p>
-    <p>身份证号：{{data.idcard}}</p>
-    <p>身份证号：{{data.idcard}}</p>
     <p>权限信息：</p>
     <p>材料管理</p>
     <p>
@@ -112,7 +110,7 @@
         }
         if (search.search_text !== '') {
             page_data.condition = {
-                like: ["area|name|sec_linkman|address", "%" + search.search_text + "%"]
+                like: ["area|name|username", "%" + search.search_text + "%"]
             }
 
         }
@@ -241,7 +239,8 @@
             header: [
                 {
                     title: '员工编号',
-                    key: 'username'
+                    key: 'username',
+                    sortable: 'custom'
                 },
                 {
                     title: '员工姓名',

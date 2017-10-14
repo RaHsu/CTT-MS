@@ -114,14 +114,14 @@
                 },
                 password:{
                     value:'',
-                    check:['empty'],
+                    check:[],
                     alertText: {
                         empty:'密码不能为空'
                     }
                 },
                 confirm_password:{
                     value:'',
-                    check:['empty'],
+                    check:[],
                     alertText: {
                         empty:'确认密码不能为空'
                     }
@@ -195,16 +195,22 @@
                     var send_data = [];
                     send_data[0] = extract_value(data);
                     send_data[0].id = modify_id;
+
                     // 深拷贝auth
                     var send_auth = {};
                     for(var key in modify_user_form.formItem.auth){
                         send_auth[key] = modify_user_form.formItem.auth[key];
                     }
 
-                    if(send_data.password !== send_data.confirm_password){
+                    if(send_data[0].password !== send_data[0].confirm_password){
                         modify_user_form.$Message.error("两次输入密码不相符");
                     }
+
                     else {
+                        if(send_data[0].password === ""){
+                            delete send_data[0].password;
+                            delete send_data[0].confirm_password;
+                        }
 
                         trans_auth_to_submit(send_auth);
                         send_data[1] = send_auth;
