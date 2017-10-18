@@ -20,7 +20,11 @@ var url = {
 	add_area:'/CTT-MS-server/area/add',
 	check_area:'/CTT-MS-server/area/check',
 	delete_area:'/CTT-MS-server/area/delete',
-	change_area:'/CTT-MS-server/area/change'
+	change_area:'/CTT-MS-server/area/change',
+	add_storehouse:'/CTT-MS-server/storehouse/add',
+	delete_storehouse:'/CTT-MS-server/storehouse/delete',
+	check_storehouse:'/CTT-MS-server/storehouse/check',
+	change_storehouse:'/CTT-MS-server/storehouse/change'
 
 };
 
