@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>仓库管理</title>
+    <title>材料大类管理</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
     <style>
@@ -24,52 +24,40 @@
 </div>
 <br>
 <div id="add_button">
-    <i-button type="primary" @click="show_form">添加仓库</i-button>
+    <i-button type="primary" @click="show_form">添加材料大类</i-button>
 </div>
 <div id="table">
     <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
 </div>
 <br>
 <Page :total="total" id="page" show-total show-elevator @on-change="get_data"></Page>
-<Modal  id="addStore"
+<Modal  id="addCategory"
         v-model="show"
-        title="添加仓库"
+        title="添加材料大类"
         ok-text="提交"
         cancel-text="取消"
         @on-ok="submit(check(data))">
     <i-form :label-width="100">
-        <form-item label="仓库名">
-            <i-input v-model="data.name.value" placeholder="请输入仓库名"></i-input>
+        <form-item label="材料大类名">
+            <i-input v-model="data.category_name.value" placeholder="请输入材料大类名"></i-input>
         </form-item>
-        <form-item label="仓库负责人">
-            <i-input v-model="data.supervisor.value" placeholder="请输入仓库负责人"></i-input>
-        </form-item>
-        <form-item label="仓库地址">
-            <i-input v-model="data.store_address.value" placeholder="请输入仓库地址"></i-input>
-        </form-item>
-        <form-item label="所在片区">
-            <Cascader :data="area_data" v-model="data.area.value" width="250px" change-on-select></Cascader>
+        <form-item label="材料来源">
+            <i-input v-model="data.stuff_source.value" placeholder="请输入材料来源"></i-input>
         </form-item>
     </i-form>
 </Modal>
-<Modal  id="modifyStore"
+<Modal  id="modifyCategory"
         v-model="show"
-        title="修改地区"
+        title="修改材料大类"
         ok-text="提交"
         cancel-text="取消"
         @on-ok="submit(check(data))">
     <i-form :label-width="100">
-        <form-item label="仓库名">
-            <i-input v-model="data.name.value" placeholder="请输入仓库名"></i-input>
+        <form-item label="材料大类名">
+            <i-input v-model="data.category_name.value" placeholder="请输入班组名"></i-input>
         </form-item>
-        <form-item label="仓库负责人">
-            <i-input v-model="data.supervisor.value" placeholder="请输入仓库负责人"></i-input>
-        </form-item>
-        <form-item label="仓库地址">
-            <i-input v-model="data.store_address.value" placeholder="请输入仓库地址"></i-input>
-        </form-item>
-        <form-item label="所在片区">
-            <Cascader :data="area_data" v-model="data.area.value" width="250px" change-on-select></Cascader>
+        <form-item label="材料来源">
+            <i-input v-model="data.stuff_source.value" placeholder="请输入班组名"></i-input>
         </form-item>
 
     </i-form>
@@ -86,7 +74,7 @@
 <script src="js/url.js"></script>
 <script>
     // 获取各种条件下的员工数据（排序，查询，页数）
-    function get_warehouse_page_data(page_count){
+    function get_category_page_data(page_count){
         // 设置数据
         var page_data={
             pageinfo:{
@@ -105,7 +93,7 @@
         // 首先判断有无查询条件
         if(search.search_text !==''){
             page_data.condition = {
-                like:["name|supervisor|address|area","%"+ search.search_text + "%"]
+                like:["category_name|stuff_source","%"+ search.search_text + "%"]
             }
 
         }
@@ -119,7 +107,7 @@
 
         // 发送数据
         jQuery.ajax({
-            url : server+url.check_storehouse,
+            url : server+url.check_category,
             data: send_with_cookie_data('query',page_data),
             type : 'POST',
             xhrFields: {
@@ -136,7 +124,10 @@
                     result.splice(0,1);
                     table.showData = result;
                     for(var i=0;i<result.length;i++){
-                        result[i].area = result[i].area.split('^').join(' ');
+                        if(result[i].area){
+                            result[i].area = result[i].area.split('^').join(' ');
+
+                        }
                     }
                 }
 
@@ -147,38 +138,24 @@
         });
     }
 
-    var addStore = new Vue({
-        el:'#addStore',
+    var addCategory = new Vue({
+        el:'#addCategory',
         data:{
             area_data:[],
             show:false,
             data:{
-                name:{
+                category_name:{
                     value:'',
                     check:['empty'],
                     alertText: {
-                        empty:'仓库名不能为空'
+                        empty:'材料名不能为空'
                     }
                 },
-                supervisor:{
+                stuff_source:{
                     value:'',
                     check:['empty'],
                     alertText: {
-                        empty:'仓库负责人不能为空'
-                    }
-                },
-                store_address:{
-                    value:'',
-                    check:['empty'],
-                    alertText: {
-                        empty:'仓库地址不能为空'
-                    }
-                },
-                area:{
-                    value:[],
-                    check:['empty'],
-                    alertText: {
-                        empty:'所属市，区不能为空'
+                        empty:'材料来源不能为空'
                     }
                 }
             }
@@ -187,42 +164,35 @@
             check:checkInput,
             submit:function (tof) {
                 if(tof === true){
-                    var send_data = extract_value(addStore.data);
-                    if(send_data.area.length < 2){
-                        addStore.$Message.error("地区应该至少包含省和市的信息");
-                    }else{
-                        send_data.area = send_data.area.join("^");
-                        console.log(send_with_cookie_data('json',send_data));
-                        jQuery.ajax({
-                            url:server+url.add_storehouse,
-                            type : 'POST',
-                            data : send_with_cookie_data('json',send_data),
-                            processData: false,
-                            crossDomain: true,
-                            success:function (result) {
-                                if(result.state === 'error'||result.state === 'warning'){
-                                    addStore.$Message.error(result.message);
-                                }else if(result.state === 'success'){
-                                    addStore.$Message.success(result.message+",即将刷新");
-                                    setTimeout("location.reload();",2000);
-                                }
-                                console.log(result);
-
-                            },
-                            error:function () {
-                                alert('数据请求失败，请检查你的网络连接');
+                    var send_data = extract_value(addCategory.data);
+                    console.log(send_with_cookie_data('json',send_data));
+                    jQuery.ajax({
+                        url:server+url.add_category,
+                        type : 'POST',
+                        data : send_with_cookie_data('json',send_data),
+                        processData: false,
+                        crossDomain: true,
+                        success:function (result) {
+                            if(result.state === 'error'||result.state === 'warning'){
+                                addCategory.$Message.error(result.message);
+                            }else if(result.state === 'success'){
+                                addCategory.$Message.success(result.message+",即将刷新");
+                                setTimeout("location.reload();",2000);
                             }
-                        });
-                    }
-
+                            console.log(result);
+                        },
+                        error:function () {
+                            alert('数据请求失败，请检查你的网络连接');
+                        }
+                    });
                 }
             }
         },
         created:get_area
 
     });
-    var modifyStore = new Vue({
-        el:'#modifyStore',
+    var modifyCategory = new Vue({
+        el:'#modifyCategory',
         data:{
             show:false,
             loading:true,
@@ -232,32 +202,18 @@
                     value:'',
                     check:[]
                 },
-                name:{
+                category_name:{
                     value:'',
                     check:['empty'],
                     alertText: {
-                        empty:'仓库名不能为空'
+                        empty:'材料大类名不能为空'
                     }
                 },
-                supervisor:{
+                stuff_source:{
                     value:'',
                     check:['empty'],
                     alertText: {
-                        empty:'仓库负责人不能为空'
-                    }
-                },
-                store_address:{
-                    value:'',
-                    check:['empty'],
-                    alertText: {
-                        empty:'仓库地址不能为空'
-                    }
-                },
-                area:{
-                    value:[],
-                    check:['empty'],
-                    alertText: {
-                        empty:'所属市，区不能为空'
+                        empty:'材料来源不能为空'
                     }
                 }
             }
@@ -266,34 +222,28 @@
             check:checkInput,
             submit:function (tof) {
                 if(tof === true){
-                    var send_data = extract_value(modifyStore.data);
-                    if(send_data.area.length < 2){
-                        addStore.$Message.error("地区应该至少包含省和市的信息");
-                    }else{
-                        send_data.area = send_data.area.join("^");
-                        console.log(send_with_cookie_data('json',send_data));
-                        jQuery.ajax({
-                            url:server+url.change_storehouse,
-                            type : 'POST',
-                            data : send_with_cookie_data('json',send_data),
-                            processData: false,
-                            crossDomain: true,
-                            success:function (result) {
-                                if(result.state === 'error'||result.state === 'warning'){
-                                    modifyStore.$Message.error(result.message);
-                                }else if(result.state === 'success'){
-                                    modifyStore.$Message.success(result.message+",即将刷新");
-                                    setTimeout("location.reload();",2000);
-                                }
-                                console.log(result);
-
-                            },
-                            error:function () {
-                                alert('数据请求失败，请检查你的网络连接');
+                    var send_data = extract_value(modifyCategory.data);
+                    console.log(send_with_cookie_data('json',send_data));
+                    jQuery.ajax({
+                        url:server+url.change_category,
+                        type : 'POST',
+                        data : send_with_cookie_data('json',send_data),
+                        processData: false,
+                        crossDomain: true,
+                        success:function (result) {
+                            if(result.state === 'error'||result.state === 'warning'){
+                                modifyCategory.$Message.error(result.message);
+                            }else if(result.state === 'success'){
+                                modifyCategory.$Message.success(result.message+",即将刷新");
+                                setTimeout("location.reload();",2000);
                             }
-                        });
-                    }
+                            console.log(result);
 
+                        },
+                        error:function () {
+                            alert('数据请求失败，请检查你的网络连接');
+                        }
+                    });
                 }
             }
         },
@@ -305,7 +255,7 @@
         el:"#add_button",
         methods:{
             show_form:function () {
-                addStore.show = true;
+                addCategory.show = true;
             }
         }
     });
@@ -317,7 +267,7 @@
         methods:{
             // 获取查询的结果
             get_search_result:function () {
-                get_warehouse_page_data();
+                get_category_page_data();
             }
 
         }
@@ -328,25 +278,14 @@
             order:"",
             header: [
                 {
-                    title: '仓库名',
-                    key: 'name',
+                    title: '材料大类',
+                    key: 'category_name',
                     sortable: 'custom'
 
                 },
                 {
-                    title: '仓库负责人',
-                    key: 'supervisor',
-                    sortable: 'custom'
-
-                },
-                {
-                    title: '仓库地址',
-                    key: 'store_address',
-                    sortable: 'custom'
-                },
-                {
-                    title: '所属区县',
-                    key: 'area',
+                    title: '材料来源',
+                    key: 'stuff_source',
                     sortable: 'custom'
                 },
                 {
@@ -366,19 +305,13 @@
                                 },
                                 on:{
                                     click:function(){
-                                        modifyStore.show = true;
-                                        for(var key in modifyStore.data){
+                                        modifyCategory.show = true;
+                                        for(var key in modifyCategory.data){
                                             if(key !== 'area'){
-                                                modifyStore.data[key].value = table.showData[params.index][key];
+                                                modifyCategory.data[key].value = table.showData[params.index][key];
                                             }
                                         }
-                                        modifyStore.data.area.value = table.showData[params.index].area.split("^");
 
-                                        /*modifyStore.data.id.value = table.showData[params.index].id;
-                                        modifyStore.data.supervisor.value = table.showData[params.index].supervisor;
-                                        modifyStore.data.city.value = table.showData[params.index].city;
-                                        modifyStore.data.district.value = table.showData[params.index].district;*/
-                                        //console.log(table.showData[params.index]);
                                     }
                                 }
                             },'修改'),
@@ -396,7 +329,7 @@
                                             cancelText:'取消删除',
                                             onOk:function () {
                                                 jQuery.ajax({
-                                                    url : server+url.delete_storehouse,
+                                                    url : server+url.delete_category,
                                                     data: send_with_cookie_data('id',table.showData[params.index].id),
                                                     type : 'POST',
                                                     success:function (result) {
@@ -428,18 +361,13 @@
 
             ],
             showData: [
-                {
-                    name:'事实上',
-                    supervisor:'成都',
-                    store_address:'金牛区',
-                    area:'dsads'
-                }
+
             ]
         },
         methods: {
             change_sort_data: function (column) {
                 table.order = column.key + " " + column.order;
-                get_warehouse_page_data();
+                get_category_page_data();
             }
         }
 
@@ -451,16 +379,13 @@
         },
         methods:{
             get_data: function (page) {
-                get_warehouse_page_data(page);
+                get_category_page_data(page);
             }
-
-
-
         }
 
     });
 
-    get_warehouse_page_data();
+    get_category_page_data();
 
 
 </script>

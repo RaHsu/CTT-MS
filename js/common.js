@@ -169,3 +169,30 @@ function get_area() {
         }
     });
 }
+
+// 获取材料大类并将数据填充到选择器中(选择器中的数据统一叫category_data)
+function get_category() {
+    var that = this;
+    jQuery.ajax({
+        url : server+url.get_category,
+        data: send_with_cookie_data(),
+        type : 'POST',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            if(result.state === 'error'||result.state === 'warning'){
+                table.$Message.error(result.message);
+            }
+            else{
+                console.log("成功请求到材料大类数据");
+                that.category_data = result;
+            }
+
+        },
+        error:function () {
+            table.$Message.warning('连接服务器失败，请检查你的网络连接');
+        }
+    });
+}
