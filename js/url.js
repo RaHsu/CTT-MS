@@ -24,7 +24,11 @@ var url = {
 	add_storehouse:'/CTT-MS-server/storehouse/add',
 	delete_storehouse:'/CTT-MS-server/storehouse/delete',
 	check_storehouse:'/CTT-MS-server/storehouse/check',
-	change_storehouse:'/CTT-MS-server/storehouse/change'
+	change_storehouse:'/CTT-MS-server/storehouse/change',
+	change_team:'/CTT-MS-server/team/change',
+	add_team:'/CTT-MS-server/team/add',
+	delete_team:'/CTT-MS-server/team/delete',
+	check_team:'/CTT-MS-server/team/check'
 
 };
 
