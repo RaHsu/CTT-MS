@@ -5,12 +5,27 @@
     <title>CCT-MS系统</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
 </head>
 <body>
-<Spin size="large" fix v-if="spinShow" id="spin">
-    <Icon type="load-c" size=70 class="demo-spin-icon-load"></Icon>
-    <div>数据获取中</div>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
 </Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script>
 <div>
     <div class="layout">
         <!--吊顶菜单-->
@@ -121,13 +136,6 @@
     set_height();
     get_cookie();
 
-
-    var spin = new Vue({
-        el:'#spin',
-        data:{
-            spinShow: false
-        }
-    });
 
     //check_auth();
 

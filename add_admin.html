@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>添加管理员</title>
     <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
+
     <style>
         form{
             margin-top: 30px;
@@ -15,6 +19,22 @@
     </style>
 </head>
 <body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script>
 <i-form :label-width="180" id="add_user_form" label-position="right">
     <form-item label="员工编号">
         <i-input v-model="formItem.username.value" placeholder="请输入员工编号"></i-input>
@@ -92,8 +112,7 @@
 
 </i-form>
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/vue.js"></script>
-<script src="js/iview.js"></script>
+
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>

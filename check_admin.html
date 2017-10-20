@@ -5,6 +5,9 @@
     <title>查看管理员</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
     <style>
         .ivu-checkbox-disabled.ivu-checkbox-checked .ivu-checkbox-inner{
             background-color: #2b85e4;
@@ -12,6 +15,22 @@
     </style>
 </head>
 <body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script>
 <div id="search">
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
@@ -82,8 +101,7 @@
 
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>$.noConflict();</script>
-<script src="js/vue.js"></script>
-<script src="js/iview.js"></script>
+
 
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>

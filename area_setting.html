@@ -5,6 +5,10 @@
     <title>地区管理</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
+    <link rel="stylesheet" href="css/loading.css">
+
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
     <style>
         #add_button{
             margin-left: 50px;
@@ -15,6 +19,22 @@
     </style>
 </head>
 <body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script>
 <div id="search">
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
@@ -182,7 +202,8 @@
                             if(result.state === 'error'||result.state === 'warning'){
                                 addArea.$Message.error(result.message);
                             }else if(result.state === 'success'){
-                                addArea.$Message.success(result.message);
+                                addArea.$Message.success(result.message+",即将刷新");
+                                setTimeout("location.reload();",2000);
 
                             }
                             console.log(result);
@@ -354,7 +375,7 @@
                                                             table.$Message.success('删除成功');
                                                             table.showData.splice(params.index,1);
                                                         }else{
-                                                            table.$Message.warning('删除失败');
+                                                            table.$Message.warning(result.message);
                                                         }
                                                     },
                                                     error:function () {
