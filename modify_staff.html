@@ -31,7 +31,12 @@
         <i-input v-model="formItem.idcard.value" placeholder="请输入身份证号"></i-input>
     </form-item>
     <form-item label="所在片区">
-        <i-input v-model="formItem.area.value" placeholder="请输入所在片区"></i-input>
+        <Cascader :data="area_data" v-model="formItem.area.value" width="250px" change-on-select @on-change="get_team"></Cascader>
+    </form-item>
+    <form-item label="所在班组">
+        <i-select v-model="formItem.team.value" style="width:200px" :disabled="team_disabled">
+            <i-option v-for="item in team_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
     </form-item>
     <form-item label="联系电话（选填）">
         <i-input v-model="formItem.phone.value" placeholder="请输入联系电话"></i-input>
@@ -94,6 +99,9 @@
     var modify_staff_form = new Vue({
         el:'#modify_staff_form',
         data:{
+            team_data:[],
+            area_data:[],
+            team_disabled:false,
             formItem: {
                 name:{
                     value:'',
@@ -124,10 +132,17 @@
                     }
                 },
                 area:{
-                    value:'',
+                    value:[],
                     check:['empty'],
                     alertText: {
                         empty:'所在片区不能为空'
+                    }
+                },
+                team:{
+                    value:'',
+                    check:['empty'],
+                    alertText: {
+                        empty:'所在班组不能为空'
                     }
                 },
                 phone:{
@@ -215,14 +230,21 @@
                     console.log(data);
                     data = extract_value(data);
                     for(var key in data){
-                        formData.append(key,data[key]);
+                        if(key!=='area'){
+                            formData.append(key,data[key]);
+                        }
                     }
                     formData.append('cookie',get_cookie().username);
+                    formData.append('area',data.area.join('^'));
                     formData.append('id',modify_id);
                     formData.append('per_pic',modify_staff_form.formItem.per_pic.value);
                     formData.append('idcard_front_pic',modify_staff_form.formItem.idcard_front_pic.value);
                     formData.append('idcard_back_pic',modify_staff_form.formItem.idcard_back_pic.value);
-                    console.log(get_cookie().username);
+
+
+
+
+
 
                     $.ajax({
                         url:server+url.change_staff,
@@ -238,8 +260,8 @@
                                 console.log(result);
 
                             }else {
-                                modify_staff_form.$Message.success(result.message);
-                                console.log(result);
+                                modify_staff_form.$Message.success(result.message+",即将跳转");
+                                setTimeout("jump('check_staff.html')",2000);
                             }
                         },
                         error:function () {
@@ -250,8 +272,37 @@
             },
             format_date:function (date) {
                 modify_staff_form.formItem.employment_date.value = date;
+            },
+            get_team:function (value) {
+                var send_data = value.join('^');
+                console.log(send_with_cookie_data('area',send_data));
+                jQuery.ajax({
+                    url : server+url.get_team,
+                    data: "cookie="+get_cookie().username+"&"+"area="+send_data,
+                    type : 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    success:function (result) {
+                        if(result.state === 'error'||result.state === 'warning'){
+                            table.$Message.error(result.message);
+                        }
+                        else{
+                            console.log("成功请求到班组数据");
+                            console.log(result);
+                            add_stuff_form.team_disabled = false;
+                            add_stuff_form.team_data = result;
+                        }
+
+                    },
+                    error:function () {
+                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    }
+                });
             }
-        }
+        },
+        created:get_area
     });
 
 
@@ -281,9 +332,10 @@
             var old_form_data = result[1];
             console.log(old_form_data);
             for(var key in modify_staff_form.formItem){
-                console.log(key+":"+old_form_data[key]);
-                console.log(key+":"+modify_staff_form.formItem[key].value);
-                modify_staff_form.formItem[key].value = old_form_data[key];
+                if(key!=='area'){
+                    modify_staff_form.formItem[key].value = old_form_data[key];
+                }
+                modify_staff_form.formItem.area.value = old_form_data.area.split('^');
             }
         },
         error:function () {

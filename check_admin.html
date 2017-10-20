@@ -37,6 +37,7 @@
     <p>姓名：{{data.name}}</p>
     <p>性别：{{data.sex}}</p>
     <p>所属地区：{{data.area}}</p>
+    <p>所属仓库：{{data.storehouse}}</p>
     <p>联系电话：{{data.phone}}</p>
     <p>qq号码：{{data.qq}}</p>
     <p>邮箱：{{data.email}}</p>
@@ -216,6 +217,11 @@
                 {
                     title: '所属部门',
                     key: 'area',
+                    sortable: 'custom'
+                },
+                {
+                    title: '所属仓库',
+                    key: 'storehouse',
                     sortable: 'custom'
                 },
                 {

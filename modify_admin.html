@@ -35,7 +35,12 @@
         </radio-group>
     </form-item>
     <form-item label="所在片区">
-        <Cascader :data="area_data" v-model="formItem.area.value" width="250px" change-on-select></Cascader>
+        <Cascader :data="area_data" v-model="formItem.area.value" width="250px" change-on-select @on-change="get_storehouse"></Cascader>
+    </form-item>
+    <form-item label="所在仓库">
+        <i-select v-model="formItem.storehouse.value" style="width:200px" :disabled="storehouse_disabled">
+            <i-option v-for="item in storehouse_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
     </form-item>
     <form-item label="联系电话（选填）">
         <i-input v-model="formItem.phone.value" placeholder="请输入联系电话"></i-input>
@@ -98,6 +103,8 @@
         el:'#modify_user_form',
         data:{
             area_data:[],
+            storehouse_data:[],
+            storehouse_disabled:true,
             formItem: {
                 username:{
                     value:'',
@@ -133,6 +140,10 @@
                     alertText: {
                         empty:'所在片区不能为空'
                     }
+                },
+                storehouse:{
+                    value:[],
+                    check:[]
                 },
                 sex:{
                     value:'',
@@ -243,6 +254,31 @@
                     }
 
                 }
+            },
+            get_storehouse:function (value) {
+                var send_data = value.join('^');
+                console.log("cookie="+get_cookie().username+"&"+"area="+send_data);
+                $.ajax({
+                    url:server+url.get_store_house,
+                    type : 'POST',
+                    data : "cookie="+get_cookie().username+"&"+"area="+send_data,
+                    processData: false,
+                    crossDomain: true,
+                    success:function (result) {
+                        if(result.state === 'error'||result.state === 'warning'){
+                            modify_user_form.$Message.error(result.message);
+                        }else{
+                            console.log("成功获取仓库数据");
+                            modify_user_form.storehouse_data = result;
+                            modify_user_form.storehouse_disabled = false;
+                        }
+                        console.log(result);
+
+                    },
+                    error:function () {
+                        modify_user_form.$Message.error('数据请求失败，请检查你的网络连接');
+                    }
+                });
             }
 
         },

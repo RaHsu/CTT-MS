@@ -5,8 +5,27 @@
     <title>查看/修改资料</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
 </head>
 <body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",1000);
+        }
+    });
+</script>
 <div id="search">
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
@@ -33,6 +52,7 @@
     <p>是否在岗：{{data.on_guard}}</p>
     <p>身份证号：{{data.idcard}}</p>
     <p>所在片区：{{data.area}}</p>
+    <p>所在班组：{{data.team}}</p>
     <p>联系电话：{{data.phone}}</p>
     <p>qq号码：{{data.qq}}</p>
     <p>第二联系人：{{data.sec_linkman}}</p>
@@ -51,13 +71,13 @@
 
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>$.noConflict();</script>
-<script src="js/vue.js"></script>
-<script src="js/iview.js"></script>
+
 
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
+
     // 获取各种条件下的员工数据（排序，查询，页数）
     function get_staff_page_data(page_count){
         // 设置数据
@@ -109,6 +129,9 @@
                 else{
                     page.total = result[0].datacount;
                     result.splice(0,1);
+                    for(var i=0;i<result.length;i++){
+                        result[i].area = result[i].area.split('^').join(' ');
+                    }
                     table.showData = result;
                 }
 
@@ -180,6 +203,12 @@
                 {
                     title: '片区',
                     key: 'area',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '班组',
+                    key: 'team',
                     sortable: 'custom'
 
                 },
@@ -303,63 +332,10 @@
             get_data: function (page) {
                 get_staff_page_data(page);
             }
-            /*function (page) {
-
-                // 设置数据
-                var sendData={
-                    pageinfo:{
-                        curpage: page,
-                        pageinate: 10
-                    }
-                };
-
-
-                // 首先判断有无查询条件
-                if(search.search_area !== []){
-                    sendData.condition = {
-                        like:["area","%"+ search.search_area.join('') + "%"]
-                    }
-                }
-                if(search.search_text !==''){
-                    sendData.condition = {
-                        like:["area|name|sec_linkman|address","%"+ search.search_text + "%"]
-                    }
-                }
-
-                // 判断有无排序
-                if(table.order !== ''){
-                    sendData.order = table.order;
-                }
-
-                // 判断有无筛选
-                if(table.filter !== []){
-                    console.log(table.fliter);
-                    sendData.condition.where = table.filter;
-                }
-
-                // 发送数据
-                jQuery.ajax({
-                    url : server+url.check_staff,
-                    data: JSON.stringify(sendData),
-                    type : 'POST',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success:function (result) {
-                        console.log(result);
-                        page.total = result[0].pagecount;
-                        result.splice(0,1);
-                        table.showData = result;
-                    },
-                    error:function () {
-                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
-                    }
-                });*/
-
 
             }
 
-    })
+    });
 
     get_staff_page_data();
 

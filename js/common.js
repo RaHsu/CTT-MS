@@ -196,3 +196,8 @@ function get_category() {
         }
     });
 }
+
+// 延时跳转函数
+function jump(href) {
+    window.location.href = href;
+}

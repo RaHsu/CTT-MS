@@ -105,7 +105,7 @@
         // 首先判断有无查询条件
         if(search.search_text !==''){
             page_data.condition = {
-                like:["name|supervisor|address|area","%"+ search.search_text + "%"]
+                like:["name|supervisor|store_address|area","%"+ search.search_text + "%"]
             }
 
         }
