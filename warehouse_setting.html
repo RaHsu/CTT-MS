@@ -418,7 +418,7 @@
                                                             table.$Message.success('删除成功');
                                                             table.showData.splice(params.index,1);
                                                         }else{
-                                                            table.$Message.warning('删除失败');
+                                                            table.$Message.warning(result.message);
                                                         }
                                                     },
                                                     error:function () {
