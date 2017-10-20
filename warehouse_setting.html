@@ -372,13 +372,7 @@
                                                 modifyStore.data[key].value = table.showData[params.index][key];
                                             }
                                         }
-                                        modifyStore.data.area.value = table.showData[params.index].area.split("^");
-
-                                        /*modifyStore.data.id.value = table.showData[params.index].id;
-                                        modifyStore.data.supervisor.value = table.showData[params.index].supervisor;
-                                        modifyStore.data.city.value = table.showData[params.index].city;
-                                        modifyStore.data.district.value = table.showData[params.index].district;*/
-                                        //console.log(table.showData[params.index]);
+                                        modifyStore.data.area.value = table.showData[params.index].area.split(" ");
                                     }
                                 }
                             },'修改'),

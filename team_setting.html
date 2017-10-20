@@ -222,7 +222,8 @@
             submit:function (tof) {
                 if(tof === true){
                     var send_data = extract_value(modifyTeam.data);
-                    send_data.area = send_data.area.join("^");
+                    send_data.area = send_data.area.join('^');
+                    console.log(send_data);
                     console.log(send_with_cookie_data('json',send_data));
                     jQuery.ajax({
                         url:server+url.change_team,
@@ -311,8 +312,7 @@
                                                 modifyTeam.data[key].value = table.showData[params.index][key];
                                             }
                                         }
-                                        modifyTeam.data.area.value = table.showData[params.index].area.split("^");
-
+                                        modifyTeam.data.area.value = table.showData[params.index].area.split(" ");
 
                                     }
                                 }

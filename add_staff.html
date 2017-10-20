@@ -31,10 +31,10 @@
         <i-input v-model="formItem.idcard.value" placeholder="请输入身份证号"></i-input>
     </form-item>
     <form-item label="所在片区">
-        <i-input v-model="formItem.area.value" placeholder="请输入所在片区"></i-input>
+        <Cascader :data="area_data" v-model="formItem.area.value" width="250px" change-on-select></Cascader>
     </form-item>
-    <form-item label="联系电话（选填）">
-        <i-input v-model="formItem.phone.value" placeholder="请输入联系电话"></i-input>
+    <form-item label="手机号码">
+        <i-input v-model="formItem.phone.value" placeholder="请输入手机号码"></i-input>
     </form-item>
     <form-item label="QQ号码（选填）">
         <i-input v-model="formItem.qq.value" placeholder="请输入QQ号码"></i-input>
@@ -94,6 +94,7 @@
     var add_stuff_form = new Vue({
         el:'#add_stuff_form',
         data:{
+            area_data:[],
             formItem: {
                 name:{
                     value:'',
@@ -132,7 +133,10 @@
                 },
                 phone:{
                     value:'',
-                    check:[]
+                    check:['empty'],
+                    alertText: {
+                        empty:'手机号码不能为空'
+                    }
                 },
                 qq:{
                     value:'',
@@ -250,7 +254,8 @@
             format_date:function (date) {
                 add_stuff_form.formItem.employment_date.value = date;
             }
-        }
+        },
+        created:get_area
     })
 </script>
 </body>
