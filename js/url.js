@@ -9,7 +9,7 @@ var url = {
 	login:'/CTT-MS-server/login',
     logout:'/CTT-MS-server/logout',
 	// 密码操作
-	change_password:'/CTT-MS-server/staff/delete',
+	change_password:'/CTT-MS-server/index/ChangePassword',
 	// 装维人员操作
 	delete_staff:'/CTT-MS-server/staff/delete',
 	check_staff:'/CTT-MS-server/staff/check',

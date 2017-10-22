@@ -160,7 +160,7 @@
                     }
                 },
                 storehouse:{
-                    value:[],
+                    value:'',
                     check:[]
                 },
                 sex:{
@@ -251,7 +251,7 @@
                             type : 'POST',
                             //data : JSON.stringify({cookie:get_cookie().username,json:send_data}),
                             data : send_with_cookie_data('json',send_data),
-                            //dataType:'json',
+                            dataType:'json',
                             processData: false,
                             crossDomain: true,
                             success:function (result) {

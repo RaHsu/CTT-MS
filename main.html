@@ -61,12 +61,10 @@
                             <Icon type="hammer"></Icon>
                             材料操作
                         </template>
-                        <menu-item name="desktop.html">材料发放</menu-item>
-                        <menu-item name="1-2">材料入库</menu-item>
-                        <menu-item name="1-4">装维退料</menu-item>
-                        <menu-item name="1-5">退回公司</menu-item>
-                        <menu-item name="1-6">库存调拨</menu-item>
-                        <menu-item name="1-7">材料报废（丢失）</menu-item>
+                        <menu-item name="1-1" v-if="auth.stuff_out">材料发放</menu-item>
+                        <menu-item name="1-2" v-if="auth.stuff_in">材料入库</menu-item>
+                        <menu-item name="1-4" v-if="auth.stuff_back">装维退料</menu-item>
+                        <menu-item name="1-6" v-if="auth.stuff_leave">库存调拨</menu-item>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
@@ -88,8 +86,8 @@
                             <Icon type="person-stalker"></Icon>
                             装维人员管理
                         </template>
-                        <menu-item name="add_staff.html">添加装维人员</menu-item>
-                        <menu-item name="check_staff.html">查看/修改资料</menu-item>
+                        <menu-item name="add_staff.html" v-if="auth.staff_manage">添加装维人员</menu-item>
+                        <menu-item name="check_staff.html" v-if="auth.staff_manage">查看/修改装维人员</menu-item>
                     </Submenu>
                     <Submenu name="4">
                         <template slot="title">
@@ -97,12 +95,12 @@
                             系统设置
                         </template>
                         <menu-item name="4-1">基本信息设置</menu-item>
-                        <menu-item name="add_admin.html">添加管理员</menu-item>
-                        <menu-item name="check_admin.html">查看、修改管理员</menu-item>
-                        <menu-item name="area_setting.html">片区设置</menu-item>
-                        <menu-item name="warehouse_setting.html">仓库设置</menu-item>
-                        <menu-item name="team_setting.html">班组设置</menu-item>
-                        <menu-item name="manufacturer_setting.html">生产商设置</menu-item>
+                        <menu-item name="add_admin.html" v-if="auth.user_manage">添加管理员</menu-item>
+                        <menu-item name="check_admin.html" v-if="auth.user_manage">查看、修改管理员</menu-item>
+                        <menu-item name="area_setting.html" v-if="auth.area_manage">片区设置</menu-item>
+                        <menu-item name="warehouse_setting.html" v-if="auth.storehouse_manage">仓库设置</menu-item>
+                        <menu-item name="team_setting.html" v-if="auth.team_manage">班组设置</menu-item>
+                        <menu-item name="manufacturer_setting.html" v-if="auth.manufacturer_manage">生产商设置</menu-item>
                         <menu-item name="4-6">工具设置</menu-item>
                         <menu-item name="4-7">安全用品设置</menu-item>
                         <menu-item name="4-8">系统登录日志</menu-item>
@@ -112,8 +110,8 @@
                             <Icon type="wrench"></Icon>
                             材料管理
                         </template>
-                        <menu-item name="category_setting.html">材料大类设置</menu-item>
-                        <menu-item name="stuff_setting.html">材料名称管理</menu-item>
+                        <menu-item name="category_setting.html" v-if="auth.category_manage">材料大类设置</menu-item>
+                        <menu-item name="stuff_setting.html" v-if="auth.stuff_manage">材料名称管理</menu-item>
                     </Submenu>
                 </i-menu>
             </i-col>
@@ -136,11 +134,11 @@
 <script>
     set_height();
     get_cookie();
+    var menu_auth = {};
 
+    check_auth();
 
-    //check_auth();
-
-
+    console.log(menu_auth);
     var celling = new Vue({
         el:'#celling'
     });
@@ -158,9 +156,7 @@
     var sideMenu = new Vue({
         el: '#sideMenu',
         data:{
-            show:{
-                no1:false
-            }
+            auth:menu_auth
         },
         methods:{
             href: function (name) {

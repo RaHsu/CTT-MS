@@ -39,20 +39,26 @@ function set_height() {
 function check_auth() {
 
 
-    $.ajax({
-        //url : '/CTT-MS-server/checkauth',
+    jQuery.ajax({
         url : server+url.check_auth,
         type : 'POST',
-        //dataType:"json",
+        dataType:"json",
+        async:false,
+        data:send_with_cookie_data(),
         success:function (result) {
-            console.log(result.state);
+            console.log(result);
             if(result.state === 'error'){
                 alert(result.message);
                 window.location.href = "login.html";
+            }else if(result.state === "success"){
+                menu_auth = trans_auth_to_display(result);
             }
         },
         error:function () {
+            console.log('检查权限请求失败');
             alert('数据请求失败，请检查你的网络连接');
+
+            window.location.href = "login.html";
         }
     });
 
@@ -65,18 +71,19 @@ function check_auth() {
 function check_single_auth(auth) {
 
     $.ajax({
-        //url : '/CTT-MS-server/checkauth',
         url : server+url.check_auth,
         type : 'POST',
-        //dataType:"json",
+        dataType:"json",
+        async:false,
         success:function (result) {
+            trans_auth_to_display(result);
             console.log(result.state);
             if(result.state === 'error'){
                 alert(result.message);
                 window.location.href = "login.html";
             }else{
                 if(result[auth] === false ){
-                    alert("你现在还没有该项权限，请于管理员联系");
+                    alert("你现在还没有该项权限，请与管理员联系");
                     history.go(-1);
                 }
             }
@@ -125,6 +132,7 @@ function trans_auth_to_display(obj){
             obj[auths] = false;
         }
     }
+    return obj;
 }
 
 // 将权限的真值表示表示转为0,1
