@@ -162,10 +162,7 @@
                 },
                 storehouse:{
                     value:'',
-                    check:['empty'],
-                    alertText: {
-                        empty:'所在片区不能为空'
-                    }
+                    check:[],
                 },
                 sex:{
                     value:'',
@@ -277,7 +274,10 @@
                         }else{
                             console.log("成功获取仓库数据");
                             add_user_form.storehouse_data = result;
-                            add_user_form.storehouse_disabled = false;
+                            if(result !== []){
+                                add_user_form.storehouse_disabled = false;
+
+                            }
                         }
                         console.log(result);
 

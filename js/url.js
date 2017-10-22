@@ -8,6 +8,8 @@ var url = {
 	// 登入登出操作
 	login:'/CTT-MS-server/login',
     logout:'/CTT-MS-server/logout',
+	// 密码操作
+	change_password:'/CTT-MS-server/staff/delete',
 	// 装维人员操作
 	delete_staff:'/CTT-MS-server/staff/delete',
 	check_staff:'/CTT-MS-server/staff/check',
@@ -45,6 +47,12 @@ var url = {
 	add_stuff:'/CTT-MS-server/stuff/add',
 	delete_stuff:'/CTT-MS-server/stuff/delete',
 	change_stuff:'/CTT-MS-server/stuff/change',
+	// 生产商名称操作
+	check_manufacturer:'/CTT-MS-server/manufacturer/check',
+	add_manufacturer:'/CTT-MS-server/manufacturer/add',
+	delete_manufacturer:'/CTT-MS-server/manufacturer/delete',
+	change_manufacturer:'/CTT-MS-server/manufacturer/change',
+
 
 	// 各种获取级联及选择框的操作
 	get_area:'/CTT-MS-server/areaquery',

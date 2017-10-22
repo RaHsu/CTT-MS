@@ -36,12 +36,12 @@
             </div>
         </div>
         <!--顶部菜单-->
-        <i-menu mode="horizontal" theme="dark" active-name="desktop.html" id="topMenu">
+        <i-menu mode="horizontal" theme="dark" active-name="desktop.html" id="topMenu" @on-select="href">
             <div class="layout-logo">
 
             </div>
             <div class="layout-nav">
-                <menu-item name="1">
+                <menu-item name="change_password.html">
                     <Icon type="locked"></Icon>
                     修改密码
                 </menu-item>
@@ -102,6 +102,7 @@
                         <menu-item name="area_setting.html">片区设置</menu-item>
                         <menu-item name="warehouse_setting.html">仓库设置</menu-item>
                         <menu-item name="team_setting.html">班组设置</menu-item>
+                        <menu-item name="manufacturer_setting.html">生产商设置</menu-item>
                         <menu-item name="4-6">工具设置</menu-item>
                         <menu-item name="4-7">安全用品设置</menu-item>
                         <menu-item name="4-8">系统登录日志</menu-item>
@@ -159,10 +160,7 @@
         data:{
             show:{
                 no1:false
-            },
-
-
-
+            }
         },
         methods:{
             href: function (name) {

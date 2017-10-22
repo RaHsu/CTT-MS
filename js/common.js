@@ -45,8 +45,6 @@ function check_auth() {
         type : 'POST',
         //dataType:"json",
         success:function (result) {
-            spin.spinShow =false;
-
             console.log(result.state);
             if(result.state === 'error'){
                 alert(result.message);
@@ -72,8 +70,6 @@ function check_single_auth(auth) {
         type : 'POST',
         //dataType:"json",
         success:function (result) {
-            spin.spinShow =false;
-
             console.log(result.state);
             if(result.state === 'error'){
                 alert(result.message);
