@@ -228,34 +228,39 @@
                     var send_data = [];
                     send_data[0] = extract_value(data);
                     send_data[1] = add_user_form.formItem.auth;
-                    send_data[0].area = send_data[0].area.join("^");
-                    //console.log(send_with_cookie_data('json',send_data));
-                    if(send_data.password !== send_data.confirm_password){
-                        add_user_form.$Message.error("两次输入密码不相符");
-                    }
-                    else {
-                        console.log(send_with_cookie_data('json',send_data));
-                        $.ajax({
-                            url:server+url.add_user,
-                            type : 'POST',
-                            data : send_with_cookie_data('json',send_data),
-                            processData: false,
-                            crossDomain: true,
-                            success:function (result) {
-                                if(result.state === 'error'||result.state === 'warning'){
-                                    add_user_form.$Message.error(result.message);
-                                }else if(result.state === 'success'){
-                                    add_user_form.$Message.success(result.message);
+                    if(send_data[0].area.length<2){
+                        add_user_form.$Message.error('所在片区必须输入省，市数据');
+                    }else {
+                        send_data[0].area = send_data[0].area.join("^");
+                        //console.log(send_with_cookie_data('json',send_data));
+                        if(send_data.password !== send_data.confirm_password){
+                            add_user_form.$Message.error("两次输入密码不相符");
+                        }
+                        else {
+                            console.log(send_with_cookie_data('json',send_data));
+                            $.ajax({
+                                url:server+url.add_user,
+                                type : 'POST',
+                                data : send_with_cookie_data('json',send_data),
+                                processData: false,
+                                crossDomain: true,
+                                success:function (result) {
+                                    if(result.state === 'error'||result.state === 'warning'){
+                                        add_user_form.$Message.error(result.message);
+                                    }else if(result.state === 'success'){
+                                        add_user_form.$Message.success(result.message);
 
+                                    }
+                                    console.log(result);
+
+                                },
+                                error:function () {
+                                    add_user_form.$Message.error('数据请求失败，请检查你的网络连接');
                                 }
-                                console.log(result);
-
-                            },
-                            error:function () {
-                                add_user_form.$Message.error('数据请求失败，请检查你的网络连接');
-                            }
-                        });
+                            });
+                        }
                     }
+
 
                 }
             },

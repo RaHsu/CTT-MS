@@ -114,7 +114,8 @@
             pageinfo: {
                 curpage: 1,
                 pageinate: 10
-            }
+            },
+            condition:{}
         };
         if (page_count) {
             page_data.pageinfo.curpage = page_count;
@@ -122,15 +123,11 @@
 
 
         // 首先判断有无查询条件
-        if (search.search_area !== []) {
-            page_data.condition = {
-                like: ["area", "%" + search.search_area.join('^') + "%"]
-            }
+        if(search.search_area.length !== 0){
+            page_data.condition.where = ["area",search.search_area.join("^")];
         }
-        if (search.search_text !== '') {
-            page_data.condition = {
-                like: ["area|name|username", "%" + search.search_text + "%"]
-            }
+        if(search.search_text !==''){
+            page_data.condition.like = ["area|name|sec_linkman|address","%"+ search.search_text + "%"];
 
         }
 

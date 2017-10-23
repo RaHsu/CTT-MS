@@ -158,10 +158,7 @@
                 },
                 team:{
                     value:'',
-                    check:['empty'],
-                    alertText: {
-                        empty:'所在班组不能为空'
-                    }
+                    check:[]
                 },
                 phone:{
                     value:'',
@@ -259,11 +256,6 @@
                     formData.append('idcard_front_pic',modify_staff_form.formItem.idcard_front_pic.value);
                     formData.append('idcard_back_pic',modify_staff_form.formItem.idcard_back_pic.value);
 
-
-
-
-
-
                     $.ajax({
                         url:server+url.change_staff,
                         type : 'POST',
@@ -309,8 +301,8 @@
                         else{
                             console.log("成功请求到班组数据");
                             console.log(result);
-                            add_stuff_form.team_disabled = false;
-                            add_stuff_form.team_data = result;
+                            modify_staff_form.team_disabled = false;
+                            modify_staff_form.team_data = result;
                         }
 
                     },
@@ -348,12 +340,13 @@
         success:function (result) {
             console.log(result);
             var old_form_data = result[1];
-            console.log(old_form_data);
             for(var key in modify_staff_form.formItem){
                 if(key!=='area'){
                     modify_staff_form.formItem[key].value = old_form_data[key];
+                }else{
+                    modify_staff_form.formItem.area.value = old_form_data.area.split('^');
                 }
-                modify_staff_form.formItem.area.value = old_form_data.area.split('^');
+
             }
         },
         error:function () {

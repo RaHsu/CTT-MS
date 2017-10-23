@@ -259,8 +259,8 @@
                                 if(result.state === 'error'||result.state === 'warning'){
                                     modify_user_form.$Message.error(result.message);
                                 }else if(result.state === 'success'){
-                                    modify_user_form.$Message.success(result.message);
-
+                                    modify_user_form.$Message.success(result.message+",即将转跳");
+                                    setTimeout("jump('check_admin.html')",2000);
                                 }
                                 console.log(result);
 

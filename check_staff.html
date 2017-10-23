@@ -63,9 +63,9 @@
     <p>经办人：{{data.operator}}</p>
     <p>入职时间：{{data.employment_date}}</p>
     <p>备注：{{data.remark}}</p>
-    <p>个人照片：<img :src="data.per_pic"></p>
-    <p>身份证正面照片：<img :src="data.idcard_front_pic"></p>
-    <p>身份证背面照片：<img :src="data.idcard_back_pic"></p>
+    <p>个人照片:&emsp;&emsp;&emsp;<img :src="data.per_pic"></p>
+    <p>身份证正面照片:<img :src="data.idcard_front_pic"></p>
+    <p>身份证背面照片:<img :src="data.idcard_back_pic"></p>
 </Modal>
 
 
@@ -85,7 +85,11 @@
             pageinfo:{
                 curpage: 1,
                 pageinate: 10
+            },
+            condition:{
+
             }
+
         };
         if(page_count){
             page_data.pageinfo.curpage = page_count;
@@ -93,15 +97,12 @@
 
 
         // 首先判断有无查询条件
-        if(search.search_area !== []){
-            page_data.condition = {
-                like:["area","%"+ search.search_area.join('') + "%"]
-            }
+        if(search.search_area.length !== 0){
+            console.log(search.search_area.length);
+            page_data.condition.where = ["area",search.search_area.join("^")];
         }
         if(search.search_text !==''){
-            page_data.condition = {
-                like:["area|name|sec_linkman|address","%"+ search.search_text + "%"]
-            }
+            page_data.condition.like = ["area|name|sec_linkman|address","%"+ search.search_text + "%"];
 
         }
 
