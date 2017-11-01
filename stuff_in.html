@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>材料入库</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
+
+    <style>
+        form {
+            margin-top: 30px;
+        }
+
+        .ivu-form-item p {
+            font-weight: bolder;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el: "#loading",
+        data: {
+            show: true
+        },
+        created: function () {
+            setTimeout("loading.show=false", 500);
+        }
+    });
+</script>
+<i-form :label-width="180" id="stuff_in_form" label-position="right">
+    <form-item label="材料大类">
+        <i-select v-model="category" style="width:200px" @on-change="get_stuff">
+            <i-option v-for="item in category_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+    </form-item>
+    <form-item label="物资名称">
+        <i-select v-model="formItem.stuff_id.value" style="width:200px">
+            <i-option v-for="item in stuff_data" :value="item.value" :key="item.value" :disabled="stuff_disabled">{{
+                item.label }}
+            </i-option>
+        </i-select>
+    </form-item>
+    <form-item label="生产厂家">
+        <i-select v-model="formItem.manufacturer.value" style="width:200px">
+            <i-option v-for="item in manufacturer_data" :value="item.value" :key="item.value">{{ item.label }}
+            </i-option>
+        </i-select>
+    </form-item>
+    <form-item label="物资型号">
+        <i-input v-model="formItem.type.value" placeholder="请输入物资型号"></i-input>
+    </form-item>
+    <form-item label="入库数量">
+        <i-input v-model="formItem.quantity.value" placeholder="请输入入库数量"></i-input>
+    </form-item>
+    <form-item label="加入仓库">
+        <i-select v-model="formItem.storehouse.value" style="width:200px">
+            <i-option v-for="item in storehouse_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+    </form-item>
+    <form-item label="入库时间">
+        <date-picker type="datetime" v-model="formItem.stuff_in_date.value" placeholder="选择入库时间"
+                     style="width: 200px"></date-picker>
+    </form-item>
+    <form-item label="物资备注">
+        <i-input v-model="formItem.remark.value" placeholder="请输入物资备注"></i-input>
+    </form-item>
+    <form-item>
+        <i-button type="primary" @click="upload(check(formItem),formItem)">提交</i-button>
+    </form-item>
+
+</i-form>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    //待实现的功能：权限检查，表单检查
+    var stuff_in_form = new Vue({
+        el: '#stuff_in_form',
+        data: {
+            storehouse_data: [],
+            category_data: [],
+            manufacturer_data: [],
+            stuff_data: [],
+            stuff_disabled: true,
+            category: '',
+            formItem: {
+                stuff_id: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '材料id不能为空'
+                    }
+                },
+                manufacturer: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '生产商不能为空'
+                    }
+                },
+                type: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '材料型号不能为空'
+                    }
+                },
+                quantity: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '入库数量不能为空'
+                    }
+                },
+                storehouse: {
+                    value: [],
+                    check: ['empty'],
+                    alertText: {
+                        empty: '存入仓库不能为空'
+                    }
+                },
+                stuff_in_date: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '入库时间不能为空'
+                    }
+                },
+                remark: {
+                    value: '',
+                    check: []
+                }
+            }
+        },
+        methods: {
+            check: checkInput,
+            upload: function (tof, data) {
+                if (tof === true) {
+                    var send_data = {};
+                    send_data = extract_value(data);
+                    console.log(send_with_cookie_data('json', send_data));
+                    $.ajax({
+                        url: server + url.stuff_in,
+                        type: 'POST',
+                        data: send_with_cookie_data('json', send_data),
+                        processData: false,
+                        crossDomain: true,
+                        success: function (result) {
+                            if (result.state === 'error' || result.state === 'warning') {
+                                stuff_in_form.$Message.error(result.message);
+                            } else if (result.state === 'success') {
+                                stuff_in_form.$Message.success(result.message+"，即将转跳");
+                                setTimeout('jump("stuff_check.html")',2000);
+                            }
+                            console.log(result);
+
+                        },
+                        error: function () {
+                            stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
+                        }
+                    });
+
+
+                }
+            },
+            get_stuff: function (value) {
+                var category = stuff_in_form.category;
+                console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
+                $.ajax({
+                    url: server + url.get_stuff,
+                    type: 'POST',
+                    data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
+                    processData: false,
+                    crossDomain: true,
+                    success: function (result) {
+                        if (result.state === 'error' || result.state === 'warning') {
+                            stuff_in_form.$Message.error(result.message);
+                        } else {
+                            console.log("成功获取物资数据");
+                            stuff_in_form.stuff_data = result;
+                            if (result !== []) {
+                                stuff_in_form.stuff_disabled = false;
+
+                            }
+                        }
+                        console.log(result);
+
+                    },
+                    error: function () {
+                        stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
+                    }
+                });
+
+            }
+        },
+        created: function init_data() {
+            // 初始化材料大类
+            jQuery.ajax({
+                url : server+url.get_category,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'||result.state === 'warning'){
+                        stuff_in_form.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到材料大类数据");
+                        stuff_in_form.category_data = result;
+                        // 初始化入库时间
+                        var now = new Date();
+                        console.log(formatDateTime(now));
+                        stuff_in_form.formItem.stuff_in_date.value = formatDateTime(now);
+                    }
+
+
+                },
+                error:function () {
+                    stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+            // 初始化生产厂家
+            jQuery.ajax({
+                url : server+url.get_manufacturer,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'||result.state === 'warning'){
+                        stuff_in_form.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到厂家数据");
+                        stuff_in_form.manufacturer_data = result;
+                    }
+
+                },
+                error:function () {
+                    stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+            // 初始化仓库
+            jQuery.ajax({
+                url : server+url.get_user_store_house,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'||result.state === 'warning'){
+                        stuff_in_form.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到仓库数据");
+                        console.log(result);
+                        if(result.length === 1 && result[0].value === null){
+                            stuff_in_form.storehouse_data = result;
+                        }else{
+                            stuff_in_form.storehouse_data = result;
+                        }
+
+                    }
+
+                },
+                error:function () {
+                    stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+        }
+
+    })
+</script>
+</body>
+</html>

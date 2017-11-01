@@ -127,7 +127,7 @@
             page_data.condition.where = ["area",search.search_area.join("^")];
         }
         if(search.search_text !==''){
-            page_data.condition.like = ["area|name|sec_linkman|address","%"+ search.search_text + "%"];
+            page_data.condition.like = ["area|name|storehouse","%"+ search.search_text + "%"];
 
         }
 

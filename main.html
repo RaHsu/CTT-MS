@@ -62,7 +62,7 @@
                             材料操作
                         </template>
                         <menu-item name="1-1" v-if="auth.stuff_out">材料发放</menu-item>
-                        <menu-item name="1-2" v-if="auth.stuff_in">材料入库</menu-item>
+                        <menu-item name="stuff_in.html" v-if="auth.stuff_in">材料入库</menu-item>
                         <menu-item name="1-4" v-if="auth.stuff_back">装维退料</menu-item>
                         <menu-item name="1-6" v-if="auth.stuff_leave">库存调拨</menu-item>
                     </Submenu>
@@ -72,7 +72,7 @@
                             材料查询
                         </template>
                         <menu-item name="2-1">发放记录</menu-item>
-                        <menu-item name="2-2">入库记录</menu-item>
+                        <menu-item name="stuff_check.html" v-if="auth.stuff_in">入库记录</menu-item>
                         <menu-item name="2-3">装维退料记录</menu-item>
                         <menu-item name="2-4">退回公司记录</menu-item>
                         <menu-item name="2-5">调拨记录</menu-item>

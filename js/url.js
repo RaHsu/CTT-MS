@@ -52,6 +52,10 @@ var url = {
 	add_manufacturer:'/CTT-MS-server/manufacturer/add',
 	delete_manufacturer:'/CTT-MS-server/manufacturer/delete',
 	change_manufacturer:'/CTT-MS-server/manufacturer/change',
+	// 材料入库操作
+	stuff_in:'/CTT-MS-server/stuffin',
+	stuff_check:'/CTT-MS-server/stuffin/check',
+	stuff_change:'/CTT-MS-server/stuffin/change',
 
 
 	// 各种获取级联及选择框的操作
@@ -59,7 +63,9 @@ var url = {
 	get_store_house:'/CTT-MS-server/storehousequery',
 	get_team:'/CTT-MS-server/teamquery',
 	get_category:'/CTT-MS-server/categoryquery',
-	get_stuff:'/CTT-MS-server/stuffquery'
+	get_stuff:'/CTT-MS-server/stuffquery',
+	get_manufacturer:'/CTT-MS-server/manufacturerquery',
+	get_user_store_house:'/CTT-MS-server/userstorehousequery'
 
 };
 

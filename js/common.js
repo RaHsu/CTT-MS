@@ -160,7 +160,7 @@ function get_area() {
         crossDomain: true,
         success:function (result) {
             if(result.state === 'error'||result.state === 'warning'){
-                table.$Message.error(result.message);
+                that.$Message.error(result.message);
             }
             else{
                 console.log("成功请求到地区数据");
@@ -169,7 +169,7 @@ function get_area() {
 
         },
         error:function () {
-            table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            that.$Message.warning('连接服务器失败，请检查你的网络连接');
         }
     });
 }
@@ -187,7 +187,7 @@ function get_category() {
         crossDomain: true,
         success:function (result) {
             if(result.state === 'error'||result.state === 'warning'){
-                table.$Message.error(result.message);
+                that.$Message.error(result.message);
             }
             else{
                 console.log("成功请求到材料大类数据");
@@ -196,12 +196,82 @@ function get_category() {
 
         },
         error:function () {
-            table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            that.$Message.warning('连接服务器失败，请检查你的网络连接');
         }
     });
 }
 
+// 获取生产厂家并将数据填充到选择器中(选择器中的数据统一叫manufacturer_data)
+function get_manufacturer() {
+    var that = this;
+    jQuery.ajax({
+        url : server+url.get_manufacturer,
+        data: send_with_cookie_data(),
+        type : 'POST',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            if(result.state === 'error'||result.state === 'warning'){
+                that.$Message.error(result.message);
+            }
+            else{
+                console.log("成功请求到厂家数据");
+                that.manufacturer_data = result;
+            }
+
+        },
+        error:function () {
+            that.$Message.warning('连接服务器失败，请检查你的网络连接');
+        }
+    });
+}
+
+// 获取管理员所属的仓库并将数据填充到选择器中(选择器中的数据统一叫storehouse_data)
+function get_user_storehouse() {
+    var that = this;
+    jQuery.ajax({
+        url : server+url.get_user_store_house,
+        data: send_with_cookie_data(),
+        type : 'POST',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            if(result.state === 'error'||result.state === 'warning'){
+                that.$Message.error(result.message);
+            }
+            else{
+                console.log("成功请求到仓库数据");
+                that.storehouse_data = result;
+            }
+
+        },
+        error:function () {
+            that.$Message.warning('连接服务器失败，请检查你的网络连接');
+        }
+    });
+}
 // 延时跳转函数
 function jump(href) {
     window.location.href = href;
+}
+
+// 格式化日期时间的函数
+function formatDateTime(date) {
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if(month>=1 && month<=9){
+        month = '0' + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentDate = date.getFullYear() + '-' + month + '-' + strDate
+        + " " + date.getHours() + ':' + date.getMinutes()
+        + ':' + date.getSeconds();
+
+    return currentDate;
 }
