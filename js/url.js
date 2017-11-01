@@ -65,7 +65,8 @@ var url = {
 	get_category:'/CTT-MS-server/categoryquery',
 	get_stuff:'/CTT-MS-server/stuffquery',
 	get_manufacturer:'/CTT-MS-server/manufacturerquery',
-	get_user_store_house:'/CTT-MS-server/userstorehousequery'
+	get_user_store_house:'/CTT-MS-server/userstorehousequery',
+	get_stuff_with_id:'/CTT-MS-server/stuffwithidquery'
 
 };
 

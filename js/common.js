@@ -246,6 +246,7 @@ function get_user_storehouse() {
             else{
                 console.log("成功请求到仓库数据");
                 that.storehouse_data = result;
+                that.search_storehouse = result[0].label;
             }
 
         },

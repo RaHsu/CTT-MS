@@ -201,14 +201,15 @@
                 {
                     title: '操作',
                     key: 'action',
-                    width: 180,
+                    width: 100,
                     align: 'center',
                     render: function (h, params) {
                         return h('div', [
                             h('Button', {
                                 props: {
                                     type: 'warning',
-                                    size: 'small'
+                                    size: 'small',
+                                    disabled: false
                                 },
                                 style: {
                                     marginRight: '5px'
@@ -221,6 +222,45 @@
                             }, '修改')
                         ]);
                     }
+                },
+                {
+                    title: '可用状态',
+                    key: 'action',
+                    width: 100,
+                    align: 'center',
+                    render: function (h, params) {
+                        return h('div', [
+                            h('i-switch', {
+                                props: {
+                                    value: true
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                scopedSlots:{
+                                    open:function () {
+                                        return h('Icon',{
+                                            attrs:{
+                                                type:'android-done'
+                                            }
+                                        });
+                                    },
+                                    close:function () {
+                                        return h('Icon',{
+                                            attrs:{
+                                                type:'android-close'
+                                            }
+                                        });
+                                    }
+                                },
+                                on: {
+                                    click: function () {
+                                        window.location.href = "modify_admin.html?" + table.showData[params.index].id;
+                                    }
+                                }
+                            })
+                        ]);
+                    }
                 }
 
             ],
@@ -230,7 +270,12 @@
         },
         methods: {
             change_sort_data: function (column) {
-                table.order = column.key + " " + column.order;
+                if(column.key === 'category_name' || column.key === 'stuff_name'){
+                    table.order = 'b.'+ column.key + " " + column.order;
+                }else {
+                    table.order = 'a.'+ column.key + " " + column.order;
+                }
+                console.log(table.order);
                 get_stuff_page_data();
             }
         }

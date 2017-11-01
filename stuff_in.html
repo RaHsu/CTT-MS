@@ -177,7 +177,7 @@
                 var category = stuff_in_form.category;
                 console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
                 $.ajax({
-                    url: server + url.get_stuff,
+                    url: server + url.get_stuff_with_id,
                     type: 'POST',
                     data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
                     processData: false,
