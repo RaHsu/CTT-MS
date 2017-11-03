@@ -92,6 +92,8 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
+
+    check_single_auth('category_manage');
     // 获取各种条件下的员工数据（排序，查询，页数）
     function get_category_page_data(page_count){
         // 设置数据
@@ -134,7 +136,10 @@
             },
             crossDomain: true,
             success:function (result) {
-                if(result.state === 'error'||result.state === 'warning'){
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else{
@@ -192,7 +197,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                addCategory.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 addCategory.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 addCategory.$Message.success(result.message+",即将刷新");
@@ -250,7 +258,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                modifyCategory.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 modifyCategory.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 modifyCategory.$Message.success(result.message+",即将刷新");

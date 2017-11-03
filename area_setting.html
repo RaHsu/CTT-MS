@@ -98,6 +98,9 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
+
+    check_single_auth('area_manage');
+
     // 获取各种条件下的员工数据（排序，查询，页数）
     function get_area_page_data(page_count){
         // 设置数据
@@ -140,7 +143,10 @@
             },
             crossDomain: true,
             success:function (result) {
-                if(result.state === 'error'||result.state === 'warning'){
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else{
@@ -199,7 +205,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                addArea.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 addArea.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 addArea.$Message.success(result.message+",即将刷新");
@@ -264,7 +273,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                modifyArea.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 modifyArea.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 modifyArea.$Message.success(result.message+",即将刷新");

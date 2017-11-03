@@ -3,6 +3,7 @@
 * */
 
 var server = 'http://10.2.130.178';
+//var server = 'http://10.0.53.246';
 
 var url = {
 	// 登入登出操作
@@ -56,6 +57,7 @@ var url = {
 	stuff_in:'/CTT-MS-server/stuffin',
 	stuff_check:'/CTT-MS-server/stuffin/check',
 	stuff_change:'/CTT-MS-server/stuffin/change',
+	stuff_enabled:'/CTT-MS-server/stuffin/enabled',
 
 
 	// 各种获取级联及选择框的操作

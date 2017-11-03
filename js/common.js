@@ -35,42 +35,12 @@ function set_height() {
     document.getElementById('sideMenu').style.height = screen_height - 98 + "px";
 }
 
-// 查询菜单项权限
-function check_auth() {
 
-
-    jQuery.ajax({
-        url : server+url.check_auth,
-        type : 'POST',
-        dataType:"json",
-        async:false,
-        data:send_with_cookie_data(),
-        success:function (result) {
-            console.log(result);
-            if(result.state === 'error'){
-                alert(result.message);
-                window.location.href = "login.html";
-            }else if(result.state === "success"){
-                menu_auth = trans_auth_to_display(result);
-            }
-        },
-        error:function () {
-            console.log('检查权限请求失败');
-            alert('数据请求失败，请检查你的网络连接');
-
-            window.location.href = "login.html";
-        }
-    });
-
-
-
-
-}
 
 // 查询某项菜单项权限
 function check_single_auth(auth) {
 
-    $.ajax({
+    jQuery.ajax({
         url : server+url.check_auth,
         type : 'POST',
         dataType:"json",
@@ -275,4 +245,20 @@ function formatDateTime(date) {
         + ':' + date.getSeconds();
 
     return currentDate;
+}
+
+// 将字符串转化为date对象的函数
+function trans_string_to_date(string) {
+    string = string.replace(/-/g,"/");
+    var trans_date = new Date(string);
+    return trans_date;
+}
+
+// 比较两个时间是否相差一个小时
+function is_between_an_hour(nowDate,date) {
+    if(Date.parse(nowDate) - Date.parse(date) < 1000*60*60){
+        return true;
+    }else{
+        return false;
+    }
 }

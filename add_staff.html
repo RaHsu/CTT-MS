@@ -114,7 +114,9 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
-    //待实现的功能：权限检查，表单检查
+
+    check_single_auth('staff_manage');
+
     var add_stuff_form = new Vue({
         el:'#add_stuff_form',
         data:{
@@ -272,7 +274,10 @@
                         contentType: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                add_stuff_form.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 add_stuff_form.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 add_stuff_form.$Message.success(result.message);
@@ -301,8 +306,11 @@
                     },
                     crossDomain: true,
                     success:function (result) {
-                        if(result.state === 'error'||result.state === 'warning'){
-                            table.$Message.error(result.message);
+                        if(result.state === 'error'){
+                            add_stuff_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            add_stuff_form.$Message.error(result.message);
                         }
                         else{
                             console.log("成功请求到班组数据");

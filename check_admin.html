@@ -149,8 +149,10 @@
             dataType: "json",
             crossDomain: true,
             success: function (result) {
-                if (result.state === 'error' || result.state === 'warning') {
-                    console.log(result);
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else {

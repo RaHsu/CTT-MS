@@ -146,7 +146,10 @@
             },
             crossDomain: true,
             success: function (result) {
-                if (result.state === 'error' || result.state === 'warning') {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else {
@@ -206,7 +209,10 @@
                         processData: false,
                         crossDomain: true,
                         success: function (result) {
-                            if (result.state === 'error' || result.state === 'warning') {
+                            if(result.state === 'error'){
+                                addStuff.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 addStuff.$Message.error(result.message);
                             } else if (result.state === 'success') {
                                 addStuff.$Message.success(result.message + ",即将刷新");
@@ -275,7 +281,10 @@
                         processData: false,
                         crossDomain: true,
                         success: function (result) {
-                            if (result.state === 'error' || result.state === 'warning') {
+                            if(result.state === 'error'){
+                                modifyStuff.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 modifyStuff.$Message.error(result.message);
                             } else if (result.state === 'success') {
                                 modifyStuff.$Message.success(result.message + ",即将刷新");

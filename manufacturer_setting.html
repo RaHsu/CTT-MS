@@ -176,7 +176,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                addManufacturer.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 addManufacturer.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 addManufacturer.$Message.success(result.message+",即将刷新");
@@ -227,7 +230,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                modifyManufacturer.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 modifyManufacturer.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 modifyManufacturer.$Message.success(result.message+",即将刷新");

@@ -136,6 +136,32 @@
     get_cookie();
     var menu_auth = {};
 
+    // 查询菜单项权限
+    function check_auth() {
+        jQuery.ajax({
+            url : server+url.check_auth,
+            type : 'POST',
+            dataType:"json",
+            async:false,
+            data:send_with_cookie_data(),
+            success:function (result) {
+                console.log(result);
+                if(result.state === 'error'){
+                    alert(result.message);
+                    window.location.href = "login.html";
+                }else if(result.state === "success"){
+                    menu_auth = trans_auth_to_display(result);
+                }
+            },
+            error:function () {
+                console.log('检查权限请求失败');
+                alert('数据请求失败，请检查你的网络连接');
+
+                window.location.href = "login.html";
+            }
+        });
+    }
+
     check_auth();
 
     console.log(menu_auth);

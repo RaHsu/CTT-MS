@@ -83,7 +83,7 @@
         // 首先判断有无查询条件
         // 以仓库为条件查询
         if(search.search_storehouse !== ''){
-            page_data.condition.where = ["manufacturer",search.search_storehouse];
+            page_data.condition.where = ["storehouse",search.search_storehouse];
         }
         // 模糊查询
         if(search.search_text !==''){
@@ -112,15 +112,30 @@
             dataType: "json",
             crossDomain: true,
             success: function (result) {
-                if (result.state === 'error' || result.state === 'warning') {
-                    console.log(result);
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else {
-                    console.log(result);
                     page.total = result[0].datacount;
                     result.splice(0,1);
+
+                    // 对是否可以修改进行验证
+                    var now = new Date();
+                    for(var i=0;i<result.length;i++){
+                        result[i].switch_disabled = false;
+                        var stuff_in_time = trans_string_to_date(result[i].stuff_in_date);
+                        if(is_between_an_hour(now,stuff_in_time) === true){
+                            result[i].modify_disabled = false;
+                        }else if(is_between_an_hour(now,stuff_in_time) === false){
+                            result[i].modify_disabled = true;
+                        }
+                    }
                     table.showData = result;
+                    console.log(result);
+
                 }
 
             },
@@ -209,14 +224,14 @@
                                 props: {
                                     type: 'warning',
                                     size: 'small',
-                                    disabled: false
+                                    disabled: table.showData[params.index].modify_disabled
                                 },
                                 style: {
                                     marginRight: '5px'
                                 },
                                 on: {
                                     click: function () {
-                                        window.location.href = "modify_admin.html?" + table.showData[params.index].id;
+                                        window.location.href = "modify_stuff_in.html?" + table.showData[params.index].id;
                                     }
                                 }
                             }, '修改')
@@ -232,7 +247,11 @@
                         return h('div', [
                             h('i-switch', {
                                 props: {
-                                    value: true
+                                    trueValue:1,
+                                    falseValue:0,
+                                    value: table.showData[params.index].enabled,
+                                    disabled:table.showData[params.index].switch_disabled
+
                                 },
                                 style: {
                                     marginRight: '5px'
@@ -254,8 +273,39 @@
                                     }
                                 },
                                 on: {
-                                    click: function () {
-                                        window.location.href = "modify_admin.html?" + table.showData[params.index].id;
+                                    "on-change": function (value) {
+                                        // 先禁用按钮
+                                        table.showData[params.index].switch_disabled = true;
+                                        console.log(table.showData[params.index]);
+
+                                        jQuery.ajax({
+                                            url: server + url.stuff_enabled,
+                                            data: send_with_cookie_data('id', table.showData[params.index].id),
+                                            type: 'POST',
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            dataType: "json",
+                                            crossDomain: true,
+                                            success: function (result) {
+                                                if(result.state === 'error'){
+                                                    table.$Message.error(result.message);
+                                                    setTimeout("jump('login.html')",1500);
+                                                }else if(result.state === 'warning'){
+                                                    table.$Message.error(result.message);
+                                                }
+                                                else {
+                                                    table.$Message.success("修改成功");
+                                                    table.showData[params.index].switch_disabled = false;
+                                                    table.showData[params.index].enabled = result.message;
+                                                    console.log(result);
+                                                }
+
+                                            },
+                                            error: function () {
+                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            }
+                                        });
                                     }
                                 }
                             })

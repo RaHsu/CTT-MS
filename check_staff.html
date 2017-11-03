@@ -124,7 +124,10 @@
             //dataType:"json",
             crossDomain: true,
             success:function (result) {
-                if(result.state === 'error'||result.state === 'warning'){
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else{
@@ -295,25 +298,7 @@
 
             ],
             showData: [
-                /*{
-                    name:"赵浩云",
-                    sex:"男",
-                    on_guard:"是",
-                    idcard:"510107199611014219",
-                    area:"四川-雅安",
-                    phone:"18728193218",
-                    sec_linkman:null,
-                    sec_phone:null,
-                    address:null,
-                    education:null,
-                    school:null,
-                    operator:'Horol',
-                    employment_date:"2017-10-03",
-                    per_pic:"333",
-                    idcard_front_pic:"333",
-                    idcard_back_pic:"333",
-                    remark:null
-                }*/
+
             ]
         },
         methods: {

@@ -134,7 +134,10 @@
             },
             crossDomain: true,
             success:function (result) {
-                if(result.state === 'error'||result.state === 'warning'){
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else{
@@ -190,7 +193,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                addTeam.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 addTeam.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 addTeam.$Message.success(result.message+",即将刷新");
@@ -251,7 +257,10 @@
                         processData: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
+                                modifyTeam.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
                                 modifyTeam.$Message.error(result.message);
                             }else if(result.state === 'success'){
                                 modifyTeam.$Message.success(result.message+",即将刷新");

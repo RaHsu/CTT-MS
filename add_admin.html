@@ -117,7 +117,9 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
-    //待实现的功能：权限检查，表单检查
+
+    check_single_auth('user_manage');
+
     var add_user_form = new Vue({
         el:'#add_user_form',
         data:{
@@ -245,7 +247,10 @@
                                 processData: false,
                                 crossDomain: true,
                                 success:function (result) {
-                                    if(result.state === 'error'||result.state === 'warning'){
+                                    if(result.state === 'error'){
+                                        add_user_form.$Message.error(result.message);
+                                        setTimeout("jump('login.html')",1500);
+                                    }else if(result.state === 'warning'){
                                         add_user_form.$Message.error(result.message);
                                     }else if(result.state === 'success'){
                                         add_user_form.$Message.success(result.message);
@@ -274,7 +279,10 @@
                     processData: false,
                     crossDomain: true,
                     success:function (result) {
-                        if(result.state === 'error'||result.state === 'warning'){
+                        if(result.state === 'error'){
+                            add_user_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
                             add_user_form.$Message.error(result.message);
                         }else{
                             console.log("成功获取仓库数据");

@@ -36,7 +36,7 @@
         }
     });
 </script>
-<i-form :label-width="180" id="stuff_in_form" label-position="right">
+<i-form :label-width="180" id="modify_stuff_in_form" label-position="right">
     <form-item label="材料大类">
         <i-select v-model="category" style="width:200px" @on-change="get_stuff">
             <i-option v-for="item in category_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
@@ -68,7 +68,7 @@
     </form-item>
     <form-item label="入库时间">
         <date-picker type="datetime" v-model="formItem.stuff_in_date.value" placeholder="选择入库时间"
-                     style="width: 200px"></date-picker>
+                     style="width: 200px" disabled></date-picker>
     </form-item>
     <form-item label="物资备注">
         <i-input v-model="formItem.remark.value" placeholder="请输入物资备注"></i-input>
@@ -84,8 +84,8 @@
 <script src="js/url.js"></script>
 <script>
     //待实现的功能：权限检查，表单检查
-    var stuff_in_form = new Vue({
-        el: '#stuff_in_form',
+    var modify_stuff_in_form = new Vue({
+        el: '#modify_stuff_in_form',
         data: {
             storehouse_data: [],
             category_data: [],
@@ -94,6 +94,9 @@
             stuff_disabled: true,
             category: '',
             formItem: {
+                id:{
+                    value:''
+                },
                 stuff_id: {
                     value: '',
                     check: ['empty'],
@@ -150,26 +153,26 @@
                     send_data = extract_value(data);
                     console.log(send_with_cookie_data('json', send_data));
                     $.ajax({
-                        url: server + url.stuff_in,
+                        url: server + url.stuff_change,
                         type: 'POST',
                         data: send_with_cookie_data('json', send_data),
                         processData: false,
                         crossDomain: true,
                         success: function (result) {
                             if(result.state === 'error'){
-                                stuff_in_form.$Message.error(result.message);
+                                modify_stuff_in_form.$Message.error(result.message);
                                 setTimeout("jump('login.html')",1500);
                             }else if(result.state === 'warning'){
-                                stuff_in_form.$Message.error(result.message);
+                                modify_stuff_in_form.$Message.error(result.message);
                             } else if (result.state === 'success') {
-                                stuff_in_form.$Message.success(result.message+"，即将转跳");
+                                modify_stuff_in_form.$Message.success(result.message+"，即将转跳");
                                 setTimeout('jump("stuff_check.html")',2000);
                             }
                             console.log(result);
 
                         },
                         error: function () {
-                            stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
+                            modify_stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
                         }
                     });
 
@@ -177,7 +180,7 @@
                 }
             },
             get_stuff: function (value) {
-                var category = stuff_in_form.category;
+                var category = modify_stuff_in_form.category;
                 console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
                 $.ajax({
                     url: server + url.get_stuff_with_id,
@@ -186,16 +189,13 @@
                     processData: false,
                     crossDomain: true,
                     success: function (result) {
-                        if(result.state === 'error'){
-                            stuff_in_form.$Message.error(result.message);
-                            setTimeout("jump('login.html')",1500);
-                        }else if(result.state === 'warning'){
-                            stuff_in_form.$Message.error(result.message);
+                        if (result.state === 'error' || result.state === 'warning') {
+                            modify_stuff_in_form.$Message.error(result.message);
                         } else {
                             console.log("成功获取物资数据");
-                            stuff_in_form.stuff_data = result;
+                            modify_stuff_in_form.stuff_data = result;
                             if (result !== []) {
-                                stuff_in_form.stuff_disabled = false;
+                                modify_stuff_in_form.stuff_disabled = false;
 
                             }
                         }
@@ -203,7 +203,7 @@
 
                     },
                     error: function () {
-                        stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
+                        modify_stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
                     }
                 });
 
@@ -221,21 +221,21 @@
                 crossDomain: true,
                 success:function (result) {
                     if(result.state === 'error'||result.state === 'warning'){
-                        stuff_in_form.$Message.error(result.message);
+                        modify_stuff_in_form.$Message.error(result.message);
                     }
                     else{
                         console.log("成功请求到材料大类数据");
-                        stuff_in_form.category_data = result;
+                        modify_stuff_in_form.category_data = result;
                         // 初始化入库时间
                         var now = new Date();
                         console.log(formatDateTime(now));
-                        stuff_in_form.formItem.stuff_in_date.value = formatDateTime(now);
+                        modify_stuff_in_form.formItem.stuff_in_date.value = formatDateTime(now);
                     }
 
 
                 },
                 error:function () {
-                    stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    modify_stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
                 }
             });
             // 初始化生产厂家
@@ -249,16 +249,16 @@
                 crossDomain: true,
                 success:function (result) {
                     if(result.state === 'error'||result.state === 'warning'){
-                        stuff_in_form.$Message.error(result.message);
+                        modify_stuff_in_form.$Message.error(result.message);
                     }
                     else{
                         console.log("成功请求到厂家数据");
-                        stuff_in_form.manufacturer_data = result;
+                        modify_stuff_in_form.manufacturer_data = result;
                     }
 
                 },
                 error:function () {
-                    stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    modify_stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
                 }
             });
             // 初始化仓库
@@ -271,31 +271,74 @@
                 },
                 crossDomain: true,
                 success:function (result) {
-                    if(result.state === 'error'){
-                        stuff_in_form.$Message.error(result.message);
-                        setTimeout("jump('login.html')",1500);
-                    }else if(result.state === 'warning'){
-                        stuff_in_form.$Message.error(result.message);
+                    if(result.state === 'error'||result.state === 'warning'){
+                        modify_stuff_in_form.$Message.error(result.message);
                     }
                     else{
                         console.log("成功请求到仓库数据");
                         console.log(result);
                         if(result.length === 1 && result[0].value === null){
-                            stuff_in_form.storehouse_data = result;
+                            modify_stuff_in_form.storehouse_data = result;
                         }else{
-                            stuff_in_form.storehouse_data = result;
+                            modify_stuff_in_form.storehouse_data = result;
                         }
 
                     }
 
                 },
                 error:function () {
-                    stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    modify_stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
                 }
             });
         }
 
-    })
+    });
+
+
+    // 将原有数据填入表单
+    var modify_id = window.location.search.slice(1);
+    var search_data = {
+        pageinfo:{
+            curpage:1,
+            pageinate:1
+        },
+        condition:{
+            where:["a.id",modify_id]
+        }
+    };
+    jQuery.ajax({
+        url : server+url.stuff_check,
+        data: send_with_cookie_data('query',search_data),
+        type : 'POST',
+        dataType:'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success:function (result) {
+            if(result.state === 'error'){
+                modify_stuff_in_form.$Message.error(result.message);
+                setTimeout("jump('login.html')",1500);
+            }else if(result.state === 'warning'){
+                modify_stuff_in_form.$Message.error(result.message);
+            }
+            else{
+                console.log("成功请求到个人数据");
+                console.log(result);
+                var old_data = result[1];
+                for(var key in modify_stuff_in_form.formItem){
+                    console.log(key+":"+old_data[key]);
+                    modify_stuff_in_form.formItem[key].value = old_data[key];
+                }
+                modify_stuff_in_form.category = old_data.category_name;
+                modify_stuff_in_form.formItem.stuff_id.value = old_data.stuff_id;
+            }
+
+        },
+        error:function () {
+            modify_stuff_in_form.$Message.warning('连接服务器失败，请检查你的网络连接');
+        }
+    });
 </script>
 </body>
 </html>

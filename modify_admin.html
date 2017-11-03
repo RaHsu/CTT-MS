@@ -256,7 +256,10 @@
                             crossDomain: true,
                             success:function (result) {
 
-                                if(result.state === 'error'||result.state === 'warning'){
+                                if(result.state === 'error'){
+                                    modify_user_form.$Message.error(result.message);
+                                    setTimeout("jump('login.html')",1500);
+                                }else if(result.state === 'warning'){
                                     modify_user_form.$Message.error(result.message);
                                 }else if(result.state === 'success'){
                                     modify_user_form.$Message.success(result.message+",即将转跳");
@@ -283,7 +286,10 @@
                     processData: false,
                     crossDomain: true,
                     success:function (result) {
-                        if(result.state === 'error'||result.state === 'warning'){
+                        if(result.state === 'error'){
+                            modify_user_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
                             modify_user_form.$Message.error(result.message);
                         }else{
                             console.log("成功获取仓库数据");
@@ -325,8 +331,11 @@
         crossDomain: true,
         success:function (result) {
             console.log(result);
-            if(result.state === "warning" || result.state === "error"){
-                console.log(result);
+            if(result.state === 'error'){
+                modify_user_form.$Message.error(result.message);
+                setTimeout("jump('login.html')",1500);
+            }else if(result.state === 'warning'){
+                modify_user_form.$Message.error(result.message);
             }else{
                 var old_form_data = result[1];
                 modify_user_form.formItem.name.value = old_form_data.name;

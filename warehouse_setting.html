@@ -146,7 +146,10 @@
             },
             crossDomain: true,
             success:function (result) {
-                if(result.state === 'error'||result.state === 'warning'){
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
                     table.$Message.error(result.message);
                 }
                 else{
@@ -219,7 +222,10 @@
                             processData: false,
                             crossDomain: true,
                             success:function (result) {
-                                if(result.state === 'error'||result.state === 'warning'){
+                                if(result.state === 'error'){
+                                    addStore.$Message.error(result.message);
+                                    setTimeout("jump('login.html')",1500);
+                                }else if(result.state === 'warning'){
                                     addStore.$Message.error(result.message);
                                 }else if(result.state === 'success'){
                                     addStore.$Message.success(result.message+",即将刷新");
@@ -298,7 +304,10 @@
                             processData: false,
                             crossDomain: true,
                             success:function (result) {
-                                if(result.state === 'error'||result.state === 'warning'){
+                                if(result.state === 'error'){
+                                    modifyStore.$Message.error(result.message);
+                                    setTimeout("jump('login.html')",1500);
+                                }else if(result.state === 'warning'){
                                     modifyStore.$Message.error(result.message);
                                 }else if(result.state === 'success'){
                                     modifyStore.$Message.success(result.message+",即将刷新");

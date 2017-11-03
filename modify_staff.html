@@ -265,10 +265,11 @@
                         contentType: false,
                         crossDomain: true,
                         success:function (result) {
-                            if(result.state === 'error'||result.state === 'warning'){
+                            if(result.state === 'error'){
                                 modify_staff_form.$Message.error(result.message);
-                                console.log(result);
-
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
+                                modify_staff_form.$Message.error(result.message);
                             }else {
                                 modify_staff_form.$Message.success(result.message+",即将跳转");
                                 setTimeout("jump('check_staff.html')",2000);
@@ -295,8 +296,11 @@
                     },
                     crossDomain: true,
                     success:function (result) {
-                        if(result.state === 'error'||result.state === 'warning'){
-                            table.$Message.error(result.message);
+                        if(result.state === 'error'){
+                            modify_staff_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            modify_staff_form.$Message.error(result.message);
                         }
                         else{
                             console.log("成功请求到班组数据");
