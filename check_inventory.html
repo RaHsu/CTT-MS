@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看入库记录</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/check_stuff.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
+</head>
+<body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script>
+<div id="search">
+    <div class="search-text">
+        <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
+        <span>材料大类：</span>
+        <i-select v-model="search_category" style="width:150px" clearable @on-change="get_stuff_name">
+            <i-option v-for="item in category_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+        <span>材料名称：</span>
+
+        <i-select v-model="search_stuff_name" style="width:150px" clearable :disabled="stuff_disabled">
+            <i-option v-for="item in stuff_name_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+
+        <span>模糊查询：</span>
+        <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 150px"></i-input>
+
+    </div>
+    <div class="search-area">
+        <i-select v-model="search_storehouse" style="width:100px" clearable>
+            <i-option v-for="item in storehouse_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+    </div>
+
+    <span>按仓库查询：</span>
+
+
+
+</div>
+<br>
+<div id="table">
+    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
+</div>
+<br>
+<Page :total="total" id="page" show-total show-elevator @on-change="get_data"></Page>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>$.noConflict();</script>
+
+
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    // 获取各种条件下的管理员数据（排序，查询，页数）
+    function get_stuff_page_data(page_count) {
+        // 设置数据
+        var page_data = {
+            pageinfo: {
+                curpage: 1,
+                pageinate: 10
+            },
+            condition:{}
+        };
+        if (page_count) {
+            page_data.pageinfo.curpage = page_count;
+        }
+
+
+        // 首先判断有无查询条件
+
+        // 以仓库为条件查询
+        if(search.search_storehouse !== ''){
+            page_data.condition.where = ["storehouse",search.search_storehouse];
+        }
+        // 模糊查询
+        if(search.search_text !==''){
+            page_data.condition.like = ["manufacturer|storehouse|category_name|stuff_name","%"+ search.search_text + "%"];
+
+        }
+        // 以材料名称查询
+        if(search.search_stuff_name !== ''){
+            page_data.condition.where = ["stuff_id",search.search_stuff_name];
+        }
+        // 判断有无排序
+        if (table.order !== '') {
+            page_data.order = table.order;
+        }
+
+        console.log(JSON.stringify(page_data));
+
+        // 发送数据
+        jQuery.ajax({
+            url: server + url.inventory_check,
+            data: send_with_cookie_data('query', page_data),
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            crossDomain: true,
+            success: function (result) {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else {
+                    page.total = result[0].datacount;
+                    result.splice(0,1);
+                    console.log(result);
+                    table.showData = result;
+
+                }
+
+            },
+            error: function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
+    var search = new Vue({
+        el: '#search',
+        data: {
+            search_category: '',
+            search_text: '',
+            search_stuff_name:'',
+            category_data:[],
+            stuff_name_data:[],
+            search_storehouse:'',
+            storehouse_data:[],
+            stuff_disabled:true
+        },
+        methods: {
+            // 获取查询的结果
+            get_search_result: function () {
+                get_stuff_page_data();
+            },
+            // 通过选择材料大类返回材料名称
+            get_stuff_name:function () {
+                var category = search.search_category;
+                console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
+                jQuery.ajax({
+                    url: server + url.get_stuff_with_id,
+                    type: 'POST',
+                    data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
+                    processData: false,
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            search.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            search.$Message.error(result.message);
+                        } else {
+                            console.log("成功获取物资数据");
+                            search.stuff_name_data = result;
+                            if (result !== []) {
+                                search.stuff_disabled = false;
+
+                            }
+                        }
+                        console.log(result);
+
+                    },
+                    error: function () {
+                        stuff_in_form.$Message.error('数据请求失败，请检查你的网络连接');
+                    }
+                });
+            }
+
+        },
+        created:function () {
+            // 初始化仓库
+            jQuery.ajax({
+                url : server+url.get_user_store_house,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'||result.state === 'warning'){
+                        search.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到仓库数据");
+                        search.storehouse_data = result;
+                        search.search_storehouse = result[0].label;
+                    }
+
+                },
+                error:function () {
+                    search.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+            // 初始化材料大类
+            jQuery.ajax({
+                url : server+url.get_category,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'||result.state === 'warning'){
+                        search.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到材料大类数据");
+                        search.category_data = result;
+                    }
+
+                },
+                error:function () {
+                    search.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+            // 初始化材料名称
+
+        }
+    });
+    var table = new Vue({
+        el: "#table",
+        data: {
+            order: "",
+            header: [
+                {
+                    title: '物资大类',
+                    key: 'category_name',
+                    sortable: 'custom'
+                },
+                {
+                    title: '物资名称',
+                    key: 'stuff_name',
+                    sortable: 'custom'
+                },
+                {
+                    title: '仓库',
+                    key: 'storehouse',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '生产商',
+                    key: 'manufacturer',
+                    sortable: 'custom'
+                },
+                {
+                    title: '材料型号',
+                    key: 'type',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '单位',
+                    key: 'unit',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '数量',
+                    key: 'quantity',
+                    sortable: 'custom'
+
+                }
+
+            ],
+            showData: [
+
+            ]
+        },
+        methods: {
+            change_sort_data: function (column) {
+                if(column.key === 'category_name' || column.key === 'stuff_name'||column.key === 'unit'){
+                    table.order = 'b.'+ column.key + " " + column.order;
+                }else {
+                    table.order = 'a.'+ column.key + " " + column.order;
+                }
+                console.log(table.order);
+                get_stuff_page_data();
+            }
+        }
+
+    });
+    var page = new Vue({
+        el: '#page',
+        data: {
+            total: 30
+        },
+        methods: {
+            get_data: function (page) {
+                get_stuff_page_data(page);
+            }
+
+        }
+
+    });
+
+    get_stuff_page_data();
+
+
+</script>
+</body>
+</html>

@@ -58,6 +58,8 @@ var url = {
 	stuff_check:'/CTT-MS-server/stuffin/check',
 	stuff_change:'/CTT-MS-server/stuffin/change',
 	stuff_enabled:'/CTT-MS-server/stuffin/enabled',
+	// 库存操作
+	inventory_check:'/CTT-MS-server/inventory/check',
 
 
 	// 各种获取级联及选择框的操作

@@ -73,11 +73,10 @@
                         </template>
                         <menu-item name="2-1">发放记录</menu-item>
                         <menu-item name="stuff_check.html" v-if="auth.stuff_in">入库记录</menu-item>
+                        <menu-item name="stuff_inventory.html" v-if="auth.stuff_count">库存查询</menu-item>
+
                         <menu-item name="2-3">装维退料记录</menu-item>
-                        <menu-item name="2-4">退回公司记录</menu-item>
                         <menu-item name="2-5">调拨记录</menu-item>
-                        <menu-item name="2-6">报废（丢失）记录</menu-item>
-                        <menu-item name="2-7">材料来源记录</menu-item>
                         <menu-item name="2-8">材料盘库统计</menu-item>
                         <menu-item name="2-9">装维领取统计</menu-item>
                     </Submenu>

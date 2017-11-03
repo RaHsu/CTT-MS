@@ -30,8 +30,8 @@
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
         <span>按时间查询：</span>
-        <date-picker type="date" placeholder="选择日期" style="width: 200px" v-model="search_start_time"></date-picker>
-        <date-picker type="date" placeholder="选择日期" style="width: 200px" v-model="search_end_time"></date-picker>
+        <date-picker type="date" placeholder="选择日期" style="width: 200px" v-model="search_start_time" clearable></date-picker>
+        <date-picker type="date" placeholder="选择日期" style="width: 200px" v-model="search_end_time" clearable></date-picker>
 
         <span>模糊查询：</span>
         <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 200px"></i-input>
@@ -207,6 +207,11 @@
                     key: 'quantity',
                     sortable: 'custom'
 
+                },
+                {
+                    title: '经办人',
+                    key: 'operator',
+                    sortable: 'custom'
                 },
                 {
                     title: '入库时间',
