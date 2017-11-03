@@ -97,6 +97,10 @@
             page_data.condition.like = ["manufacturer|storehouse|category_name|stuff_name","%"+ search.search_text + "%"];
 
         }
+        // 以材料大类查询
+        if(search.search_category !== ''){
+            page_data.condition.where = ["category_name",search.search_category];
+        }
         // 以材料名称查询
         if(search.search_stuff_name !== ''){
             page_data.condition.where = ["stuff_id",search.search_stuff_name];
