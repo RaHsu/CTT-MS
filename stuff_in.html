@@ -59,7 +59,7 @@
         <i-input v-model="formItem.type.value" placeholder="请输入物资型号"></i-input>
     </form-item>
     <form-item label="入库数量">
-        <i-input v-model="formItem.quantity.value" placeholder="请输入入库数量"></i-input>
+        <i-input v-model="formItem.quantity.value" placeholder="请输入入库数量" min="0" type="number"></i-input>
     </form-item>
     <form-item label="加入仓库">
         <i-select v-model="formItem.storehouse.value" style="width:200px">
@@ -98,7 +98,7 @@
                     value: '',
                     check: ['empty'],
                     alertText: {
-                        empty: '材料id不能为空'
+                        empty: '物资名称不能为空'
                     }
                 },
                 manufacturer: {
@@ -117,9 +117,10 @@
                 },
                 quantity: {
                     value: '',
-                    check: ['empty'],
+                    check: ['empty','number'],
                     alertText: {
-                        empty: '入库数量不能为空'
+                        empty: '入库数量不能为空',
+                        number:'请输入合法的入库数量'
                     }
                 },
                 storehouse: {

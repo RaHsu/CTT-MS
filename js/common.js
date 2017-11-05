@@ -156,7 +156,10 @@ function get_category() {
         },
         crossDomain: true,
         success:function (result) {
-            if(result.state === 'error'||result.state === 'warning'){
+            if(result.state === 'error'){
+                that.$Message.error(result.message);
+                setTimeout("jump('login.html')",1500);
+            }else if(result.state === 'warning'){
                 that.$Message.error(result.message);
             }
             else{
@@ -225,6 +228,11 @@ function get_user_storehouse() {
         }
     });
 }
+
+
+
+
+
 // 延时跳转函数
 function jump(href) {
     window.location.href = href;

@@ -88,8 +88,8 @@
 
         // 首先判断有无查询条件
 
-        // 以仓库为条件查询
-        if(search.search_storehouse !== ''){
+        // 以storehouse仓库为条件查询
+            if(search.search_storehouse !== ''){
             page_data.condition.where = ["storehouse",search.search_storehouse];
         }
         // 模糊查询

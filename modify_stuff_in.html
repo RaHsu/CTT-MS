@@ -120,9 +120,10 @@
                 },
                 quantity: {
                     value: '',
-                    check: ['empty'],
+                    check: ['empty','number'],
                     alertText: {
-                        empty: '入库数量不能为空'
+                        empty: '入库数量不能为空',
+                        number:'请输入合法的入库数量'
                     }
                 },
                 storehouse: {

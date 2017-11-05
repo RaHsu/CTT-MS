@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>申请库存调拨</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
+
+    <style>
+        form {
+            margin-top: 30px;
+        }
+
+        .ivu-form-item p {
+            font-weight: bolder;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el: "#loading",
+        data: {
+            show: true
+        },
+        created: function () {
+            setTimeout("loading.show=false", 500);
+        }
+    });
+</script>
+<i-form :label-width="180" id="leave_inventory_form" label-position="right">
+    <form-item label="调离仓库">
+        <i-select v-model="formItem.send_storehouse.value" style="width:200px" disabled>
+            <i-option v-for="item in send_storehouse_data" :value="item.value" :key="item.value">{{ item.label }}
+            </i-option>
+        </i-select>
+    </form-item>
+    <form-item label="材料大类">
+        <i-select v-model="category" style="width:200px" @on-change="get_stuff">
+            <i-option v-for="item in category_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+    </form-item>
+    <form-item label="物资名称">
+        <i-select v-model="inventory_search_id" style="width:200px" @on-change="get_inventory_record" :disabled="inventory_disabled">
+            <i-option v-for="item in inventory_data" :value="item.value" :key="item.value">{{
+                item.label }}
+            </i-option>
+        </i-select>
+        <Alert show-icon style="margin-top: 10px;width: 400px" v-show="table_show">请单击某一行来选择批次</Alert>
+        <i-table border @on-current-change="set_inventory_id" :columns="inventory_header" :data="inventory_show_data" v-show="table_show" highlight-row style="margin-top: 10px;width: 500px"></i-table>
+    </form-item>
+
+    <form-item label="接收仓库所在片区">
+        <Cascader :data="area_data" v-model="area" width="250px" change-on-select style="width:200px" @on-change="get_storehouse_by_area"></Cascader>
+    </form-item>
+
+    <form-item label="接收仓库">
+        <i-select v-model="formItem.receive_storehouse.value" style="width:200px">
+            <i-option v-for="item in receive_storehouse_data" :value="item.value" :key="item.value">{{ item.label }}
+            </i-option>
+        </i-select>
+    </form-item>
+    <form-item label="入库数量">
+        <i-input v-model="formItem.leave_quantity.value" style="width:200px" placeholder="请输入入库数量" min="0"></i-input>
+    </form-item>
+    <form-item label="调拨日期">
+        <date-picker type="date" v-model="formItem.send_date.value" placeholder="选择调拨日期"
+                     style="width: 200px" @on-change="format_date">
+        </date-picker>
+    </form-item>
+    <form-item>
+        <i-button type="primary" @click="upload(check(formItem),formItem)">提交</i-button>
+    </form-item>
+
+</i-form>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    //待实现的功能：权限检查，表单检查
+    var leave_inventory_form = new Vue({
+        el: '#leave_inventory_form',
+        data: {
+            // 材料大类的数据
+            category_data: [],
+            category: '',
+            // 材料名称的数据
+            inventory_data: [],
+            inventory_disabled: true,
+            inventory_search_id:'',
+
+            // 调离仓库名的数据
+            send_storehouse_data:[],
+
+            //接收仓库名的数据
+            area_data:[],
+            area:[],
+            receive_storehouse_data:[],
+
+            // 库存表格的数据
+            inventory_header:[
+                {
+                    title: '生产商',
+                    key: 'manufacturer'
+                },
+                {
+                    title: '型号',
+                    key: 'type'
+                },
+                {
+                    title: '数量',
+                    key: 'quantity'
+                }
+            ],
+            inventory_show_data:[],
+            table_show:false,
+
+            formItem: {
+                inventory_id: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '物资名称不能为空'
+                    }
+                },
+                send_storehouse: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '调离仓库不能为空'
+                    }
+                },
+                receive_storehouse: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '接收仓库不能为空'
+                    }
+                },
+                leave_quantity: {
+                    value: '',
+                    check: ['empty','number'],
+                    alertText: {
+                        empty: '调拨数量不能为空',
+                        number:'请输入合法的调拨数量'
+                    }
+                },
+                send_date: {
+                    value: '',
+                    check: ['empty'],
+                    alertText: {
+                        empty: '调拨日期不能为空'
+                    }
+                }
+
+            }
+        },
+        methods: {
+            check: checkInput,
+            upload: function (tof, data) {
+                if (tof === true) {
+                    var send_data = {};
+                    send_data = extract_value(data);
+                    console.log(send_with_cookie_data('json', send_data));
+                    $.ajax({
+                        url: server + url.inventory_leave,
+                        type: 'POST',
+                        data: send_with_cookie_data('json', send_data),
+                        processData: false,
+                        crossDomain: true,
+                        success: function (result) {
+                            if(result.state === 'error'){
+                                leave_inventory_form.$Message.error(result.message);
+                                setTimeout("jump('login.html')",1500);
+                            }else if(result.state === 'warning'){
+                                leave_inventory_form.$Message.error(result.message);
+                            } else if (result.state === 'success') {
+                                leave_inventory_form.$Message.success(result.message+"，即将转跳");
+                                setTimeout('jump("check_inventory.html")',2000);
+                            }
+                            console.log(result);
+
+                        },
+                        error: function () {
+                            leave_inventory_form.$Message.error('数据请求失败，请检查你的网络连接');
+                        }
+                    });
+
+
+                }
+            },
+            // 通过选择材料大类得到物资名称列表
+            get_stuff: function (value) {
+                var category = leave_inventory_form.category;
+                console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
+                $.ajax({
+                    url: server + url.get_stuff_with_id,
+                    type: 'POST',
+                    data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
+                    processData: false,
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            leave_inventory_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            leave_inventory_form.$Message.error(result.message);
+                        } else {
+                            console.log("成功获取物资数据");
+                            leave_inventory_form.inventory_data = result;
+                            if (result !== []) {
+                                leave_inventory_form.inventory_disabled = false;
+
+                            }
+                        }
+                        console.log(result);
+
+                    },
+                    error: function () {
+                        leave_inventory_form.$Message.error('数据请求失败，请检查你的网络连接');
+                    }
+                });
+
+            },
+            format_date:function (date) {
+                leave_inventory_form.formItem.send_date.value = date;
+            },
+            // 通过选择物资名称得到库存记录列表
+            get_inventory_record:function (value) {
+                console.log("cookie=" + get_cookie().username + "&" + "stuff_id=" + value);
+                $.ajax({
+                    url: server + url.get_inventory_by_stuff,
+                    type: 'POST',
+                    data: "cookie=" + get_cookie().username + "&" + "stuff_id=" + value,
+                    processData: false,
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            leave_inventory_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            leave_inventory_form.$Message.error(result.message);
+                        } else {
+                            console.log("成功获取库存记录数据");
+                            console.log(result);
+                            leave_inventory_form.inventory_show_data = result;
+                            leave_inventory_form.table_show = true;
+
+                        }
+
+                    },
+                    error: function () {
+                        leave_inventory_form.$Message.error('数据请求失败，请检查你的网络连接');
+                    }
+                });
+            },
+            
+            // 通过选择某一行而设置选中的批次
+            set_inventory_id:function (currentRow) {
+                console.log(currentRow);
+                leave_inventory_form.formItem.inventory_id.value = currentRow.id;
+                console.log('fdsfds');
+            },
+            // 通过选择地区来获取仓库
+            get_storehouse_by_area:function (value) {
+                console.log(value.join("^"));
+                $.ajax({
+                    url: server + url.get_store_house,
+                    type: 'POST',
+                    data: "cookie=" + get_cookie().username + "&" + "area=" + value.join("^"),
+                    processData: false,
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            leave_inventory_form.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            leave_inventory_form.$Message.error(result.message);
+                        } else {
+                            console.log("成功获取接收仓库数据");
+                            console.log(result);
+                            leave_inventory_form.receive_storehouse_data = result;
+
+                        }
+
+                    },
+                    error: function () {
+                        leave_inventory_form.$Message.error('数据请求失败，请检查你的网络连接');
+                    }
+                });
+            }
+
+            
+        },
+        created: function init_data() {
+            var that = this;
+
+            // 默认获取调离仓库
+            jQuery.ajax({
+                url : server+url.get_user_store_house,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                typeData:'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'||result.state === 'warning'){
+                        that.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到调离仓库数据");
+                        that.send_storehouse_data = result;
+                        that.formItem.send_storehouse.value = result[0].value;
+                    }
+
+                },
+                error:function () {
+                    that.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+            // 获取材料大类的名单
+            jQuery.ajax({
+                url : server+url.get_category,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                typeData:'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'){
+                        that.$Message.error(result.message);
+                        setTimeout("jump('login.html')",1500);
+                    }else if(result.state === 'warning'){
+                        that.$Message.error(result.message);
+                    }
+                    else{
+                        console.log(result);
+                        console.log("成功请求到材料大类数据");
+                        that.category_data = result;
+                    }
+
+                },
+                error:function () {
+                    that.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+
+            // 获取地区的名单
+            jQuery.ajax({
+                url : server+url.get_area,
+                data: send_with_cookie_data(),
+                type : 'POST',
+                typeData:'json',
+
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'){
+                        that.$Message.error(result.message);
+                        setTimeout("jump('login.html')",1500);
+                    }else if(result.state === 'warning'){
+                        that.$Message.error(result.message);
+                    }
+                    else{
+                        console.log("成功请求到接收地区数据");
+                        that.area_data = result;
+                    }
+
+                },
+                error:function () {
+                    that.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+        }
+
+    })
+</script>
+</body>
+</html>

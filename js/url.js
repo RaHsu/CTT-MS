@@ -60,6 +60,9 @@ var url = {
 	stuff_enabled:'/CTT-MS-server/stuffin/enabled',
 	// 库存操作
 	inventory_check:'/CTT-MS-server/inventory/check',
+	inventory_leave:'/CTT-MS-server/stuffleave/leave',
+	inventory_leave_count:'/CTT-MS-server/stuffleave/newcount',
+    inventory_leave_check_confirm:'/CTT-MS-server/stuffleave/newapplication',
 
 
 	// 各种获取级联及选择框的操作
@@ -70,7 +73,8 @@ var url = {
 	get_stuff:'/CTT-MS-server/stuffquery',
 	get_manufacturer:'/CTT-MS-server/manufacturerquery',
 	get_user_store_house:'/CTT-MS-server/userstorehousequery',
-	get_stuff_with_id:'/CTT-MS-server/stuffwithidquery'
+	get_stuff_with_id:'/CTT-MS-server/stuffwithidquery',
+	get_inventory_by_stuff:'/CTT-MS-server/stuffleave/query'
 
 };
 

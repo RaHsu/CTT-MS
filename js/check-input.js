@@ -24,6 +24,7 @@ function isNumber(obj){
     }
 }
 
+
 // 输入检查
 function checkInput(data){
     var i = 0,j = 0;
