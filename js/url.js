@@ -2,7 +2,7 @@
 * 这里是所有api的url地址
 * */
 
-var server = 'http://10.2.130.178';
+var server = 'http://10.2.130.246';
 //var server = 'http://10.0.53.246';
 
 var url = {
