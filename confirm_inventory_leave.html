@@ -27,6 +27,7 @@
     });
 </script>
 <div id="notice">
+    <br>
     <Alert show-icon>
         你有{{count}}条申请尚未处理。
         <template slot="desc">要同意这些调库申请，请点击这条申请后的“确认申请”按钮。</template>
@@ -35,8 +36,7 @@
 <div id="table">
     <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
 </div>
-<br>
-<Page :total="total" id="page" show-total show-elevator @on-change="get_data"></Page>
+
 
 
 
@@ -53,7 +53,7 @@
 
         // 发送数据
         jQuery.ajax({
-            url: server + url.inventory_leave_check_confirm,
+            url: server + url.inventory_leave_check,
             data: send_with_cookie_data(),
             type: 'POST',
             xhrFields: {
@@ -69,8 +69,7 @@
                     table.$Message.error(result.message);
                 }
                 else {
-                    page.total = result[0].datacount;
-                    result.splice(0,1);
+
                     console.log(result);
                     table.showData = result;
 
@@ -125,43 +124,77 @@
             order: "",
             header: [
                 {
-                    title: '物资大类',
-                    key: 'category_name',
-                    sortable: 'custom'
+                    title: '申请人员',
+                    key: 'send_operator'
                 },
                 {
-                    title: '物资名称',
-                    key: 'stuff_name',
-                    sortable: 'custom'
+                    title: '调离仓库',
+                    key: 'send_storehouse'
                 },
                 {
-                    title: '仓库',
-                    key: 'storehouse',
-                    sortable: 'custom'
+                    title: '接收仓库',
+                    key: 'receive_storehouse'
+                },
+                {
+                    title: '申请日期',
+                    key: 'send_date'
+                },
+                {
+                    title: '调离数量',
+                    key: 'leave_quantity'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 180,
+                    align: 'center',
+                    render: function (h, params) {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'success',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: function (){
+                                        var confirm_id = table.showData[params.index].id;
+                                        console.log(confirm_id);
+                                        jQuery.ajax({
+                                            url: server + url.inventory_leave_check_confirm,
+                                            data: send_with_cookie_data("id",confirm_id),
+                                            type: 'POST',
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            dataType: "json",
+                                            crossDomain: true,
+                                            success: function (result) {
+                                                if(result.state === 'error'){
+                                                    table.$Message.error(result.message);
+                                                    setTimeout("jump('login.html')",1500);
+                                                }else if(result.state === 'warning'){
+                                                    table.$Message.error(result.message);
+                                                }
+                                                else {
+                                                    console.log(result);
+                                                    table.$Message.success(result.message+",即将转跳");
+                                                    setTimeout("jump('confirm_inventory_leave.html')",1500);
+                                                }
 
-                },
-                {
-                    title: '生产商',
-                    key: 'manufacturer',
-                    sortable: 'custom'
-                },
-                {
-                    title: '材料型号',
-                    key: 'type',
-                    sortable: 'custom'
+                                            },
+                                            error: function () {
+                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            }
+                                        });
 
-                },
-                {
-                    title: '单位',
-                    key: 'unit',
-                    sortable: 'custom'
-
-                },
-                {
-                    title: '数量',
-                    key: 'quantity',
-                    sortable: 'custom'
-
+                                    }
+                                }
+                            }, '确认接收')
+                        ]);
+                    }
                 }
 
             ],
@@ -182,19 +215,7 @@
         }
 
     });
-    var page = new Vue({
-        el: '#page',
-        data: {
-            total: 30
-        },
-        methods: {
-            get_data: function (page) {
-                get_confirm_inventory_page_data(page);
-            }
 
-        }
-
-    });
 
     get_confirm_inventory_page_data();
 

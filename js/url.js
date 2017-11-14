@@ -2,7 +2,7 @@
 * 这里是所有api的url地址
 * */
 
-var server = 'http://10.2.130.246';
+var server = 'http://10.2.130.86';
 //var server = 'http://10.0.53.246';
 
 var url = {
@@ -62,7 +62,9 @@ var url = {
 	inventory_check:'/CTT-MS-server/inventory/check',
 	inventory_leave:'/CTT-MS-server/stuffleave/leave',
 	inventory_leave_count:'/CTT-MS-server/stuffleave/newcount',
-    inventory_leave_check_confirm:'/CTT-MS-server/stuffleave/newapplication',
+    inventory_leave_check:'/CTT-MS-server/stuffleave/newapplication', // 查看未处理的申请
+    inventory_leave_check_confirm:'/CTT-MS-server/stuffleave/receive', // 接受申请
+    inventory_leave_check_deny:'/CTT-MS-server/stuffleave/cancel', // 拒绝申请
 
 
 	// 各种获取级联及选择框的操作
