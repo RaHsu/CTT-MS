@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/main.html" line="124" />
+    <bookmark url="file://$PROJECT_DIR$/main.html" line="114" />
     <bookmark url="file://$PROJECT_DIR$/leave_inventory.html" line="322" />
-    <bookmark url="file://$PROJECT_DIR$/main.html" line="140" />
+    <bookmark url="file://$PROJECT_DIR$/main.html" line="130" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory_leave_application.html" afterPath="$PROJECT_DIR$/check_inventory_leave_application.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/confirm_inventory_leave.html" afterPath="$PROJECT_DIR$/confirm_inventory_leave.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/main.css" afterPath="$PROJECT_DIR$/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/url.js" afterPath="$PROJECT_DIR$/js/url.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/leave_inventory.html" afterPath="$PROJECT_DIR$/leave_inventory.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modify_inventory_leave_application.html" afterPath="$PROJECT_DIR$/modify_inventory_leave_application.html" />
     </list>
     <ignored path="CTT-MS.iws" />
@@ -37,8 +34,8 @@
       <file leaf-file-name="url.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/url.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="68" column="38" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="38" />
+            <state relative-caret-position="422">
+              <caret line="75" column="48" lean-forward="true" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -47,8 +44,8 @@
       <file leaf-file-name="confirm_inventory_leave.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/confirm_inventory_leave.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="182" column="55" lean-forward="true" selection-start-line="182" selection-start-column="55" selection-end-line="182" selection-end-column="55" />
+            <state relative-caret-position="-524">
+              <caret line="175" column="52" lean-forward="true" selection-start-line="175" selection-start-column="52" selection-end-line="175" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -57,19 +54,81 @@
       <file leaf-file-name="check_inventory_leave_application.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="307" column="28" lean-forward="false" selection-start-line="307" selection-start-column="28" selection-end-line="307" selection-end-column="28" />
+            <state relative-caret-position="469">
+              <caret line="236" column="24" lean-forward="true" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+            <state relative-caret-position="268">
+              <caret line="66" column="1" lean-forward="true" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1546">
+              <caret line="81" column="47" lean-forward="false" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="leave_inventory.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/leave_inventory.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="532">
+              <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+              <folding>
+                <element signature="e#3875#4208#0" expanded="false" />
+                <element signature="e#4331#4516#0" expanded="false" />
+                <element signature="e#4551#4736#0" expanded="false" />
+                <element signature="e#4993#5232#0" expanded="false" />
+                <element signature="e#5261#5446#0" expanded="false" />
+                <element signature="e#7291#8531#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modify_inventory_leave_application.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modify_inventory_leave_application.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="426" column="60" lean-forward="true" selection-start-line="426" selection-start-column="60" selection-end-line="426" selection-end-column="60" />
+              <folding>
+                <element signature="n#style#0;n#i-select#0;n#form-item#0;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i-select#0;n#form-item#1;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i-select#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Alert#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i-table#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#Cascader#0;n#form-item#3;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i-select#0;n#form-item#4;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i-input#0;n#form-item#5;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#date-picker#0;n#form-item#6;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#3968#4301#0" expanded="false" />
+                <element signature="e#4413#4597#0" expanded="false" />
+                <element signature="e#4629#4814#0" expanded="false" />
+                <element signature="e#4849#5034#0" expanded="false" />
+                <element signature="e#5072#5257#0" expanded="false" />
+                <element signature="e#5291#5530#0" expanded="false" />
+                <element signature="e#5559#5744#0" expanded="false" />
+                <element signature="e#5862#7425#0" expanded="false" />
+                <element signature="e#7499#9013#0" expanded="false" />
+                <element signature="e#9055#9153#0" expanded="false" />
+                <element signature="e#10676#10866#0" expanded="false" />
+                <element signature="e#10947#12177#0" expanded="false" />
+                <element signature="e#12309#13197#0" expanded="false" />
+                <element signature="e#13260#13475#0" expanded="false" />
+                <element signature="e#13598#14591#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,14 +218,14 @@
         <option value="$PROJECT_DIR$/stuff_in.html" />
         <option value="$PROJECT_DIR$/modify_stuff_in.html" />
         <option value="$PROJECT_DIR$/js/common.js" />
-        <option value="$PROJECT_DIR$/leave_inventory.html" />
         <option value="$PROJECT_DIR$/login.html" />
-        <option value="$PROJECT_DIR$/main.html" />
         <option value="$PROJECT_DIR$/js/url.js" />
-        <option value="$PROJECT_DIR$/modify_inventory_leave_application.html" />
         <option value="$PROJECT_DIR$/confirm_inventory_leave.html" />
         <option value="$PROJECT_DIR$/check_inventory_leave_application.html" />
         <option value="$PROJECT_DIR$/css/main.css" />
+        <option value="$PROJECT_DIR$/main.html" />
+        <option value="$PROJECT_DIR$/leave_inventory.html" />
+        <option value="$PROJECT_DIR$/modify_inventory_leave_application.html" />
       </list>
     </option>
   </component>
@@ -395,12 +454,12 @@
       <workItem from="1509870784107" duration="11416000" />
       <workItem from="1510636615547" duration="7210000" />
       <workItem from="1510727981460" duration="597000" />
-      <workItem from="1510733248358" duration="11766000" />
+      <workItem from="1510733248358" duration="14128000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="368778000" />
+    <option name="totallyTimeSpent" value="371140000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="-140" width="1456" height="916" extended-state="6" />
@@ -740,21 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/leave_inventory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="100" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="393" selection-end-column="7" />
-          <folding>
-            <element signature="e#3875#4208#0" expanded="false" />
-            <element signature="e#4331#4516#0" expanded="false" />
-            <element signature="e#4551#4736#0" expanded="false" />
-            <element signature="e#4993#5232#0" expanded="false" />
-            <element signature="e#5261#5446#0" expanded="false" />
-            <element signature="e#7291#8531#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -779,69 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="77" column="96" lean-forward="true" selection-start-line="77" selection-start-column="96" selection-end-line="77" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modify_inventory_leave_application.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="182" column="28" lean-forward="true" selection-start-line="182" selection-start-column="28" selection-end-line="182" selection-end-column="28" />
-          <folding>
-            <element signature="n#style#0;n#i-select#0;n#form-item#0;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i-select#0;n#form-item#1;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i-select#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#Alert#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i-table#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#Cascader#0;n#form-item#3;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i-select#0;n#form-item#4;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i-input#0;n#form-item#5;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#date-picker#0;n#form-item#6;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#4413#4597#0" expanded="false" />
-            <element signature="e#4629#4814#0" expanded="false" />
-            <element signature="e#4849#5034#0" expanded="false" />
-            <element signature="e#5072#5257#0" expanded="false" />
-            <element signature="e#5291#5530#0" expanded="false" />
-            <element signature="e#5559#5744#0" expanded="false" />
-            <element signature="e#7481#8995#0" expanded="false" />
-            <element signature="e#9219#10573#0" expanded="false" />
-            <element signature="e#10658#10848#0" expanded="false" />
-            <element signature="e#10929#12159#0" expanded="false" />
-            <marker date="1510749968632" expanded="false" signature="12291:13179" ph="{&quot;type&quot;: 'POST'...}" />
-            <marker date="1510749968632" expanded="false" signature="15095:16088" ph="{&quot;type&quot;: 'POST'...}" />
-            <marker date="1510749968632" expanded="false" signature="16139:17080" ph="{&quot;type&quot;: 'POST'...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/url.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="68" column="38" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="307" column="28" lean-forward="false" selection-start-line="307" selection-start-column="28" selection-end-line="307" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/confirm_inventory_leave.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="182" column="55" lean-forward="true" selection-start-line="182" selection-start-column="55" selection-end-line="182" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modify_admin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
@@ -852,9 +833,89 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+        <state relative-caret-position="268">
+          <caret line="66" column="1" lean-forward="true" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1546">
+          <caret line="81" column="47" lean-forward="false" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leave_inventory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+          <folding>
+            <element signature="e#3875#4208#0" expanded="false" />
+            <element signature="e#4331#4516#0" expanded="false" />
+            <element signature="e#4551#4736#0" expanded="false" />
+            <element signature="e#4993#5232#0" expanded="false" />
+            <element signature="e#5261#5446#0" expanded="false" />
+            <element signature="e#7291#8531#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/url.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="75" column="48" lean-forward="true" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/confirm_inventory_leave.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-524">
+          <caret line="175" column="52" lean-forward="true" selection-start-line="175" selection-start-column="52" selection-end-line="175" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="236" column="24" lean-forward="true" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modify_inventory_leave_application.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="426" column="60" lean-forward="true" selection-start-line="426" selection-start-column="60" selection-end-line="426" selection-end-column="60" />
+          <folding>
+            <element signature="n#style#0;n#i-select#0;n#form-item#0;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-select#0;n#form-item#1;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-select#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Alert#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-table#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Cascader#0;n#form-item#3;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-select#0;n#form-item#4;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-input#0;n#form-item#5;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#date-picker#0;n#form-item#6;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#3968#4301#0" expanded="false" />
+            <element signature="e#4413#4597#0" expanded="false" />
+            <element signature="e#4629#4814#0" expanded="false" />
+            <element signature="e#4849#5034#0" expanded="false" />
+            <element signature="e#5072#5257#0" expanded="false" />
+            <element signature="e#5291#5530#0" expanded="false" />
+            <element signature="e#5559#5744#0" expanded="false" />
+            <element signature="e#5862#7425#0" expanded="false" />
+            <element signature="e#7499#9013#0" expanded="false" />
+            <element signature="e#9055#9153#0" expanded="false" />
+            <element signature="e#10676#10866#0" expanded="false" />
+            <element signature="e#10947#12177#0" expanded="false" />
+            <element signature="e#12309#13197#0" expanded="false" />
+            <element signature="e#13260#13475#0" expanded="false" />
+            <element signature="e#13598#14591#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

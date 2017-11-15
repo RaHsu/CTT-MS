@@ -68,7 +68,7 @@
             </i-option>
         </i-select>
     </form-item>
-    <form-item label="入库数量">
+    <form-item label="调拨数量">
         <i-input v-model="formItem.leave_quantity.value" style="width:200px" placeholder="请输入入库数量" min="0"></i-input>
     </form-item>
     <form-item label="调拨日期">
@@ -194,7 +194,7 @@
                                 modify_inventory_application_form.$Message.error(result.message);
                             } else if (result.state === 'success') {
                                 modify_inventory_application_form.$Message.success(result.message+"，即将转跳");
-                                setTimeout('jump("check_inventory.html")',2000);
+                                setTimeout('jump("check_inventory_leave_application.html")',2000);
                             }
                             console.log(result);
 
@@ -352,39 +352,7 @@
             };
             console.log(send_with_cookie_data('query',search_data));
 
-            // 获取到这个申请的所有信息
-            jQuery.ajax({
-                url : server+url.inventory_leave_check_application,
-                data: send_with_cookie_data('query',search_data),
-                type : 'POST',
-                typeData:'json',
-                xhrFields: {
-                    withCredentials: true
-                },
-                crossDomain: true,
-                success:function (result) {
-                    if(result.state === 'error'){
-                        that.$Message.error(result.message);
-                        setTimeout("jump('login.html')",1500);
-                    }else if(result.state === 'warning'){
-                        that.$Message.error(result.message);
-                    }
-                    else{
-                        // 将所有信息填充
-                        console.log(result[1].receive_storehouse);
-                        modify_inventory_application_form.formItem.id.value = result[1].id;
-                        modify_inventory_application_form.formItem.inventory_id.value = result[1].inventory_id;
-                        modify_inventory_application_form.formItem.leave_quantity.value = result[1].leave_quantity;
-                        modify_inventory_application_form.formItem.send_date.value = result[1].send_date;
 
-                        console.log("成功请求申请数据");
-                    }
-
-                },
-                error:function () {
-                    that.$Message.warning('连接服务器失败，请检查你的网络连接');
-                }
-            });
 
             // 获取材料大类的名单
             jQuery.ajax({
@@ -443,9 +411,46 @@
                     that.$Message.warning('连接服务器失败，请检查你的网络连接');
                 }
             });
+
+            // 获取到这个申请的所有信息
+            jQuery.ajax({
+                url : server+url.inventory_leave_check_application,
+                data: send_with_cookie_data('query',search_data),
+                type : 'POST',
+                typeData:'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                success:function (result) {
+                    if(result.state === 'error'){
+                        that.$Message.error(result.message);
+                        setTimeout("jump('login.html')",1500);
+                    }else if(result.state === 'warning'){
+                        that.$Message.error(result.message);
+                    }
+                    else{
+                        // 将所有信息填充
+                        console.log(result[1]);
+                        modify_inventory_application_form.category = result[1].category_name;
+                        modify_inventory_application_form.formItem.id.value = result[1].id;
+                        modify_inventory_application_form.inventory_search_id = result[1].stuff_id;
+                        modify_inventory_application_form.formItem.inventory_id.value = result[1].inventory_id;
+                        modify_inventory_application_form.formItem.leave_quantity.value = result[1].leave_quantity;
+                        modify_inventory_application_form.formItem.send_date.value = result[1].send_date;
+                        modify_inventory_application_form.formItem.receive_storehouse.value = result[1].receive_storehouse;
+
+                        console.log("成功请求申请数据");
+                    }
+
+                },
+                error:function () {
+                    that.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
         }
 
-    })
+    });
 </script>
 </body>
 </html>
