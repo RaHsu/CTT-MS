@@ -274,6 +274,13 @@
                     sortable: 'custom'
 
                 },
+
+                {
+                    title: '经办人',
+                    key: 'send_operator',
+                    sortable: 'custom'
+
+                },
                 {
                     title: '生产商',
                     key: 'manufacturer',
@@ -301,13 +308,71 @@
                     key: 'leave_quantity',
                     sortable: 'custom'
 
-                }
-                ,
+                },
                 {
-                    title: '数量',
-                    key: 'leave_quantity',
-                    sortable: 'custom'
+                    title: '操作',
+                    key: 'action',
+                    width: 180,
+                    align: 'center',
+                    render: function (h, params) {
+                        return h('div', [
 
+                            h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small',
+                                    disabled:!!table.showData[params.index].is_received
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: function () {
+                                        window.location.href = "modify_inventory_leave_application.html?" + table.showData[params.index].id;
+                                    }
+                                }
+                            }, '修改'),
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: function () {
+                                        table.$Modal.confirm({
+                                            title: '删除确认',
+                                            content: '确认撤销这条申请吗？',
+                                            okText: '确认',
+                                            cancelText: '取消撤销',
+                                            onOk: function () {
+                                                jQuery.ajax({
+                                                    url: server + url.inventory_leave_check_deny,
+                                                    data: send_with_cookie_data('id', table.showData[params.index].id),
+                                                    type: 'POST',
+                                                    success: function (result) {
+                                                        if (result.state === 'success') {
+                                                            table.$Message.success('撤销成功');
+                                                            table.showData.splice(params.index, 1);
+                                                        } else {
+                                                            table.$Message.warning(result.message);
+                                                        }
+                                                    },
+                                                    error: function () {
+                                                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                                    }
+                                                });
+                                            },
+                                            onCancel: function () {
+                                                table.$Message.info("取消删除");
+                                            }
+                                        })
+
+
+                                    }
+                                }
+                            }, '撤销')
+                        ]);
+                    }
                 }
 
             ],

@@ -124,10 +124,6 @@
             order: "",
             header: [
                 {
-                    title: '申请人员',
-                    key: 'send_operator'
-                },
-                {
                     title: '调离仓库',
                     key: 'send_storehouse'
                 },
@@ -135,13 +131,38 @@
                     title: '接收仓库',
                     key: 'receive_storehouse'
                 },
+
                 {
                     title: '申请日期',
                     key: 'send_date'
                 },
                 {
+                    title: '材料大类',
+                    key: 'category_name'
+                },
+                {
+                    title: '材料名称',
+                    key: 'stuff_name'
+                },
+                {
+                    title: '生产商',
+                    key: 'manufacturer'
+                },
+                {
+                    title: '申请人员',
+                    key: 'send_operator'
+                },
+                {
                     title: '调离数量',
                     key: 'leave_quantity'
+                },
+                {
+                    title: '型号',
+                    key: 'type'
+                },
+                {
+                    title: '单位',
+                    key: 'unit'
                 },
                 {
                     title: '操作',
@@ -156,7 +177,7 @@
                                     size: 'small'
                                 },
                                 style: {
-                                    marginRight: '5px'
+                                    marginRight: '10px'
                                 },
                                 on: {
                                     click: function (){

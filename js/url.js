@@ -64,8 +64,9 @@ var url = {
 	inventory_leave_count:'/CTT-MS-server/stuffleave/newcount',
     inventory_leave_check:'/CTT-MS-server/stuffleave/newapplication', // 查看未处理的申请
     inventory_leave_check_confirm:'/CTT-MS-server/stuffleave/receive', // 接受申请
-    inventory_leave_check_deny:'/CTT-MS-server/stuffleave/cancel', // 拒绝申请
+    inventory_leave_check_deny:'/CTT-MS-server/stuffleave/cancel', // 取消申请
     inventory_leave_check_application:'/CTT-MS-server/stuffleave/check', // 查看本仓库的所有调库申请
+    inventory_leave_change_application:'/CTT-MS-server/stuffleave/change', // 修改申请
 
 
 	// 各种获取级联及选择框的操作

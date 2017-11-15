@@ -9,9 +9,10 @@
     <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory_leave_application.html" afterPath="$PROJECT_DIR$/check_inventory_leave_application.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/confirm_inventory_leave.html" afterPath="$PROJECT_DIR$/confirm_inventory_leave.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/main.css" afterPath="$PROJECT_DIR$/css/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/url.js" afterPath="$PROJECT_DIR$/js/url.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.html" afterPath="$PROJECT_DIR$/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modify_inventory_leave_application.html" afterPath="$PROJECT_DIR$/modify_inventory_leave_application.html" />
     </list>
     <ignored path="CTT-MS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,31 +34,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="url.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/url.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="68" column="38" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="confirm_inventory_leave.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/confirm_inventory_leave.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="422">
+              <caret line="182" column="55" lean-forward="true" selection-start-line="182" selection-start-column="55" selection-end-line="182" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="check_inventory_leave_application.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4061">
-              <caret line="115" column="21" lean-forward="true" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
+            <state relative-caret-position="513">
+              <caret line="307" column="28" lean-forward="false" selection-start-line="307" selection-start-column="28" selection-end-line="307" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="confirm_inventory_leave.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/confirm_inventory_leave.html">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="72" column="40" lean-forward="true" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+            <state relative-caret-position="422">
+              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.html">
+      <file leaf-file-name="modify_admin.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modify_admin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="77" column="96" lean-forward="true" selection-start-line="77" selection-start-column="96" selection-end-line="77" selection-end-column="96" />
+            <state relative-caret-position="430">
+              <caret line="321" column="60" lean-forward="true" selection-start-line="321" selection-start-column="3" selection-end-line="321" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -89,6 +110,7 @@
       <find>inventory_id</find>
       <find>format_date</find>
       <find>get_stuff_page_data</find>
+      <find>leave_inventory_form</find>
     </findStrings>
     <replaceStrings>
       <replace>stuff_in_form</replace>
@@ -98,6 +120,7 @@
       <replace>leave_inventory_form</replace>
       <replace>get_confirm_inventory_page_data</replace>
       <replace>get_inventory_application_page_data</replace>
+      <replace>modify_inventory_application_form</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -109,7 +132,6 @@
         <option value="$PROJECT_DIR$/css/login.css" />
         <option value="$PROJECT_DIR$/error.html" />
         <option value="$PROJECT_DIR$/desktop.html" />
-        <option value="$PROJECT_DIR$/css/main.css" />
         <option value="$PROJECT_DIR$/js/vue.js" />
         <option value="$PROJECT_DIR$/check_stuff.html" />
         <option value="$PROJECT_DIR$/add_stuff.html" />
@@ -138,12 +160,13 @@
         <option value="$PROJECT_DIR$/modify_stuff_in.html" />
         <option value="$PROJECT_DIR$/js/common.js" />
         <option value="$PROJECT_DIR$/leave_inventory.html" />
-        <option value="$PROJECT_DIR$/confirm_inventory_leave.html" />
-        <option value="$PROJECT_DIR$/js/url.js" />
         <option value="$PROJECT_DIR$/login.html" />
-        <option value="$PROJECT_DIR$/modify_inventory_leave_application.html" />
         <option value="$PROJECT_DIR$/main.html" />
+        <option value="$PROJECT_DIR$/js/url.js" />
+        <option value="$PROJECT_DIR$/modify_inventory_leave_application.html" />
+        <option value="$PROJECT_DIR$/confirm_inventory_leave.html" />
         <option value="$PROJECT_DIR$/check_inventory_leave_application.html" />
+        <option value="$PROJECT_DIR$/css/main.css" />
       </list>
     </option>
   </component>
@@ -185,6 +208,11 @@
             <path>
               <item name="CTT-MS" type="b2602c69:ProjectViewProjectNode" />
               <item name="CTT-MS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CTT-MS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CTT-MS" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CTT-MS" type="b2602c69:ProjectViewProjectNode" />
@@ -367,12 +395,12 @@
       <workItem from="1509870784107" duration="11416000" />
       <workItem from="1510636615547" duration="7210000" />
       <workItem from="1510727981460" duration="597000" />
-      <workItem from="1510733248358" duration="6162000" />
+      <workItem from="1510733248358" duration="11766000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="363174000" />
+    <option name="totallyTimeSpent" value="368778000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="-140" width="1456" height="916" extended-state="6" />
@@ -532,13 +560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/loading.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -589,13 +610,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/check_admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3706">
-          <caret line="158" column="40" lean-forward="true" selection-start-line="158" selection-start-column="40" selection-end-line="158" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manufacturer_setting.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2678">
@@ -628,13 +642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1854">
           <caret line="432" column="71" lean-forward="false" selection-start-line="432" selection-start-column="71" selection-end-line="432" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modify_admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="336" column="49" lean-forward="true" selection-start-line="336" selection-start-column="49" selection-end-line="336" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -764,34 +771,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modify_inventory_leave_application.html">
+    <entry file="file://$PROJECT_DIR$/check_admin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="306" column="19" lean-forward="false" selection-start-line="306" selection-start-column="19" selection-end-line="306" selection-end-column="19" />
-          <folding>
-            <element signature="e#3875#4208#0" expanded="false" />
-            <element signature="e#4331#4516#0" expanded="false" />
-            <element signature="e#4551#4736#0" expanded="false" />
-            <element signature="e#4993#5232#0" expanded="false" />
-            <element signature="e#5261#5446#0" expanded="false" />
-            <element signature="e#5564#7038#0" expanded="false" />
-            <element signature="e#7112#8548#0" expanded="false" />
-            <element signature="e#7291#8531#0" expanded="false" />
-            <element signature="e#8590#8675#0" expanded="false" />
-            <element signature="e#8759#10048#0" expanded="false" />
-            <element signature="e#10133#10310#0" expanded="false" />
-            <element signature="e#10391#11569#0" expanded="false" />
-            <element signature="e#11701#12589#0" expanded="false" />
-            <element signature="e#12641#13634#0" expanded="false" />
-            <element signature="e#13685#14626#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/url.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+        <state relative-caret-position="44">
+          <caret line="243" column="7" lean-forward="true" selection-start-line="243" selection-start-column="7" selection-end-line="320" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -804,18 +787,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modify_inventory_leave_application.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="182" column="28" lean-forward="true" selection-start-line="182" selection-start-column="28" selection-end-line="182" selection-end-column="28" />
+          <folding>
+            <element signature="n#style#0;n#i-select#0;n#form-item#0;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-select#0;n#form-item#1;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-select#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Alert#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-table#0;n#form-item#2;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#Cascader#0;n#form-item#3;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-select#0;n#form-item#4;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i-input#0;n#form-item#5;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#date-picker#0;n#form-item#6;n#i-form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#4413#4597#0" expanded="false" />
+            <element signature="e#4629#4814#0" expanded="false" />
+            <element signature="e#4849#5034#0" expanded="false" />
+            <element signature="e#5072#5257#0" expanded="false" />
+            <element signature="e#5291#5530#0" expanded="false" />
+            <element signature="e#5559#5744#0" expanded="false" />
+            <element signature="e#7481#8995#0" expanded="false" />
+            <element signature="e#9219#10573#0" expanded="false" />
+            <element signature="e#10658#10848#0" expanded="false" />
+            <element signature="e#10929#12159#0" expanded="false" />
+            <marker date="1510749968632" expanded="false" signature="12291:13179" ph="{&quot;type&quot;: 'POST'...}" />
+            <marker date="1510749968632" expanded="false" signature="15095:16088" ph="{&quot;type&quot;: 'POST'...}" />
+            <marker date="1510749968632" expanded="false" signature="16139:17080" ph="{&quot;type&quot;: 'POST'...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/url.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="68" column="38" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4061">
-          <caret line="115" column="21" lean-forward="true" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
+        <state relative-caret-position="513">
+          <caret line="307" column="28" lean-forward="false" selection-start-line="307" selection-start-column="28" selection-end-line="307" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/confirm_inventory_leave.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="72" column="40" lean-forward="true" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+        <state relative-caret-position="422">
+          <caret line="182" column="55" lean-forward="true" selection-start-line="182" selection-start-column="55" selection-end-line="182" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modify_admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="321" column="60" lean-forward="true" selection-start-line="321" selection-start-column="3" selection-end-line="321" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
           <folding />
         </state>
       </provider>
