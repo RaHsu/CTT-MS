@@ -77,6 +77,7 @@
                         <menu-item name="2-1">发放记录</menu-item>
                         <menu-item name="stuff_check.html" v-if="auth.stuff_in">入库记录</menu-item>
                         <menu-item name="check_inventory.html" v-if="auth.stuff_count">库存查询</menu-item>
+                        <menu-item name="check_inventory_leave_application.html" v-if="auth.stuff_count">查看调库申请</menu-item>
 
                         <menu-item name="2-3">装维退料记录</menu-item>
                         <menu-item name="2-5">调拨记录</menu-item>
@@ -136,6 +137,10 @@
 <script>
     set_height();
     get_cookie();
+    
+    window.onresize = function () {
+        set_height();
+    };
     var menu_auth = {};
 
     // 查询菜单项权限

@@ -72,7 +72,7 @@
 <script src="js/url.js"></script>
 <script>
     // 获取各种条件下的管理员数据（排序，查询，页数）
-    function get_stuff_page_data(page_count) {
+    function get_inventory_application_page_data(page_count) {
         // 设置数据
         var page_data = {
             pageinfo: {
@@ -90,7 +90,7 @@
 
         // 以storehouse仓库为条件查询
         if(search.search_storehouse !== ''){
-            page_data.condition.where = ["storehouse",search.search_storehouse];
+            page_data.condition.where = ["send_storehouse",search.search_storehouse];
         }
         // 模糊查询
         if(search.search_text !==''){
@@ -114,7 +114,7 @@
 
         // 发送数据
         jQuery.ajax({
-            url: server + url.inventory_check,
+            url: server + url.inventory_leave_check_application,
             data: send_with_cookie_data('query', page_data),
             type: 'POST',
             xhrFields: {
@@ -159,7 +159,7 @@
         methods: {
             // 获取查询的结果
             get_search_result: function () {
-                get_stuff_page_data();
+                get_inventory_application_page_data();
             },
             // 通过选择材料大类返回材料名称
             get_stuff_name:function () {
@@ -263,14 +263,25 @@
                     sortable: 'custom'
                 },
                 {
-                    title: '仓库',
-                    key: 'storehouse',
+                    title: '调离仓库',
+                    key: 'send_storehouse',
+                    sortable: 'custom'
+
+                },
+                {
+                    title: '接收仓库',
+                    key: 'receive_storehouse',
                     sortable: 'custom'
 
                 },
                 {
                     title: '生产商',
                     key: 'manufacturer',
+                    sortable: 'custom'
+                },
+                {
+                    title: '申请日期',
+                    key: 'send_date',
                     sortable: 'custom'
                 },
                 {
@@ -287,7 +298,14 @@
                 },
                 {
                     title: '数量',
-                    key: 'quantity',
+                    key: 'leave_quantity',
+                    sortable: 'custom'
+
+                }
+                ,
+                {
+                    title: '数量',
+                    key: 'leave_quantity',
                     sortable: 'custom'
 
                 }
@@ -305,7 +323,7 @@
                     table.order = 'a.'+ column.key + " " + column.order;
                 }
                 console.log(table.order);
-                get_stuff_page_data();
+                get_inventory_application_page_data();
             }
         }
 
@@ -317,14 +335,14 @@
         },
         methods: {
             get_data: function (page) {
-                get_stuff_page_data(page);
+                get_inventory_application_page_data(page);
             }
 
         }
 
     });
 
-    get_stuff_page_data();
+    get_inventory_application_page_data();
 
 
 </script>
