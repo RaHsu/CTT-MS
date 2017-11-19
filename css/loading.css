@@ -15,3 +15,9 @@
 .loading-text{
     font-size: 18px;
 }
+
+/*标题样式*/
+header h1{
+    margin-left: 30px;
+    margin-top: 20px;
+}

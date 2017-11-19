@@ -31,6 +31,9 @@
         }
     });
 </script>
+<header>
+    <h1>添加装维人员</h1>
+</header>
 <i-form :label-width="180" id="add_stuff_form" label-position="right">
     <form-item label="姓名">
         <i-input v-model="formItem.name.value" placeholder="请输入员工姓名"></i-input>
@@ -115,7 +118,7 @@
 <script src="js/url.js"></script>
 <script>
 
-    check_single_auth('staff_manage');
+    //check_single_auth('staff_manage');
 
     var add_stuff_form = new Vue({
         el:'#add_stuff_form',

@@ -69,7 +69,26 @@ var url = {
     inventory_leave_change_application:'/CTT-MS-server/stuffleave/change', // 修改申请
 
 
-	// 各种获取级联及选择框的操作
+	// 材料第一级审批操作
+	stuff_review_count:'/CTT-MS-server/stuffreview/newcount', // 待审批的数量
+	stuff_review_check:'/CTT-MS-server/stuffreview/newapplication', // 待审批的数据详情
+	stuff_review_agree:'/CTT-MS-server/stuffreview/agree', // 同意审批
+	stuff_review_refuse:'/CTT-MS-server/stuffreview/refuse', // 拒绝审批
+	stuff_review_change:'/CTT-MS-server/stuffreview/change', // 修改申请
+
+	// 材料第二级审批操作
+    stuff_out_count:'/CTT-MS-server/stuffout/newcount', // 待审批的数量
+    stuff_out_check:'/CTT-MS-server/stuffout/newapplication', // 待审批的数据详情
+    stuff_out_agree:'/CTT-MS-server/stuffout/agree', // 同意审批
+    stuff_out_refuse:'/CTT-MS-server/stuffout/refuse', // 拒绝审批
+    stuff_out_change:'/CTT-MS-server/stuffout/change', // 修改申请
+
+
+
+
+
+
+    // 各种获取级联及选择框的操作
 	get_area:'/CTT-MS-server/areaquery',
 	get_store_house:'/CTT-MS-server/storehousequery',
 	get_team:'/CTT-MS-server/teamquery',

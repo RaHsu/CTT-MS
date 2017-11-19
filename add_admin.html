@@ -35,6 +35,9 @@
         }
     });
 </script>
+<header>
+    <h1>添加管理员</h1>
+</header>
 <i-form :label-width="180" id="add_user_form" label-position="right">
     <form-item label="员工编号">
         <i-input v-model="formItem.username.value" placeholder="请输入员工编号"></i-input>
@@ -118,7 +121,7 @@
 <script src="js/url.js"></script>
 <script>
 
-    check_single_auth('user_manage');
+
 
     var add_user_form = new Vue({
         el:'#add_user_form',

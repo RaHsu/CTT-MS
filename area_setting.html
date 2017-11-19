@@ -35,6 +35,9 @@
         }
     });
 </script>
+<header>
+    <h1>地区管理</h1>
+</header>
 <div id="search">
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
@@ -99,7 +102,7 @@
 <script src="js/url.js"></script>
 <script>
 
-    check_single_auth('area_manage');
+   
 
     // 获取各种条件下的员工数据（排序，查询，页数）
     function get_area_page_data(page_count){

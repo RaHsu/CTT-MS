@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>材料申请审批</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/check_stuff.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
+</head>
+<body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script>
+<header>
+    <h1>材料申请审批</h1>
+</header>
+<div id="notice">
+    <br>
+    <Alert show-icon>
+        你有{{count}}条申请尚未处理。
+        <template slot="desc">要同意这些材料发放申请，请点击这条申请后的“确认申请”按钮。</template>
+    </Alert>
+</div>
+<div id="table">
+    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
+</div>
+
+<Modal
+        v-model="show"
+        id="reason"
+        title="请输入你的驳回原因"
+        @on-ok="submit"
+        @on-cancel="cancel">
+
+    <i-input v-model="refuse_reason" type="textarea" :rows="4" placeholder="输入驳回原因"></i-input>
+</Modal>
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>$.noConflict();</script>
+
+
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    // 获取各种条件下的管理员数据（排序，查询，页数）
+    function get_stuff_review_page_data(page_count) {
+
+        // 发送数据
+        jQuery.ajax({
+            url: server + url.stuff_review_check,
+            data: send_with_cookie_data(),
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            crossDomain: true,
+            success: function (result) {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else {
+
+                    console.log(result);
+                    table.showData = result;
+
+                }
+
+            },
+            error: function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
+    var reason = new Vue({
+        el:'#reason',
+        data:{
+            show:false,
+            refuse_reason:'',
+            refuse_id:null
+        },
+        methods:{
+            submit:function () {
+                console.log(send_with_cookie_data("id",reason.refuse_id)+"&reason="+reason.refuse_reason);
+                jQuery.ajax({
+                    url: server + url.stuff_review_refuse,
+                    data: send_with_cookie_data("id",reason.refuse_id)+"&reason="+reason.refuse_reason,
+                    type: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            table.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            table.$Message.error(result.message);
+                        }
+                        else {
+                            console.log(result);
+                            table.$Message.success(result.message+",即将刷新");
+                            setTimeout("jump('stuff_review.html')",1500);
+                        }
+
+                    },
+                    error: function () {
+                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    }
+                });
+            },
+            cancel:function () {
+                reason.show = false;
+            }
+        }
+    });
+    var notice = new Vue({
+        el:'#notice',
+        data:{
+            count:0
+        },
+        created:function () {
+            jQuery.ajax({
+                url: server + url.stuff_review_count,
+                data: send_with_cookie_data(),
+                type: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function (result) {
+                    if(result.state === 'error'){
+                        table.$Message.error(result.message);
+                        setTimeout("jump('login.html')",1500);
+                    }else if(result.state === 'warning'){
+                        table.$Message.error(result.message);
+                    }
+                    else {
+                        console.log(result);
+                        notice.count = result;
+
+                    }
+
+                },
+                error: function () {
+                    table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+        }
+
+    });
+    var table = new Vue({
+        el: "#table",
+        data: {
+            order: "",
+            header: [
+                {
+                    title: '申请发放仓库',
+                    key: 'storehouse'
+                },
+
+                {
+                    title: '申请日期',
+                    key: 'apply_date'
+                },
+                {
+                    title: '材料大类',
+                    key: 'category_name'
+                },
+                {
+                    title: '材料名称',
+                    key: 'stuff_name'
+                },
+                {
+                    title: '生产商',
+                    key: 'manufacturer'
+                },
+                {
+                    title: '申请人员',
+                    key: 'staff'
+                },
+                {
+                    title: '调离数量',
+                    key: 'out_quantity'
+                },
+                {
+                    title: '型号',
+                    key: 'type'
+                },
+                {
+                    title: '单位',
+                    key: 'unit'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 240,
+                    align: 'center',
+                    render: function (h, params) {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'success',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '10px'
+                                },
+                                on: {
+                                    click: function (){
+                                        var confirm_id = table.showData[params.index].id;
+                                        console.log(send_with_cookie_data("id",confirm_id));
+                                        jQuery.ajax({
+                                            url: server + url.stuff_review_agree,
+                                            data: send_with_cookie_data("id",confirm_id),
+                                            type: 'POST',
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            dataType: "json",
+                                            crossDomain: true,
+                                            success: function (result) {
+                                                console.log(result);
+                                                if(result.state === 'error'){
+                                                    table.$Message.error(result.message);
+                                                    setTimeout("jump('login.html')",1500);
+                                                }else if(result.state === 'warning'){
+                                                    table.$Message.error(result.message);
+                                                }
+                                                else {
+                                                    console.log(result);
+                                                    table.$Message.success(result.message+",即将刷新");
+                                                    setTimeout("jump('stuff_review.html')",1500);
+                                                }
+
+                                            },
+                                            error: function () {
+                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            }
+                                        });
+
+                                    }
+                                }
+                            }, '确认接收'),
+                            h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '10px'
+                                },
+                                on: {
+                                    click: function (){
+                                        var confirm_id = table.showData[params.index].id;
+                                        console.log(confirm_id);
+                                        jQuery.ajax({
+                                            url: server + url.inventory_leave_check_confirm,
+                                            data: send_with_cookie_data("id",confirm_id),
+                                            type: 'POST',
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            dataType: "json",
+                                            crossDomain: true,
+                                            success: function (result) {
+                                                if(result.state === 'error'){
+                                                    table.$Message.error(result.message);
+                                                    setTimeout("jump('login.html')",1500);
+                                                }else if(result.state === 'warning'){
+                                                    table.$Message.error(result.message);
+                                                }
+                                                else {
+                                                    console.log(result);
+                                                    table.$Message.success(result.message+",即将转跳");
+                                                    setTimeout("jump('confirm_inventory_leave.html')",1500);
+                                                }
+
+                                            },
+                                            error: function () {
+                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            }
+                                        });
+
+                                    }
+                                }
+                            }, '修改申请'),
+                            h('Button', {
+                                props: {
+                                    type: 'error',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '10px'
+                                },
+                                on: {
+                                    click: function (){
+                                        var refuse_id = table.showData[params.index].id;
+                                        reason.refuse_id = refuse_id;
+                                        reason.show = true;
+                                        /*jQuery.ajax({
+                                            url: server + url.stuff_review_refuse,
+                                            data: send_with_cookie_data("id",refuse_id),
+                                            type: 'POST',
+                                            xhrFields: {
+                                                withCredentials: true
+                                            },
+                                            dataType: "json",
+                                            crossDomain: true,
+                                            success: function (result) {
+                                                if(result.state === 'error'){
+                                                    table.$Message.error(result.message);
+                                                    setTimeout("jump('login.html')",1500);
+                                                }else if(result.state === 'warning'){
+                                                    table.$Message.error(result.message);
+                                                }
+                                                else {
+                                                    console.log(result);
+                                                    table.$Message.success(result.message+",即将刷新");
+                                                    setTimeout("jump('confirm_inventory_leave.html')",1500);
+                                                }
+
+                                            },
+                                            error: function () {
+                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                                            }
+                                        });*/
+
+                                    }
+                                }
+                            }, '拒绝')
+                        ]);
+                    }
+                }
+
+            ],
+            showData: [
+
+            ]
+        },
+        methods: {
+            change_sort_data: function (column) {
+                if(column.key === 'category_name' || column.key === 'stuff_name'||column.key === 'unit'){
+                    table.order = 'b.'+ column.key + " " + column.order;
+                }else {
+                    table.order = 'a.'+ column.key + " " + column.order;
+                }
+                console.log(table.order);
+                get_stuff_review_page_data();
+            }
+        }
+
+    });
+
+
+    get_stuff_review_page_data();
+
+
+</script>
+</body>
+</html>
