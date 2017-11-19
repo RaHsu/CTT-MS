@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>材料申请审批</title>
+    <title>材料申请发放</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
     <link rel="stylesheet" href="css/loading.css">
@@ -27,7 +27,7 @@
     });
 </script>
 <header>
-    <h1>材料申请审批</h1>
+    <h1>材料申请发放</h1>
 </header>
 <div id="notice">
     <br>
@@ -60,7 +60,7 @@
         width="700"
         @on-ok="submit(check(formItem))"
         @on-cancel="cancel"
->
+        >
     <i-form :label-width="80" label-position="right">
         <form-item label="材料大类">
             <i-select v-model="category" style="width:200px" @on-change="get_stuff">
@@ -96,7 +96,7 @@
 
         // 发送数据
         jQuery.ajax({
-            url: server + url.stuff_review_check,
+            url: server + url.stuff_out_check,
             data: send_with_cookie_data(),
             type: 'POST',
             xhrFields: {
@@ -136,7 +136,7 @@
             submit:function () {
                 console.log(send_with_cookie_data("id",reason.refuse_id)+"&reason="+reason.refuse_reason);
                 jQuery.ajax({
-                    url: server + url.stuff_review_refuse,
+                    url: server + url.stuff_out_refuse,
                     data: send_with_cookie_data("id",reason.refuse_id)+"&reason="+reason.refuse_reason,
                     type: 'POST',
                     xhrFields: {
@@ -175,7 +175,7 @@
         },
         created:function () {
             jQuery.ajax({
-                url: server + url.stuff_review_count,
+                url: server + url.stuff_out_count,
                 data: send_with_cookie_data(),
                 type: 'POST',
                 xhrFields: {
@@ -266,7 +266,7 @@
                                         var confirm_id = table.showData[params.index].id;
                                         console.log(send_with_cookie_data("id",confirm_id));
                                         jQuery.ajax({
-                                            url: server + url.stuff_review_agree,
+                                            url: server + url.stuff_out_agree,
                                             data: send_with_cookie_data("id",confirm_id),
                                             type: 'POST',
                                             xhrFields: {
@@ -296,7 +296,7 @@
 
                                     }
                                 }
-                            }, '同意审批'),
+                            }, '确认接收'),
                             h('Button', {
                                 props: {
                                     type: 'warning',
@@ -475,7 +475,7 @@
                 modify_form.formItem.inventory_id.value = currentRow.id;
             },
             cancel:function () {
-                modify_form.show = false;
+              modify_form.show = false;
             },
             submit:function (tof) {
                 if(tof === true){
@@ -483,7 +483,7 @@
                     console.log(send_with_cookie_data('json',modify_data));
 
                     jQuery.ajax({
-                        url : server+url.stuff_review_change,
+                        url : server+url.stuff_out_change,
                         data: send_with_cookie_data('json',modify_data),
                         type : 'POST',
                         typeData:'json',
