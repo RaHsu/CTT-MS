@@ -68,6 +68,9 @@ var url = {
     inventory_leave_check_application:'/CTT-MS-server/stuffleave/check', // 查看本仓库的所有调库申请
     inventory_leave_change_application:'/CTT-MS-server/stuffleave/change', // 修改申请
 
+	// 查询已发放材料的发放记录
+	stuff_out_record:'/CTT-MS-server/stuffoutrecord',
+
 
 	// 材料第一级审批操作
 	stuff_review_count:'/CTT-MS-server/stuffreview/newcount', // 待审批的数量

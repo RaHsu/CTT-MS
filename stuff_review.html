@@ -61,7 +61,7 @@
         @on-ok="submit(check(formItem))"
         @on-cancel="cancel"
 >
-    <i-form :label-width="80" label-position="right">
+    <i-form :label-width="120" label-position="right">
         <form-item label="材料大类">
             <i-select v-model="category" style="width:200px" @on-change="get_stuff">
                 <i-option v-for="item in category_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
@@ -75,6 +75,9 @@
             </i-select>
             <Alert show-icon style="margin-top: 10px;width: 400px" v-show="table_show">请单击某一行来选择批次</Alert>
             <i-table border @on-current-change="set_inventory_id" :columns="inventory_header" :data="inventory_show_data" v-show="table_show" highlight-row style="margin-top: 10px;width: 500px"></i-table>
+        </form-item>
+        <form-item label="相同材料的剩余">
+            <i-input v-model="formItem.odd_quantity.value" style="width:200px" placeholder="请输入相同材料的剩余数量" min="0"></i-input>
         </form-item>
         <form-item label="发放数量">
             <i-input v-model="formItem.out_quantity.value" style="width:200px" placeholder="请输入入库数量" min="0"></i-input>
@@ -223,6 +226,10 @@
                     key: 'category_name'
                 },
                 {
+                    title: '相同材料的剩余',
+                    key: 'odd_quantity'
+                },
+                {
                     title: '材料名称',
                     key: 'stuff_name'
                 },
@@ -313,6 +320,7 @@
                                         modify_form.formItem.inventory_id.value = table.showData[params.index].inventory_id;
                                         modify_form.formItem.id.value = table.showData[params.index].id;
                                         modify_form.formItem.out_quantity.value = table.showData[params.index].out_quantity;
+                                        modify_form.formItem.odd_quantity.value = table.showData[params.index].odd_quantity;
 
 
 
@@ -402,6 +410,14 @@
                     alertText: {
                         empty:'请填写发放数量',
                         number:'请填写正确的发放数量'
+                    }
+                },
+                odd_quantity:{
+                    value:null,
+                    check:['empty','number'],
+                    alertText: {
+                        empty:'请填写剩余材料的数量',
+                        number:'请填写剩余材料的数量'
                     }
                 }
 
@@ -503,6 +519,7 @@
                                 modify_form.formItem.id.value = null;
                                 modify_form.formItem.inventory_id.value = null;
                                 modify_form.formItem.out_quantity.value = null;
+                                modify_form.formItem.odd_quantity.value = null;
 
                                 modify_form.$Message.success(result.message+",即将刷新");
                                 setTimeout("window.location.reload()",1500);

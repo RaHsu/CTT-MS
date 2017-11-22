@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>查看入库记录</title>
+    <title>查看发放记录</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
     <link rel="stylesheet" href="css/loading.css">
@@ -26,14 +26,14 @@
         }
     });
 </script><header>
-    <h1>查看入库记录</h1>
+    <h1>查看发放记录</h1>
 </header>
 <div id="search">
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
-        <span>按时间查询：</span>
-        <date-picker type="date" placeholder="选择日期" style="width: 150px" v-model="search_start_time" clearable></date-picker>
-        <date-picker type="date" placeholder="选择日期" style="width: 150px" v-model="search_end_time" clearable></date-picker>
+        <span>按发放时间段查询：</span>
+        <date-picker type="date" placeholder="开始日期" style="width: 150px" v-model="search_start_time" clearable></date-picker>
+        <date-picker type="date" placeholder="结束日期" style="width: 150px" v-model="search_end_time" clearable></date-picker>
 
         <span>模糊查询：</span>
         <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 100px"></i-input>
@@ -57,6 +57,24 @@
 <br>
 <Page :total="total" id="page" show-total show-elevator @on-change="get_data"></Page>
 
+<Modal id="showModel"
+       v-model="show"
+       title="详细信息">
+    <p>发放仓库：{{data.storehouse}}</p>
+    <p>申请日期：{{data.apply_date}}</p>
+    <p>材料大类：{{data.category_name}}</p>
+    <p>材料名称：{{data.stuff_name}}</p>
+    <p>生产厂家：{{data.manufacturer}}</p>
+    <p>发放数量：{{data.out_quantity}}</p>
+    <p>型号：{{data.manufacturer}}</p>
+    <p>单位：{{data.unit}}</p>
+    <p>上次剩余材料数量：{{data.odd_quantity}}</p>
+    <p>申请人：{{data.staff}}</p>
+    <p>审批人：{{data.operator1}}</p>
+    <p>发放人：{{data.operator2}}</p>
+    <p>发放日期：{{data.out_date}}</p>
+    <p>备注：{{data.remark}}</p>
+</Modal>
 
 
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -85,27 +103,27 @@
         // 首先判断有无查询条件
         // 以仓库为条件查询
         if(search.search_storehouse !== ''){
-            page_data.condition.where = ["storehouse",search.search_storehouse];
+            page_data.condition.where = ["a.storehouse",search.search_storehouse];
         }
         // 模糊查询
         if(search.search_text !==''){
-            page_data.condition.like = ["manufacturer|storehouse|category_name|stuff_name","%"+ search.search_text + "%"];
+            page_data.condition.like = ["manufacturer|a.storehouse|category_name|stuff_name|staff|operator1|operator2","%"+ search.search_text + "%"];
 
         }
         // 以时间间隔查询
         if(search.search_start_time !=='' && search.search_end_time !==''){
-            page_data.condition.between = ["stuff_in_date",[formatDateTime(search.search_start_time),formatDateTime(search.search_end_time)]];
+            page_data.condition.between = ["out_date",[formatDate(search.search_start_time),formatDate(search.search_end_time)]];
         }
         // 判断有无排序
         if (table.order !== '') {
             page_data.order = table.order;
         }
 
-        console.log(JSON.stringify(page_data));
+        console.log(send_with_cookie_data('query', page_data));
 
         // 发送数据
         jQuery.ajax({
-            url: server + url.stuff_check,
+            url: server + url.stuff_out_record,
             data: send_with_cookie_data('query', page_data),
             type: 'POST',
             xhrFields: {
@@ -123,18 +141,6 @@
                 else {
                     page.total = result[0].datacount;
                     result.splice(0,1);
-
-                    // 对是否可以修改进行验证
-                    var now = new Date();
-                    for(var i=0;i<result.length;i++){
-                        result[i].switch_disabled = false;
-                        var stuff_in_time = trans_string_to_date(result[i].stuff_in_date);
-                        if(is_between_an_hour(now,stuff_in_time) === true){
-                            result[i].modify_disabled = false;
-                        }else if(is_between_an_hour(now,stuff_in_time) === false){
-                            result[i].modify_disabled = true;
-                        }
-                    }
                     table.showData = result;
                     console.log(result);
 
@@ -147,6 +153,17 @@
         });
     }
 
+    var showModel = new Vue({
+        el: '#showModel',
+        data: {
+            show: false,
+            data: {}
+        },
+        methods:{
+
+        }
+
+    });
     var search = new Vue({
         el: '#search',
         data: {
@@ -191,131 +208,51 @@
                     title: '材料名称',
                     key: 'stuff_name',
                     sortable: 'custom'
-                },
-                {
-                    title: '材料型号',
-                    key: 'type',
-                    sortable: 'custom'
-
-                },
-                {
-                    title: '单位',
-                    key: 'unit',
-                    sortable: 'custom'
-
-                },
+                }
+                ,
                 {
                     title: '数量',
-                    key: 'quantity',
+                    key: 'out_quantity',
                     sortable: 'custom'
 
                 },
                 {
-                    title: '经办人',
-                    key: 'operator',
+                    title: '申请人',
+                    key: 'staff',
                     sortable: 'custom'
                 },
                 {
-                    title: '入库时间',
-                    key: 'stuff_in_date',
+                    title: '申请日期',
+                    key: 'apply_date',
+                    sortable: 'custom'
+                },
+                {
+                    title: '发放日期',
+                    key: 'out_date',
                     sortable: 'custom'
                 },
                 {
                     title: '操作',
                     key: 'action',
-                    width: 100,
+                    width: 80,
                     align: 'center',
                     render: function (h, params) {
                         return h('div', [
                             h('Button', {
                                 props: {
-                                    type: 'warning',
-                                    size: 'small',
-                                    disabled: table.showData[params.index].modify_disabled
+                                    type: 'primary',
+                                    size: 'small'
                                 },
                                 style: {
                                     marginRight: '5px'
                                 },
                                 on: {
                                     click: function () {
-                                        window.location.href = "modify_stuff_in.html?" + table.showData[params.index].id;
+                                        showModel.show = true;
+                                        showModel.data = table.showData[params.index];
                                     }
                                 }
-                            }, '修改')
-                        ]);
-                    }
-                },
-                {
-                    title: '可用状态',
-                    key: 'action',
-                    width: 100,
-                    align: 'center',
-                    render: function (h, params) {
-                        return h('div', [
-                            h('i-switch', {
-                                props: {
-                                    trueValue:1,
-                                    falseValue:0,
-                                    value: table.showData[params.index].enabled,
-                                    disabled:table.showData[params.index].switch_disabled
-
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                scopedSlots:{
-                                    open:function () {
-                                        return h('Icon',{
-                                            attrs:{
-                                                type:'android-done'
-                                            }
-                                        });
-                                    },
-                                    close:function () {
-                                        return h('Icon',{
-                                            attrs:{
-                                                type:'android-close'
-                                            }
-                                        });
-                                    }
-                                },
-                                on: {
-                                    "on-change": function (value) {
-                                        // 先禁用按钮
-                                        table.showData[params.index].switch_disabled = true;
-                                        console.log(table.showData[params.index]);
-
-                                        jQuery.ajax({
-                                            url: server + url.stuff_enabled,
-                                            data: send_with_cookie_data('id', table.showData[params.index].id),
-                                            type: 'POST',
-                                            xhrFields: {
-                                                withCredentials: true
-                                            },
-                                            dataType: "json",
-                                            crossDomain: true,
-                                            success: function (result) {
-                                                if(result.state === 'error'){
-                                                    table.$Message.error(result.message);
-                                                    setTimeout("jump('login.html')",1500);
-                                                }else if(result.state === 'warning'){
-                                                    table.$Message.error(result.message);
-                                                }
-                                                else {
-                                                    table.$Message.success("修改成功");
-                                                    table.showData[params.index].switch_disabled = false;
-                                                    table.showData[params.index].enabled = result.message;
-                                                    console.log(result);
-                                                }
-
-                                            },
-                                            error: function () {
-                                                table.$Message.warning('连接服务器失败，请检查你的网络连接');
-                                            }
-                                        });
-                                    }
-                                }
-                            })
+                            }, '查看')
                         ]);
                     }
                 }

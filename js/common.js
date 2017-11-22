@@ -254,7 +254,20 @@ function formatDateTime(date) {
 
     return currentDate;
 }
+// 格式化日期函数
+function formatDate(date) {
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if(month>=1 && month<=9){
+        month = '0' + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentDate = date.getFullYear() + '-' + month + '-' + strDate;
 
+    return currentDate;
+}
 // 将字符串转化为date对象的函数
 function trans_string_to_date(string) {
     string = string.replace(/-/g,"/");
