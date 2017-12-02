@@ -7,16 +7,7 @@
     <bookmark url="file://$PROJECT_DIR$/check_stuff_out_record.html" description="&lt;script src=&quot;js/require.js&quot;&gt;&lt;/script&gt;&#10;&lt;script&gt;&#10;   ..." line="88" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory.html" afterPath="$PROJECT_DIR$/check_inventory.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory_leave_application.html" afterPath="$PROJECT_DIR$/check_inventory_leave_application.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_stuff_out_record.html" afterPath="$PROJECT_DIR$/check_stuff_out_record.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/loading.css" afterPath="$PROJECT_DIR$/css/loading.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/common.js" afterPath="$PROJECT_DIR$/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_check.html" afterPath="$PROJECT_DIR$/stuff_check.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_inventory.html" afterPath="$PROJECT_DIR$/stuff_inventory.html" />
-    </list>
+    <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="" />
     <ignored path="CTT-MS.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -108,8 +99,8 @@
       <file leaf-file-name="check_inventory_leave_application.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="334" column="50" lean-forward="true" selection-start-line="334" selection-start-column="50" selection-end-line="334" selection-end-column="50" />
+            <state relative-caret-position="308">
+              <caret line="341" column="56" lean-forward="true" selection-start-line="341" selection-start-column="56" selection-end-line="341" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -514,12 +505,12 @@
       <workItem from="1511244260852" duration="5000" />
       <workItem from="1511354337189" duration="3717000" />
       <workItem from="1512201324812" duration="6648000" />
-      <workItem from="1512208639556" duration="6861000" />
+      <workItem from="1512208639556" duration="7121000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="401196000" />
+    <option name="totallyTimeSpent" value="401456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="-140" width="1456" height="916" extended-state="6" />
@@ -1012,8 +1003,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="334" column="50" lean-forward="true" selection-start-line="334" selection-start-column="50" selection-end-line="334" selection-end-column="50" />
+        <state relative-caret-position="308">
+          <caret line="341" column="56" lean-forward="true" selection-start-line="341" selection-start-column="56" selection-end-line="341" selection-end-column="56" />
           <folding />
         </state>
       </provider>
