@@ -268,6 +268,27 @@ function formatDate(date) {
 
     return currentDate;
 }
+
+// 将日期减一并格式化日期
+function formatDate_sub(date){
+    if(date === ''){
+        return date;
+    }
+    var date_sub = new Date();
+    date_sub.setTime(Date.parse(date) - 24*60*60*1000);
+    return formatDate(date_sub);
+}
+
+//将日期加一并格式化日期
+function formatDate_plus(date){
+    if(date === ''){
+        return date;
+    }
+    var date_plus = new Date();
+    date_plus.setTime(Date.parse(date) + 24*60*60*1000);
+    return formatDate(date_plus);
+}
+
 // 将字符串转化为date对象的函数
 function trans_string_to_date(string) {
     string = string.replace(/-/g,"/");

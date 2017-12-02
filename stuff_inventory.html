@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>材料盘存</title>
+    <link rel="stylesheet" href="css/iview.css">
+    <link rel="stylesheet" href="css/check_stuff.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/vue.js"></script>
+    <script src="js/iview.js"></script>
+</head>
+<body>
+<Spin fix id="loading" v-if="show">
+    <Icon type="load-c" size=60 class="demo-spin-icon-load"></Icon>
+    <br>
+    <div class="loading-text">加载中...</div>
+</Spin>
+<script>
+    var loading = new Vue({
+        el:"#loading",
+        data:{
+            show:true
+        },
+        created:function () {
+            setTimeout("loading.show=false",500);
+        }
+    });
+</script><header>
+    <h1>材料盘存</h1>
+</header>
+<div id="search">
+    <div class="search-text">
+        <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
+        <span>按发放时间段查询：</span>
+        <date-picker type="date" placeholder="开始日期" style="width: 150px" v-model="search_start_time" clearable></date-picker>
+        <date-picker type="date" placeholder="结束日期" style="width: 150px" v-model="search_end_time" clearable></date-picker>
+
+        <span>模糊查询：</span>
+        <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 100px"></i-input>
+
+    </div>
+    <div class="search-area">
+        <i-select v-model="search_storehouse" style="width:100px">
+            <i-option v-for="item in storehouse_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+    </div>
+
+    <span>按仓库查询：</span>
+
+
+
+</div>
+<br>
+<div id="table">
+    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
+</div>
+
+
+
+
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>$.noConflict();</script>
+
+
+<script src="js/common.js"></script>
+<script src="js/check-input.js"></script>
+<script src="js/url.js"></script>
+<script>
+    // 获取各种条件下的管理员数据（排序，查询，页数）
+    function get_stuff_page_data(page_count) {
+        // 设置数据
+        var send_query = {};
+
+
+
+        // 首先判断有无查询条件
+        // 以仓库为条件查询
+
+        send_query.storehouse = search.search_storehouse;
+
+        // 模糊查询
+        send_query.query = search.search_text;
+
+        // 以时间间隔查询
+
+        send_query.start_date = formatDate_sub(search.search_start_time);
+        send_query.end_date = formatDate_plus(search.search_end_time);
+
+
+
+        var query = 'cookie='+get_cookie().username+
+            '&storehouse='+ send_query.storehouse+
+            '&startDate='+send_query.start_date+
+            '&endDate='+send_query.end_date+
+            '&query='+send_query.query;
+
+        console.log(query);
+
+
+        // 发送数据
+        jQuery.ajax({
+            url: server + url.stuff_inventory_check,
+            data: query,
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            crossDomain: true,
+            success: function (result) {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else {
+                    table.showData = result;
+                    console.log(result);
+
+                }
+
+            },
+            error: function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
+    var search = new Vue({
+        el: '#search',
+        data: {
+            search_storehouse: '',
+            search_text:'',
+            search_start_time:'',
+            search_end_time:'',
+            storehouse_data:[]
+        },
+        methods: {
+            // 获取查询的结果
+            get_search_result: function () {
+                get_stuff_page_data();
+            }
+
+        },
+        created:get_user_storehouse
+    });
+    var table = new Vue({
+        el: "#table",
+        data: {
+            order: "",
+            header: [
+                {
+                    title: '仓库',
+                    key: 'storehouse'
+
+                },
+                {
+                    title: '材料名称',
+                    key: 'stuff_name'
+                },
+                {
+                    title: '单位',
+                    key: 'unit'
+                },
+                {
+                    title: '本期入库',
+                    key: 'in_quantity'
+
+                },
+                {
+                    title: '本期出库',
+                    key: 'out_quantity'
+
+                },
+                {
+                    title: '当前存量',
+                    key: 'now_quantity'
+                },
+                {
+                    title: '往期存量',
+                    key: 'before_quantity'
+                }
+
+            ],
+            showData: [
+
+            ]
+        },
+        methods: {
+            change_sort_data: function (column) {
+                if(column.key === 'category_name' || column.key === 'stuff_name'){
+                    table.order = 'b.'+ column.key + " " + column.order;
+                }else {
+                    table.order = 'a.'+ column.key + " " + column.order;
+                }
+                console.log(table.order);
+                get_stuff_page_data();
+            }
+        }
+
+    });
+
+
+    get_stuff_page_data();
+
+
+</script>
+</body>
+</html>

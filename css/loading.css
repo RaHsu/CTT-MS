@@ -21,3 +21,8 @@ header h1{
     margin-left: 30px;
     margin-top: 20px;
 }
+
+/*分页的padding*/
+#page{
+    padding-left: 20px;
+}
