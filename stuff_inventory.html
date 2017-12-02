@@ -46,15 +46,16 @@
     </div>
 
     <span>按仓库查询：</span>
-
-
-
 </div>
 <br>
-<div id="table">
-    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
+<div>
+    <a class="ivu-btn ivu-btn-success btn-print" download="盘存数据.xlsx" href="#" onclick="print(this)">导出为excel</a>
+
 </div>
 
+<div id="table">
+    <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data" id="datatable"></i-table>
+</div>
 
 
 
@@ -63,11 +64,25 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>$.noConflict();</script>
 
+<script src="js/excellentexport.js"></script>
+<script src="js/require.js"></script>
+<script>
 
+    function print(that){
+
+
+
+        return ExcellentExport.convert(
+            {anchor: that, filename: '盘存数据', format: 'xlsx'},
+            [{name: '盘存数据', from: {array: 'datatable'}}]);
+    }
+</script>
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
+
+
     // 获取各种条件下的管理员数据（排序，查询，页数）
     function get_stuff_page_data(page_count) {
         // 设置数据

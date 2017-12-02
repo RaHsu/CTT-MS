@@ -26,3 +26,8 @@ header h1{
 #page{
     padding-left: 20px;
 }
+
+.btn-print{
+    margin-left: 20px;
+    margin-bottom: -25px;
+}

@@ -304,3 +304,40 @@ function is_between_an_hour(nowDate,date) {
         return false;
     }
 }
+
+// 把要打印的数据提取出来
+function extract_print_data(data,header){
+    var return_data=[];
+    // 将表头插入第一行
+    return_data.push(extract_header(header));
+
+    // 提取出所有表头关键字(除去“操作”)
+    var keys=[];
+    for(var k=0;k<header.length;k++){
+        if(header[k].key !== 'action'){
+            keys.push(header[k].key);
+        }
+
+    }
+
+    for(var i=0;i<data.length;i++){
+        var every_data = [];
+        for(var j = 0;j<keys.length;j++){
+            every_data.push(data[i][keys[j]]);
+        }
+        return_data.push(every_data);
+    }
+    return return_data;
+}
+
+// 把表头提取出来
+function extract_header(header){
+    var return_data = [];
+    for(var i=0;i<header.length;i++){
+        if(header[i].key !== 'action'){
+            return_data.push(header[i].title);
+        }
+
+    }
+    return return_data;
+}
