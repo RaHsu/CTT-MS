@@ -80,27 +80,23 @@
         <i-input v-model="formItem.idcard.value" placeholder="请输入身份证号"></i-input>
     </form-item>
     <form-item label="权限设置">
-        <p>材料管理</p>
+        <p>材料操作</p>
         <Checkbox v-model="formItem.auth.stuff_in">材料入库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_out">材料出库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_back">材料退库</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_review">材料审批</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_out">材料发放</Checkbox>
         <Checkbox v-model="formItem.auth.stuff_leave">材料调库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_use">材料消耗</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_count">材料统计</Checkbox>
+        <p>材料查询</p>
+        <Checkbox v-model="formItem.auth.stuff_count">库存查询</Checkbox>
         <Checkbox v-model="formItem.auth.stuff_inventory">材料盘存</Checkbox>
-        <p>工具管理</p>
-        <Checkbox v-model="formItem.auth.tool_in">工具入库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_out">工具出库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_back">工具退库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_leave">工具调库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_count">工具统计</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_infoconsummate">工具信息完善</Checkbox>
-        <p>安全品管理</p>
-        <Checkbox v-model="formItem.auth.safty_in">安全品入库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_out">安全品出库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_back">安全品退库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_count">安全品统计</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_infoconsummate">安全品信息完善</Checkbox>
+
+        <p>系统设置</p>
+        <Checkbox v-model="formItem.auth.area_manage">地区设置</Checkbox>
+        <Checkbox v-model="formItem.auth.storehouse_manage">仓库设置</Checkbox>
+        <Checkbox v-model="formItem.auth.team_manage">班组设置</Checkbox>
+        <Checkbox v-model="formItem.auth.manufacturer_manage">生产商设置</Checkbox>
+        <Checkbox v-model="formItem.auth.category_manage">材料大类设置</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_manage">材料名称管理</Checkbox>
+
         <p>人员管理</p>
         <Checkbox v-model="formItem.auth.staff_manage">装维人员管理</Checkbox>
         <Checkbox v-model="formItem.auth.user_manage">管理员管理</Checkbox>
@@ -198,25 +194,19 @@
                 },
                 auth:{
                     stuff_in:false,
+                    stuff_review:false,
                     stuff_out:false,
-                    stuff_back:false,
                     stuff_leave:false,
-                    stuff_use:false,
                     stuff_count:false,
                     stuff_inventory:false,
-                    tool_in:false,
-                    tool_out:false,
-                    tool_back:false,
-                    tool_leave:false,
-                    tool_count:false,
-                    tool_infoconsummate:false,
-                    safty_in:false,
-                    safty_out:false,
-                    safty_back:false,
-                    safty_count:false,
-                    safty_infoconsummate:false,
                     staff_manage:false,
-                    user_manage:false
+                    user_manage:false,
+                    area_manage:false,
+                    storehouse_manage:false,
+                    team_manage:false,
+                    manufacturer_manage:false,
+                    category_manage:false,
+                    stuff_manage:false
                 }
 
             }

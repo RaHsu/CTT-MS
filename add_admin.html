@@ -81,27 +81,23 @@
         <i-input v-model="formItem.idcard.value" placeholder="请输入身份证号"></i-input>
     </form-item>
     <form-item label="权限设置">
-        <p>材料管理</p>
+        <p>材料操作</p>
         <Checkbox v-model="formItem.auth.stuff_in" true-value="1" false-value="0">材料入库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_out" true-value="1" false-value="0">材料出库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_back" true-value="1" false-value="0">材料退库</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_review" true-value="1" false-value="0">材料审批</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_out" true-value="1" false-value="0">材料发放</Checkbox>
         <Checkbox v-model="formItem.auth.stuff_leave" true-value="1" false-value="0">材料调库</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_use" true-value="1" false-value="0">材料消耗</Checkbox>
-        <Checkbox v-model="formItem.auth.stuff_count" true-value="1" false-value="0">材料统计</Checkbox>
+        <p>材料查询</p>
+        <Checkbox v-model="formItem.auth.stuff_count" true-value="1" false-value="0">库存查询</Checkbox>
         <Checkbox v-model="formItem.auth.stuff_inventory" true-value="1" false-value="0">材料盘存</Checkbox>
-        <p>工具管理</p>
-        <Checkbox v-model="formItem.auth.tool_in" true-value="1" false-value="0">工具入库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_out" true-value="1" false-value="0">工具出库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_back" true-value="1" false-value="0">工具退库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_leave" true-value="1" false-value="0">工具调库</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_count" true-value="1" false-value="0">工具统计</Checkbox>
-        <Checkbox v-model="formItem.auth.tool_infoconsummate" true-value="1" false-value="0">工具信息完善</Checkbox>
-        <p>安全品管理</p>
-        <Checkbox v-model="formItem.auth.safty_in" true-value="1" false-value="0">安全品入库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_out" true-value="1" false-value="0">安全品出库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_back" true-value="1" false-value="0">安全品退库</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_count" true-value="1" false-value="0">安全品统计</Checkbox>
-        <Checkbox v-model="formItem.auth.safty_infoconsummate" true-value="1" false-value="0">安全品信息完善</Checkbox>
+
+        <p>系统设置</p>
+        <Checkbox v-model="formItem.auth.area_manage" true-value="1" false-value="0">地区设置</Checkbox>
+        <Checkbox v-model="formItem.auth.storehouse_manage" true-value="1" false-value="0">仓库设置</Checkbox>
+        <Checkbox v-model="formItem.auth.team_manage" true-value="1" false-value="0">班组设置</Checkbox>
+        <Checkbox v-model="formItem.auth.manufacturer_manage" true-value="1" false-value="0">生产商设置</Checkbox>
+        <Checkbox v-model="formItem.auth.category_manage" true-value="1" false-value="0">材料大类设置</Checkbox>
+        <Checkbox v-model="formItem.auth.stuff_manage" true-value="1" false-value="0">材料名称管理</Checkbox>
+
         <p>人员管理</p>
         <Checkbox v-model="formItem.auth.staff_manage" true-value="1" false-value="0">装维人员管理</Checkbox>
         <Checkbox v-model="formItem.auth.user_manage" true-value="1" false-value="0">管理员管理</Checkbox>
@@ -167,7 +163,7 @@
                 },
                 storehouse:{
                     value:'',
-                    check:[],
+                    check:[]
                 },
                 sex:{
                     value:'',
@@ -204,25 +200,19 @@
                 },
                 auth:{
                     stuff_in:'0',
+                    stuff_review:'0',
                     stuff_out:'0',
-                    stuff_back:'0',
                     stuff_leave:'0',
-                    stuff_use:'0',
                     stuff_count:'0',
                     stuff_inventory:'0',
-                    tool_in:'0',
-                    tool_out:'0',
-                    tool_back:'0',
-                    tool_leave:'0',
-                    tool_count:'0',
-                    tool_infoconsummate:'0',
-                    safty_in:'0',
-                    safty_out:'0',
-                    safty_back:'0',
-                    safty_count:'0',
-                    safty_infoconsummate:'0',
                     staff_manage:'0',
-                    user_manage:'0'
+                    user_manage:'0',
+                    area_manage:'0',
+                    storehouse_manage:'0',
+                    team_manage:'0',
+                    manufacturer_manage:'0',
+                    category_manage:'0',
+                    stuff_manage:'0'
                 }
             }
         },

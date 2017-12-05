@@ -66,32 +66,26 @@
     <p>家庭住址：{{data.address}}</p>
     <p>身份证号：{{data.idcard}}</p>
     <p>权限信息：</p>
-    <p>材料管理</p>
+    <p>材料操作</p>
     <p>
         <Checkbox v-model="filter(data.auth.stuff_in)" disabled>材料入库</Checkbox>
-        <Checkbox v-model="filter(data.auth.stuff_out)" disabled>材料出库</Checkbox>
-        <Checkbox v-model="filter(data.auth.stuff_back)" disabled>材料退库</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_review)" disabled>材料审批</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_out)" disabled>材料发放</Checkbox>
         <Checkbox v-model="filter(data.auth.stuff_leave)" disabled>材料调库</Checkbox>
-        <Checkbox v-model="filter(data.auth.stuff_use)" disabled>材料消耗</Checkbox>
-        <Checkbox v-model="filter(data.auth.stuff_count)" disabled>材料统计</Checkbox>
+    </p>
+    <p>材料查询</p>
+    <p>
+        <Checkbox v-model="filter(data.auth.stuff_count)" disabled>库存查询</Checkbox>
         <Checkbox v-model="filter(data.auth.stuff_inventory)" disabled>材料盘存</Checkbox>
     </p>
-    <p>工具管理</p>
+    <p>系统设置</p>
     <p>
-        <Checkbox v-model="filter(data.auth.tool_in)" disabled>工具入库</Checkbox>
-        <Checkbox v-model="filter(data.auth.tool_out)" disabled>工具出库</Checkbox>
-        <Checkbox v-model="filter(data.auth.tool_back)" disabled>工具退库</Checkbox>
-        <Checkbox v-model="filter(data.auth.tool_leave)" disabled>工具调库</Checkbox>
-        <Checkbox v-model="filter(data.auth.tool_count)" disabled>工具统计</Checkbox>
-        <Checkbox v-model="filter(data.auth.tool_infoconsummate)" disabled>工具信息完善</Checkbox>
-    </p>
-    <p>安全品管理</p>
-    <p>
-        <Checkbox v-model="filter(data.auth.safty_in)" disabled>安全品入库</Checkbox>
-        <Checkbox v-model="filter(data.auth.safty_out)" disabled>安全品出库</Checkbox>
-        <Checkbox v-model="filter(data.auth.safty_back)" disabled>安全品退库</Checkbox>
-        <Checkbox v-model="filter(data.auth.safty_count)" disabled>安全品统计</Checkbox>
-        <Checkbox v-model="filter(data.auth.safty_infoconsummate)" disabled>安全品信息完善</Checkbox>
+        <Checkbox v-model="filter(data.auth.area_manage)" disabled>地区设置</Checkbox>
+        <Checkbox v-model="filter(data.auth.storehouse_manage)" disabled>仓库设置</Checkbox>
+        <Checkbox v-model="filter(data.auth.team_manage)" disabled>班组设置</Checkbox>
+        <Checkbox v-model="filter(data.auth.manufacturer_manage)" disabled>生产商设置</Checkbox>
+        <Checkbox v-model="filter(data.auth.category_manage)" disabled>材料大类设置</Checkbox>
+        <Checkbox v-model="filter(data.auth.stuff_manage)" disabled>材料名称管理</Checkbox>
     </p>
     <p>人员管理</p>
     <p>
@@ -293,6 +287,7 @@
                                             okText: '确认',
                                             cancelText: '取消删除',
                                             onOk: function () {
+                                                console.log(send_with_cookie_data('id', table.showData[params.index].id));
                                                 jQuery.ajax({
                                                     url: server + url.delete_user,
                                                     data: send_with_cookie_data('id', table.showData[params.index].id),
@@ -348,7 +343,7 @@
 
         }
 
-    })
+    });
 
     get_admin_page_data();
 
