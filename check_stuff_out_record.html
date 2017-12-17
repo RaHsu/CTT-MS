@@ -72,9 +72,9 @@
     <p>材料名称：{{data.stuff_name}}</p>
     <p>生产厂家：{{data.manufacturer}}</p>
     <p>发放数量：{{data.out_quantity}}</p>
-    <p>型号：{{data.manufacturer}}</p>
+    <p>型号：{{data.type}}</p>
     <p>单位：{{data.unit}}</p>
-    <p>上次剩余材料数量：{{data.odd_quantity}}</p>
+    <p>装维剩余：{{data.odd_quantity}}</p>
     <p>申请人：{{data.staff}}</p>
     <p>审批人：{{data.operator1}}</p>
     <p>发放人：{{data.operator2}}</p>
@@ -88,10 +88,55 @@
 <script src="js/excellentexport.js"></script>
 <script src="js/require.js"></script>
 <script>
+    var prime_data = [];
+    function get_stuff_page_print_data() {
+        page_data.pageinfo.pageinate = 100000000;
+        // 发送数据
+        jQuery.ajax({
+            url: server + url.stuff_out_record,
+            data: send_with_cookie_data('query', page_data),
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            dataType: "json",
+            crossDomain: true,
+            success: function (result) {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else {
+                    result.splice(0,1);
+                    prime_data = result;
+                }
+
+            },
+            error: function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
     // 导出函数
     function print(that){
-        var print_data = extract_print_data(table.showData,table.header);
-        console.log(extract_print_data(table.showData,table.header));
+
+        var keys = ['storehouse','apply_date','category_name','stuff_name','manufacturer','out_quantity','type',
+        'unit','odd_quantity','staff','operator1','operator2','out_date','remark'];
+        var values = ['发放仓库','申请日期','材料大类','材料名称','生产厂家','发放数量','型号','单位','装维剩余',
+            '申请人','审批人','发放人','发放日期','备注'];
+
+
+        var print_data = [];
+        print_data.push(values);
+        var iii_data = extract_data(keys,prime_data);
+        for(var i=0;i<iii_data.length;i++){
+            print_data.push(iii_data[i]);
+        }
+
         return ExcellentExport.convert(
             {anchor: that, filename: '发放记录数据', format: 'xlsx'},
             [{name: '发放记录数据', from: {array:print_data}}]);
@@ -102,19 +147,20 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
-
+    // 设置数据
+    var page_data = {
+        pageinfo: {
+            curpage: 1,
+            pageinate: 10
+        },
+        condition:{}
+    };
 
 
     // 获取各种条件下的管理员数据（排序，查询，页数）
     function get_stuff_page_data(page_count) {
-        // 设置数据
-        var page_data = {
-            pageinfo: {
-                curpage: 1,
-                pageinate: 10
-            },
-            condition:{}
-        };
+        page_data.pageinfo.pageinate = 10;
+
         if (page_count) {
             page_data.pageinfo.curpage = page_count;
         }
@@ -197,6 +243,7 @@
             // 获取查询的结果
             get_search_result: function () {
                 get_stuff_page_data();
+                get_stuff_page_print_data()
             }
 
         },
@@ -291,6 +338,7 @@
                 }
                 console.log(table.order);
                 get_stuff_page_data();
+                get_stuff_page_print_data();
             }
         }
 
@@ -303,6 +351,7 @@
         methods: {
             get_data: function (page) {
                 get_stuff_page_data(page);
+                get_stuff_page_print_data();
             }
 
         }
@@ -310,7 +359,7 @@
     });
 
     get_stuff_page_data();
-
+    get_stuff_page_print_data();
 
 
 

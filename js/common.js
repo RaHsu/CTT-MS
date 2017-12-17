@@ -334,6 +334,20 @@ function extract_print_data(data,header){
     return return_data;
 }
 
+// 提取服务器返回数据中要打印的关键字
+function extract_data(keys,prime_data) {
+    var return_data = [];
+    for(var i = 0;i<prime_data.length;i++){
+        var item = [];
+        for(var j = 0;j<keys.length;j++){
+            item.push(prime_data[i][keys[j]]);
+        }
+        return_data.push(item);
+    }
+    return return_data;
+
+}
+
 // 把表头提取出来
 function extract_header(header){
     var return_data = [];

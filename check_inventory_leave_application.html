@@ -76,29 +76,75 @@
 <script src="js/excellentexport.js"></script>
 <script src="js/require.js"></script>
 <script>
+    var prime_data = [];
+    function get_stuff_page_print_data() {
+        page_data.pageinfo.pageinate = 100000000;
+        // 发送数据
+        jQuery.ajax({
+            url: server + url.inventory_leave_check_application,
+            data: send_with_cookie_data('query', page_data),
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            dataType: "json",
+            crossDomain: true,
+            success: function (result) {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else {
+                    result.splice(0,1);
+                    prime_data = result;
+                }
+
+            },
+            error: function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
     // 导出函数
     function print(that){
-        var print_data = extract_print_data(table.showData,table.header);
-        console.log(extract_print_data(table.showData,table.header));
+
+        var keys = ['category_name','stuff_name','send_storehouse','receive_storehouse','send_operator','manufacturer','send_date','type','unit','leave_quantity'];
+        var values = ['物资大类','物资名称','调离仓库','接收仓库','经办人','生产商','申请日期','材料型号','单位','数量'];
+
+
+        var print_data = [];
+        print_data.push(values);
+        var iii_data = extract_data(keys,prime_data);
+        for(var i=0;i<iii_data.length;i++){
+            print_data.push(iii_data[i]);
+        }
+        console.log(print_data);
+
         return ExcellentExport.convert(
-            {anchor: that, filename: '调库申请数据', format: 'xlsx'},
-            [{name: '调库申请数据', from: {array:print_data}}]);
+            {anchor: that, filename: '调库记录数据', format: 'xlsx'},
+            [{name: '调库记录数据', from: {array:print_data}}]);
     }
 </script>
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
+    var page_data = {
+        pageinfo: {
+            curpage: 1,
+            pageinate: 10
+        },
+        condition:{}
+    };
     // 获取各种条件下的管理员数据（排序，查询，页数）
     function get_inventory_application_page_data(page_count) {
         // 设置数据
-        var page_data = {
-            pageinfo: {
-                curpage: 1,
-                pageinate: 10
-            },
-            condition:{}
-        };
+        page_data.pageinfo.pageinate = 10;
+
         if (page_count) {
             page_data.pageinfo.curpage = page_count;
         }
@@ -178,6 +224,7 @@
             // 获取查询的结果
             get_search_result: function () {
                 get_inventory_application_page_data();
+                get_stuff_page_print_data();
             },
             // 通过选择材料大类返回材料名称
             get_stuff_name:function () {
@@ -412,6 +459,7 @@
                 }
                 console.log(table.order);
                 get_inventory_application_page_data();
+                get_stuff_page_print_data();
             }
         }
 
@@ -424,6 +472,7 @@
         methods: {
             get_data: function (page) {
                 get_inventory_application_page_data(page);
+                get_stuff_page_print_data();
             }
 
         }
@@ -431,6 +480,7 @@
     });
 
     get_inventory_application_page_data();
+    get_stuff_page_print_data();
 
 
 </script>

@@ -69,12 +69,9 @@
 <script>
 
     function print(that){
-
-
-
         return ExcellentExport.convert(
             {anchor: that, filename: '盘存数据', format: 'xlsx'},
-            [{name: '盘存数据', from: {array: 'datatable'}}]);
+            [{name: '盘存数据', from: {table: 'datatable'}}]);
     }
 </script>
 <script src="js/common.js"></script>
