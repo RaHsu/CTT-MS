@@ -72,6 +72,7 @@ var url = {
 
 	// 查询已发放材料的发放记录
 	stuff_out_record:'/CTT-MS-server/stuffoutrecord',
+    stuff_out_check_not_received:'/CTT-MS-server/stuffoutrecord2',//查看已經發放但未接收的申請
 
 
 	// 材料第一级审批操作

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>查看发放记录（已接收）</title>
+    <title>查看发放记录（未接收）</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
     <link rel="stylesheet" href="css/loading.css">
@@ -26,7 +26,7 @@
         }
     });
 </script><header>
-    <h1>查看发放记录（已接收）</h1>
+    <h1>查看发放记录（未接收）</h1>
 </header>
 <div id="search">
     <div class="search-text">
@@ -143,7 +143,7 @@
 
         // 发送数据
         jQuery.ajax({
-            url: server + url.stuff_out_record,
+            url: server + url.stuff_out_check_not_received,
             data: send_with_cookie_data('query', page_data),
             type: 'POST',
             xhrFields: {

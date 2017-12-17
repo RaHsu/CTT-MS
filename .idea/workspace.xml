@@ -1,36 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/main.html" line="116" />
+    <bookmark url="file://$PROJECT_DIR$/main.html" line="117" />
     <bookmark url="file://$PROJECT_DIR$/leave_inventory.html" line="325" />
-    <bookmark url="file://$PROJECT_DIR$/main.html" line="132" />
+    <bookmark url="file://$PROJECT_DIR$/main.html" line="133" />
     <bookmark url="file://$PROJECT_DIR$/check_stuff_out_record.html" description="&lt;script src=&quot;js/require.js&quot;&gt;&lt;/script&gt;&#10;&lt;script&gt;&#10;   ..." line="88" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/add_admin.html" afterPath="$PROJECT_DIR$/add_admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/area_setting.html" afterPath="$PROJECT_DIR$/area_setting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/category_setting.html" afterPath="$PROJECT_DIR$/category_setting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change_password.html" afterPath="$PROJECT_DIR$/change_password.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_admin.html" afterPath="$PROJECT_DIR$/check_admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory.html" afterPath="$PROJECT_DIR$/check_inventory.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory_leave_application.html" afterPath="$PROJECT_DIR$/check_inventory_leave_application.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_staff.html" afterPath="$PROJECT_DIR$/check_staff.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/common.js" afterPath="$PROJECT_DIR$/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/leave_inventory.html" afterPath="$PROJECT_DIR$/leave_inventory.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_stuff_out_record.html" afterPath="$PROJECT_DIR$/check_stuff_out_record.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/url.js" afterPath="$PROJECT_DIR$/js/url.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manufacturer_setting.html" afterPath="$PROJECT_DIR$/manufacturer_setting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modify_admin.html" afterPath="$PROJECT_DIR$/modify_admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modify_inventory_leave_application.html" afterPath="$PROJECT_DIR$/modify_inventory_leave_application.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modify_staff.html" afterPath="$PROJECT_DIR$/modify_staff.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modify_stuff_in.html" afterPath="$PROJECT_DIR$/modify_stuff_in.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_in.html" afterPath="$PROJECT_DIR$/stuff_in.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_out.html" afterPath="$PROJECT_DIR$/stuff_out.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_review.html" afterPath="$PROJECT_DIR$/stuff_review.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_setting.html" afterPath="$PROJECT_DIR$/stuff_setting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/team_setting.html" afterPath="$PROJECT_DIR$/team_setting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/warehouse_setting.html" afterPath="$PROJECT_DIR$/warehouse_setting.html" />
     </list>
     <ignored path="CTT-MS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,61 +32,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="236" column="13" lean-forward="false" selection-start-line="236" selection-start-column="9" selection-end-line="236" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stuff_review.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stuff_review.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="298" column="79" lean-forward="true" selection-start-line="298" selection-start-column="79" selection-end-line="298" selection-end-column="79" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add_admin.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/add_admin.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="240" column="50" lean-forward="true" selection-start-line="240" selection-start-column="50" selection-end-line="240" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="area_setting.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/area_setting.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="276" column="43" lean-forward="true" selection-start-line="276" selection-start-column="43" selection-end-line="276" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="check_stuff_out_record.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check_stuff_out_record.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="253" column="17" lean-forward="true" selection-start-line="253" selection-start-column="17" selection-end-line="253" selection-end-column="17" />
+            <state relative-caret-position="616">
+              <caret line="28" column="24" lean-forward="true" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+              <folding>
+                <element signature="e#3267#5346#0" expanded="false" />
+                <element signature="e#5376#5512#0" expanded="false" />
+                <element signature="e#5540#5946#0" expanded="false" />
+                <element signature="e#5973#8809#0" expanded="false" />
+                <element signature="e#8835#9040#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="81" column="118" lean-forward="false" selection-start-line="81" selection-start-column="118" selection-end-line="81" selection-end-column="118" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stuff_in.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/stuff_in.html">
+      <file leaf-file-name="check_stuff_out_record_not_received.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/check_stuff_out_record_not_received.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="276" column="18" lean-forward="true" selection-start-line="276" selection-start-column="18" selection-end-line="276" selection-end-column="18" />
+            <state relative-caret-position="210">
+              <caret line="253" column="17" lean-forward="true" selection-start-line="253" selection-start-column="17" selection-end-line="253" selection-end-column="17" />
+              <folding>
+                <element signature="e#8847#9052#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="url.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/url.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="74" column="32" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -149,9 +117,9 @@
       <find>onOk</find>
       <find>onok</find>
       <find>ajax</find>
-      <find>type</find>
       <find>修改</find>
       <find>jump</find>
+      <find>type</find>
     </findStrings>
     <replaceStrings>
       <replace>stuff_in_form</replace>
@@ -189,11 +157,9 @@
         <option value="$PROJECT_DIR$/modify_stuff_in.html" />
         <option value="$PROJECT_DIR$/confirm_inventory_leave.html" />
         <option value="$PROJECT_DIR$/css/main.css" />
-        <option value="$PROJECT_DIR$/js/url.js" />
         <option value="$PROJECT_DIR$/css/check_stuff.css" />
         <option value="$PROJECT_DIR$/css/loading.css" />
         <option value="$PROJECT_DIR$/stuff_inventory.html" />
-        <option value="$PROJECT_DIR$/check_stuff_out_record.html" />
         <option value="$PROJECT_DIR$/stuff_check.html" />
         <option value="$PROJECT_DIR$/check_inventory.html" />
         <option value="$PROJECT_DIR$/modify_admin.html" />
@@ -202,7 +168,6 @@
         <option value="$PROJECT_DIR$/stuff_out.html" />
         <option value="$PROJECT_DIR$/category_setting.html" />
         <option value="$PROJECT_DIR$/warehouse_setting.html" />
-        <option value="$PROJECT_DIR$/main.html" />
         <option value="$PROJECT_DIR$/check_staff.html" />
         <option value="$PROJECT_DIR$/stuff_setting.html" />
         <option value="$PROJECT_DIR$/check_inventory_leave_application.html" />
@@ -213,6 +178,10 @@
         <option value="$PROJECT_DIR$/add_admin.html" />
         <option value="$PROJECT_DIR$/stuff_in.html" />
         <option value="$PROJECT_DIR$/js/common.js" />
+        <option value="$PROJECT_DIR$/check_stuff_out_record.html" />
+        <option value="$PROJECT_DIR$/main.html" />
+        <option value="$PROJECT_DIR$/js/url.js" />
+        <option value="$PROJECT_DIR$/check_stuff_out_record_received.html" />
       </list>
     </option>
   </component>
@@ -449,12 +418,12 @@
       <workItem from="1512452227933" duration="202000" />
       <workItem from="1512637197114" duration="14000" />
       <workItem from="1513481329791" duration="4768000" />
-      <workItem from="1513496832031" duration="2323000" />
+      <workItem from="1513496832031" duration="3749000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="412085000" />
+    <option name="totallyTimeSpent" value="413511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="-140" width="1456" height="916" extended-state="6" />
@@ -493,14 +462,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -721,14 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/url.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="19" column="14" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stuff_out.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -749,14 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="377" column="57" lean-forward="false" selection-start-line="375" selection-start-column="55" selection-end-line="377" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="197" column="36" lean-forward="false" selection-start-line="197" selection-start-column="36" selection-end-line="197" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -809,14 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="380" column="57" lean-forward="true" selection-start-line="371" selection-start-column="56" selection-end-line="380" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/add_admin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -829,14 +766,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="276" column="43" lean-forward="true" selection-start-line="276" selection-start-column="43" selection-end-line="276" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/check_stuff_out_record.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="253" column="17" lean-forward="true" selection-start-line="253" selection-start-column="17" selection-end-line="253" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -859,9 +788,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stuff_in.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="276" column="18" lean-forward="true" selection-start-line="276" selection-start-column="18" selection-end-line="276" selection-end-column="18" />
+        <state relative-caret-position="1824">
+          <caret line="278" column="39" lean-forward="false" selection-start-line="278" selection-start-column="39" selection-end-line="278" selection-end-column="39" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8024">
+          <caret line="366" column="16" lean-forward="false" selection-start-line="366" selection-start-column="16" selection-end-line="366" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/check_stuff_out_record.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="28" column="24" lean-forward="true" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+          <folding>
+            <element signature="e#3267#5346#0" expanded="false" />
+            <element signature="e#5376#5512#0" expanded="false" />
+            <element signature="e#5540#5946#0" expanded="false" />
+            <element signature="e#5973#8809#0" expanded="false" />
+            <element signature="e#8835#9040#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="81" column="118" lean-forward="false" selection-start-line="81" selection-start-column="118" selection-end-line="81" selection-end-column="118" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/url.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="74" column="32" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/check_stuff_out_record_not_received.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="253" column="17" lean-forward="true" selection-start-line="253" selection-start-column="17" selection-end-line="253" selection-end-column="17" />
+          <folding>
+            <element signature="e#8847#9052#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
