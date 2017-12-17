@@ -61,11 +61,11 @@
                             <Icon type="hammer"></Icon>
                             材料操作
                         </template>
-                        <menu-item name="stuff_review.html" v-if="auth.stuff_review">材料审批</menu-item>
-                        <menu-item name="stuff_out.html" v-if="auth.stuff_out">材料发放</menu-item>
-                        <menu-item name="stuff_in.html" v-if="auth.stuff_in">材料入库</menu-item>
-                        <menu-item name="leave_inventory.html" v-if="auth.stuff_leave">申请库存调拨</menu-item>
-                        <menu-item name="confirm_inventory_leave.html" v-if="auth.stuff_leave">确认库存调拨</menu-item>
+                        <menu-item name="stuff_review.html|stuff_review" v-if="auth.stuff_review">材料审批</menu-item>
+                        <menu-item name="stuff_out.html|stuff_out" v-if="auth.stuff_out">材料发放</menu-item>
+                        <menu-item name="stuff_in.html|stuff_in" v-if="auth.stuff_in">材料入库</menu-item>
+                        <menu-item name="leave_inventory.html|stuff_leave" v-if="auth.stuff_leave">申请库存调拨</menu-item>
+                        <menu-item name="confirm_inventory_leave.html|stuff_leave" v-if="auth.stuff_leave">确认库存调拨</menu-item>
 
 
                     </Submenu>
@@ -74,39 +74,39 @@
                             <Icon type="search"></Icon>
                             材料查询
                         </template>
-                        <menu-item name="check_stuff_out_record.html" v-if="auth.stuff_out||auth.stuff_review">查看发放记录</menu-item>
-                        <menu-item name="stuff_check.html" v-if="auth.stuff_in">入库记录</menu-item>
-                        <menu-item name="check_inventory.html" v-if="auth.stuff_count">库存查询</menu-item>
-                        <menu-item name="stuff_inventory.html" v-if="auth.stuff_inventory">材料盘存</menu-item>
-                        <menu-item name="check_inventory_leave_application.html" v-if="auth.stuff_count">查看调库记录</menu-item>
+                        <menu-item name="check_stuff_out_record.html|stuff_out" v-if="auth.stuff_out||auth.stuff_review">查看发放记录</menu-item>
+                        <menu-item name="stuff_check.html|stuff_in" v-if="auth.stuff_in">入库记录</menu-item>
+                        <menu-item name="check_inventory.html|stuff_count" v-if="auth.stuff_count">库存查询</menu-item>
+                        <menu-item name="stuff_inventory.html|stuff_inventory" v-if="auth.stuff_inventory">材料盘存</menu-item>
+                        <menu-item name="check_inventory_leave_application.html|stuff_count" v-if="auth.stuff_count">查看调库记录</menu-item>
                     </Submenu>
                     <Submenu name="3">
                         <template slot="title">
                             <Icon type="person-stalker"></Icon>
                             装维人员管理
                         </template>
-                        <menu-item name="add_staff.html" v-if="auth.staff_manage">添加装维人员</menu-item>
-                        <menu-item name="check_staff.html" v-if="auth.staff_manage">查看/修改装维人员</menu-item>
+                        <menu-item name="add_staff.html|staff_manage" v-if="auth.staff_manage">添加装维人员</menu-item>
+                        <menu-item name="check_staff.html|staff_manage" v-if="auth.staff_manage">查看/修改装维人员</menu-item>
                     </Submenu>
                     <Submenu name="4">
                         <template slot="title">
                             <Icon type="settings"></Icon>
                             系统设置
                         </template>
-                        <menu-item name="add_admin.html" v-if="auth.user_manage">添加管理员</menu-item>
-                        <menu-item name="check_admin.html" v-if="auth.user_manage">查看、修改管理员</menu-item>
-                        <menu-item name="area_setting.html" v-if="auth.area_manage">片区设置</menu-item>
-                        <menu-item name="warehouse_setting.html" v-if="auth.storehouse_manage">仓库设置</menu-item>
-                        <menu-item name="team_setting.html" v-if="auth.team_manage">班组设置</menu-item>
-                        <menu-item name="manufacturer_setting.html" v-if="auth.manufacturer_manage">生产商设置</menu-item>
+                        <menu-item name="add_admin.html|user_manage" v-if="auth.user_manage">添加管理员</menu-item>
+                        <menu-item name="check_admin.html|user_manage" v-if="auth.user_manage">查看、修改管理员</menu-item>
+                        <menu-item name="area_setting.html|area_manage" v-if="auth.area_manage">片区设置</menu-item>
+                        <menu-item name="warehouse_setting.html|storehouse_manage" v-if="auth.storehouse_manage">仓库设置</menu-item>
+                        <menu-item name="team_setting.html|team_manage" v-if="auth.team_manage">班组设置</menu-item>
+                        <menu-item name="manufacturer_setting.html|manufacturer_manage" v-if="auth.manufacturer_manage">生产商设置</menu-item>
                     </Submenu>
                     <Submenu name="5">
                         <template slot="title">
                             <Icon type="wrench"></Icon>
                             材料管理
                         </template>
-                        <menu-item name="category_setting.html" v-if="auth.category_manage">材料大类设置</menu-item>
-                        <menu-item name="stuff_setting.html" v-if="auth.stuff_manage">材料名称管理</menu-item>
+                        <menu-item name="category_setting.html|category_manage" v-if="auth.category_manage">材料大类设置</menu-item>
+                        <menu-item name="stuff_setting.html|stuff_manage" v-if="auth.stuff_manage">材料名称管理</menu-item>
                     </Submenu>
                 </i-menu>
             </i-col>
@@ -185,8 +185,41 @@
         },
         methods:{
             href: function (name) {
-                var iframe = document.getElementById("content");
-                iframe.src = name;
+                //查询权限
+                jQuery.ajax({
+                    url : server+url.check_auth,
+                    data: send_with_cookie_data(),
+                    type : 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true,
+                    success:function (result) {
+                        if(result.state === "error"){
+                            alert(result.message);
+                        }
+                        else if(result.state === "success"){
+                            var iframe = document.getElementById("content");
+                            var href_array = name.split("|");
+                            var href_auth = href_array[1];
+                            var href_src = href_array[0];
+                            console.log(result[href_auth]);
+
+                            if(result[href_auth] === 1){
+                                iframe.src = href_src;
+                            }else {
+                                alert("你目前还没有该项权限，请于管理员联系");
+                                window.location.href = "login.html";
+                            }
+                        }
+                        console.log(result);
+
+                    },
+                    error:function () {
+                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    }
+                });
+
 
             }
         }
