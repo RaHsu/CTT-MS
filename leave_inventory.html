@@ -179,7 +179,7 @@
                         type: 'POST',
                         data: send_with_cookie_data('json', send_data),
                         processData: false,
-                        crossDomain: true,
+                        crossDomain: true,dataType:'json',
                         success: function (result) {
                             if(result.state === 'error'){
                                 leave_inventory_form.$Message.error(result.message);
@@ -188,7 +188,7 @@
                                 leave_inventory_form.$Message.error(result.message);
                             } else if (result.state === 'success') {
                                 leave_inventory_form.$Message.success(result.message+"，即将转跳");
-                                setTimeout('jump("check_inventory.html")',2000);
+                                setTimeout('inner_jump("check_inventory.html")',2000);
                             }
                             console.log(result);
 
@@ -207,7 +207,7 @@
                 console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
                 $.ajax({
                     url: server + url.get_stuff_with_id,
-                    type: 'POST',
+                    type: 'POST',dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
                     processData: false,
                     crossDomain: true,
@@ -242,7 +242,7 @@
                 console.log("cookie=" + get_cookie().username + "&" + "stuff_id=" + value);
                 $.ajax({
                     url: server + url.get_inventory_by_stuff,
-                    type: 'POST',
+                    type: 'POST',dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "stuff_id=" + value,
                     processData: false,
                     crossDomain: true,
@@ -278,7 +278,7 @@
                 console.log(value.join("^"));
                 $.ajax({
                     url: server + url.get_store_house,
-                    type: 'POST',
+                    type: 'POST',dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "area=" + value.join("^"),
                     processData: false,
                     crossDomain: true,

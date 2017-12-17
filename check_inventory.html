@@ -185,7 +185,7 @@
                 console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
                 jQuery.ajax({
                     url: server + url.get_stuff_with_id,
-                    type: 'POST',
+                    type: 'POST',dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
                     processData: false,
                     crossDomain: true,
@@ -218,7 +218,7 @@
             jQuery.ajax({
                 url : server+url.get_user_store_house,
                 data: send_with_cookie_data(),
-                type : 'POST',
+                type : 'POST',dataType:'json',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -242,7 +242,7 @@
             jQuery.ajax({
                 url : server+url.get_category,
                 data: send_with_cookie_data(),
-                type : 'POST',
+                type : 'POST',dataType:'json',
                 xhrFields: {
                     withCredentials: true
                 },

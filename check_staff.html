@@ -273,12 +273,17 @@
                                                     url : server+url.delete_staff,
                                                     data: send_with_cookie_data('id',table.showData[params.index].id),
                                                     type : 'POST',
+                                                    dataType:'json',
                                                     success:function (result) {
-                                                        if(result.state === 'success'){
+                                                        if(result.state === 'error'){
+                                                            table.$Message.warning(result.message);
+                                                            setTimeout("jump('login.html')",1500);
+                                                        }else if(result.state === "warning" ){
+                                                            table.$Message.warning(result.message);
+                                                        }
+                                                        else if(result.state === 'success'){
                                                             table.$Message.success('删除成功');
                                                             table.showData.splice(params.index,1);
-                                                        }else{
-                                                            table.$Message.warning(result.message);
                                                         }
                                                     },
                                                     error:function () {

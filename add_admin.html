@@ -237,8 +237,9 @@
                                 url:server+url.add_user,
                                 type : 'POST',
                                 data : send_with_cookie_data('json',send_data),
-                                processData: false,
+                                processData: false,dataType:'json',
                                 crossDomain: true,
+                                dataType:'json',
                                 success:function (result) {
                                     if(result.state === 'error'){
                                         add_user_form.$Message.error(result.message);
@@ -270,7 +271,7 @@
                     type : 'POST',
                     data : "cookie="+get_cookie().username+"&"+"area="+send_data,
                     processData: false,
-                    crossDomain: true,
+                    crossDomain: true,dataType:'json',
                     success:function (result) {
                         if(result.state === 'error'){
                             add_user_form.$Message.error(result.message);

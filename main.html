@@ -189,7 +189,7 @@
                 jQuery.ajax({
                     url : server+url.check_auth,
                     data: send_with_cookie_data(),
-                    type : 'POST',
+                    type : 'POST',dataType:'json',
                     xhrFields: {
                         withCredentials: true
                     },
@@ -197,6 +197,7 @@
                     success:function (result) {
                         if(result.state === "error"){
                             alert(result.message);
+                            window.location.href = "login.html";
                         }
                         else if(result.state === "success"){
                             var iframe = document.getElementById("content");
@@ -232,7 +233,7 @@
             $.ajax({
                 url : server+url.logout,
                 type : 'POST',
-                crossDomain: true,
+                crossDomain: true,dataType:'json',
                 data:send_with_cookie_data(),
                 success:function (result) {
                     if(result.state === 'success'){

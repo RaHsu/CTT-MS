@@ -156,6 +156,7 @@
                     $.ajax({
                         url: server + url.stuff_in,
                         type: 'POST',
+                        dataType:'json',
                         data: send_with_cookie_data('json', send_data),
                         processData: false,
                         crossDomain: true,
@@ -167,7 +168,7 @@
                                 stuff_in_form.$Message.error(result.message);
                             } else if (result.state === 'success') {
                                 stuff_in_form.$Message.success(result.message+"，即将转跳");
-                                setTimeout('jump("stuff_check.html")',2000);
+                                setTimeout('inner_jump("stuff_check.html")',2000);
                             }
                             console.log(result);
 
@@ -186,6 +187,7 @@
                 $.ajax({
                     url: server + url.get_stuff_with_id,
                     type: 'POST',
+                    dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
                     processData: false,
                     crossDomain: true,
@@ -218,7 +220,7 @@
             jQuery.ajax({
                 url : server+url.get_category,
                 data: send_with_cookie_data(),
-                type : 'POST',
+                type : 'POST',dataType:'json',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -246,7 +248,7 @@
             jQuery.ajax({
                 url : server+url.get_manufacturer,
                 data: send_with_cookie_data(),
-                type : 'POST',
+                type : 'POST',dataType:'json',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -269,7 +271,7 @@
             jQuery.ajax({
                 url : server+url.get_user_store_house,
                 data: send_with_cookie_data(),
-                type : 'POST',
+                type : 'POST',dataType:'json',
                 xhrFields: {
                     withCredentials: true
                 },

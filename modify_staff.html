@@ -275,7 +275,7 @@
                                 modify_staff_form.$Message.error(result.message);
                             }else {
                                 modify_staff_form.$Message.success(result.message+",即将跳转");
-                                setTimeout("jump('check_staff.html')",2000);
+                                setTimeout("inner_jump('check_staff.html')",2000);
                             }
                         },
                         error:function () {

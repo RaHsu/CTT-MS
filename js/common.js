@@ -123,7 +123,7 @@ function get_area() {
     jQuery.ajax({
         url : server+url.get_area,
         data: send_with_cookie_data(),
-        type : 'POST',
+        type : 'POST',dataType:'json',
         xhrFields: {
             withCredentials: true
         },
@@ -150,7 +150,7 @@ function get_category() {
     jQuery.ajax({
         url : server+url.get_category,
         data: send_with_cookie_data(),
-        type : 'POST',
+        type : 'POST',dataType:'json',
         xhrFields: {
             withCredentials: true
         },
@@ -180,7 +180,7 @@ function get_manufacturer() {
     jQuery.ajax({
         url : server+url.get_manufacturer,
         data: send_with_cookie_data(),
-        type : 'POST',
+        type : 'POST',dataType:'json',
         xhrFields: {
             withCredentials: true
         },
@@ -207,7 +207,7 @@ function get_user_storehouse() {
     jQuery.ajax({
         url : server+url.get_user_store_house,
         data: send_with_cookie_data(),
-        type : 'POST',
+        type : 'POST',dataType:'json',
         xhrFields: {
             withCredentials: true
         },
@@ -235,9 +235,13 @@ function get_user_storehouse() {
 
 // 延时跳转函数
 function jump(href) {
-    window.location.href = href;
+    window.parent.location.href = href;
 }
 
+// ifreme的转跳函数
+function inner_jump(href) {
+    window.location.href = href;
+}
 // 格式化日期时间的函数
 function formatDateTime(date) {
     var month = date.getMonth() + 1;

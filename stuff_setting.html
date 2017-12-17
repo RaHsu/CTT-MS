@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>仓库管理</title>
+    <title>材料名称管理</title>
     <link rel="stylesheet" href="css/iview.css">
     <link rel="stylesheet" href="css/check_stuff.css">
     <link rel="stylesheet" href="css/loading.css">
@@ -143,7 +143,7 @@
         jQuery.ajax({
             url: server + url.check_stuff,
             data: send_with_cookie_data('query', page_data),
-            type: 'POST',
+            type: 'POST',dataType:'json',
             xhrFields: {
                 withCredentials: true
             },
@@ -207,7 +207,7 @@
                     console.log(send_with_cookie_data('json', send_data));
                     jQuery.ajax({
                         url: server + url.add_stuff,
-                        type: 'POST',
+                        type: 'POST',dataType:'json',
                         data: send_with_cookie_data('json', send_data),
                         processData: false,
                         crossDomain: true,
@@ -279,7 +279,7 @@
                     console.log(send_with_cookie_data('json', send_data));
                     jQuery.ajax({
                         url: server + url.change_stuff,
-                        type: 'POST',
+                        type: 'POST',dataType:'json',
                         data: send_with_cookie_data('json', send_data),
                         processData: false,
                         crossDomain: true,
@@ -393,13 +393,18 @@
                                                     url: server + url.delete_stuff,
                                                     data: send_with_cookie_data('id', table.showData[params.index].id),
                                                     type: 'POST',
+                                                    dataType:'json',
                                                     success: function (result) {
                                                         console.log(result);
-                                                        if (result.state === 'success') {
-                                                            table.$Message.success('删除成功');
-                                                            table.showData.splice(params.index, 1);
-                                                        } else {
+                                                        if(result.state === 'error'){
                                                             table.$Message.warning(result.message);
+                                                            setTimeout("jump('login.html')",1500);
+                                                        }else if(result.state === "warning" ){
+                                                            table.$Message.warning(result.message);
+                                                        }
+                                                        else if(result.state === 'success'){
+                                                            table.$Message.success('删除成功');
+                                                            table.showData.splice(params.index,1);
                                                         }
                                                     },
                                                     error: function () {

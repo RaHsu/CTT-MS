@@ -157,7 +157,7 @@
                         else {
                             console.log(result);
                             table.$Message.success(result.message+",即将刷新");
-                            setTimeout("jump('stuff_review.html')",1500);
+                            setTimeout("inner_jump('stuff_review.html')",1500);
                         }
 
                     },
@@ -296,7 +296,7 @@
                                                 else {
                                                     console.log(result);
                                                     table.$Message.success(result.message+",即将刷新");
-                                                    setTimeout("jump('stuff_review.html')",1500);
+                                                    setTimeout("inner_jump('stuff_review.html')",1500);
                                                 }
 
                                             },
@@ -435,7 +435,7 @@
                 console.log("cookie=" + get_cookie().username + "&" + "stuff=" + category);
                 jQuery.ajax({
                     url: server + url.get_stuff_with_id,
-                    type: 'POST',
+                    type: 'POST',dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "category_name=" + category,
                     processData: false,
                     crossDomain: true,
@@ -466,7 +466,7 @@
                 console.log("cookie=" + get_cookie().username + "&" + "stuff_id=" + value);
                 jQuery.ajax({
                     url: server + url.get_inventory_by_stuff,
-                    type: 'POST',
+                    type: 'POST',dataType:'json',
                     data: "cookie=" + get_cookie().username + "&" + "stuff_id=" + value,
                     processData: false,
                     crossDomain: true,
