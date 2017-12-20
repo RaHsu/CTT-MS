@@ -81,6 +81,8 @@ var url = {
 	stuff_review_agree:'/CTT-MS-server/stuffreview/agree', // 同意审批
 	stuff_review_refuse:'/CTT-MS-server/stuffreview/refuse', // 拒绝审批
 	stuff_review_change:'/CTT-MS-server/stuffreview/change', // 修改申请
+    stuff_review_check_by_name:'/CTT-MS-server/stuffreview/newappbyname',// 按名字查找申请
+    stuff_review_agree_all:'/CTT-MS-server/stuffreview/agreeall',// 批量同意
 
 	// 材料第二级审批操作
     stuff_out_count:'/CTT-MS-server/stuffout/newcount', // 待审批的数量
@@ -88,6 +90,8 @@ var url = {
     stuff_out_agree:'/CTT-MS-server/stuffout/agree', // 同意审批
     stuff_out_refuse:'/CTT-MS-server/stuffout/refuse', // 拒绝审批
     stuff_out_change:'/CTT-MS-server/stuffout/change', // 修改申请
+    stuff_out_check_by_name:'/CTT-MS-server/stuffout/newappbyname',// 按名字查找申请
+    stuff_out_agree_all:'/CTT-MS-server/stuffout/agreeall',// 批量同意
 
 
 

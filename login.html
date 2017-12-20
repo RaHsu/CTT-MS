@@ -93,7 +93,6 @@
                             crossDomain: true,
                             timeout:10000,
                             success:function (result) {
-                                console.log(result);
                                 if(result.state === 'success'){
                                     set_cookie('username',result.message);
                                     window.location.href = "main.html";

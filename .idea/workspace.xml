@@ -9,14 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory.html" afterPath="$PROJECT_DIR$/check_inventory.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_inventory_leave_application.html" afterPath="$PROJECT_DIR$/check_inventory_leave_application.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_stuff_out_record.html" afterPath="$PROJECT_DIR$/check_stuff_out_record.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_stuff_out_record_not_received.html" afterPath="$PROJECT_DIR$/check_stuff_out_record_not_received.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/confirm_inventory_leave.html" afterPath="$PROJECT_DIR$/confirm_inventory_leave.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/common.js" afterPath="$PROJECT_DIR$/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_check.html" afterPath="$PROJECT_DIR$/stuff_check.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_inventory.html" afterPath="$PROJECT_DIR$/stuff_inventory.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/url.js" afterPath="$PROJECT_DIR$/js/url.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.html" afterPath="$PROJECT_DIR$/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_out.html" afterPath="$PROJECT_DIR$/stuff_out.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuff_review.html" afterPath="$PROJECT_DIR$/stuff_review.html" />
     </list>
     <ignored path="CTT-MS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,30 +37,48 @@
       <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="339" column="34" lean-forward="true" selection-start-line="339" selection-start-column="34" selection-end-line="339" selection-end-column="34" />
+            <state relative-caret-position="158">
+              <caret line="339" column="34" lean-forward="false" selection-start-line="339" selection-start-column="34" selection-end-line="339" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="check_inventory_leave_application.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
+      <file leaf-file-name="stuff_review.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stuff_review.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="223" column="22" lean-forward="true" selection-start-line="223" selection-start-column="22" selection-end-line="223" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="check_inventory.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/check_inventory.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="128" column="5" lean-forward="true" selection-start-line="77" selection-start-column="4" selection-end-line="128" selection-end-column="5" />
+            <state relative-caret-position="508">
+              <caret line="176" column="5" lean-forward="true" selection-start-line="139" selection-start-column="4" selection-end-line="176" selection-end-column="5" />
               <folding>
-                <element signature="e#2461#3446#0" expanded="false" />
+                <element signature="n#style#0;n#i-button#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#Modal#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#Modal#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#4541#5684#0" expanded="false" />
+                <element signature="e#5711#8063#0" expanded="false" />
+                <element signature="e#8091#9728#0" expanded="false" />
+                <element signature="e#9756#10848#0" expanded="false" />
+                <element signature="e#10875#17679#0" expanded="false" />
+                <element signature="e#17712#25488#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stuff_out.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/stuff_out.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="138" column="5" lean-forward="true" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+              <folding>
+                <element signature="n#style#0;n#i-button#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#3595#4495#0" expanded="false" />
+                <element signature="e#4543#5683#0" expanded="false" />
+                <element signature="e#6002#8024#0" expanded="false" />
+                <element signature="e#8083#9717#0" expanded="false" />
+                <element signature="e#9745#10834#0" expanded="false" />
+                <element signature="e#10861#17659#0" expanded="false" />
+                <element signature="e#17692#25465#0" expanded="false" />
+                <element signature="e#17734#19350#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -73,8 +87,8 @@
       <file leaf-file-name="url.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/url.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="74" column="32" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="32" />
+            <state relative-caret-position="374">
+              <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -93,7 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>url</find>
       <find>add_user_form</find>
       <find>get_admin_page_data</find>
       <find>error</find>
@@ -123,6 +136,7 @@
       <find>get_stuff_page_data</find>
       <find>经办人</find>
       <find>get_inventory_application_page_data</find>
+      <find>search-button</find>
     </findStrings>
     <replaceStrings>
       <replace>stuff_in_form</replace>
@@ -152,7 +166,6 @@
         <option value="$PROJECT_DIR$/check_admin.css" />
         <option value="$PROJECT_DIR$/.idea/modify_admin.html" />
         <option value="$PROJECT_DIR$/js/check-input.js" />
-        <option value="$PROJECT_DIR$/login.html" />
         <option value="$PROJECT_DIR$/change_password.html" />
         <option value="$PROJECT_DIR$/leave_inventory.html" />
         <option value="$PROJECT_DIR$/modify_inventory_leave_application.html" />
@@ -163,8 +176,6 @@
         <option value="$PROJECT_DIR$/css/loading.css" />
         <option value="$PROJECT_DIR$/modify_admin.html" />
         <option value="$PROJECT_DIR$/add_staff.html" />
-        <option value="$PROJECT_DIR$/stuff_review.html" />
-        <option value="$PROJECT_DIR$/stuff_out.html" />
         <option value="$PROJECT_DIR$/category_setting.html" />
         <option value="$PROJECT_DIR$/warehouse_setting.html" />
         <option value="$PROJECT_DIR$/check_staff.html" />
@@ -176,7 +187,6 @@
         <option value="$PROJECT_DIR$/add_admin.html" />
         <option value="$PROJECT_DIR$/stuff_in.html" />
         <option value="$PROJECT_DIR$/main.html" />
-        <option value="$PROJECT_DIR$/js/url.js" />
         <option value="$PROJECT_DIR$/check_stuff_out_record_received.html" />
         <option value="$PROJECT_DIR$/js/common.js" />
         <option value="$PROJECT_DIR$/check_stuff_out_record.html" />
@@ -186,6 +196,10 @@
         <option value="$PROJECT_DIR$/check_inventory.html" />
         <option value="$PROJECT_DIR$/stuff_inventory.html" />
         <option value="$PROJECT_DIR$/check_inventory_leave_application.html" />
+        <option value="$PROJECT_DIR$/js/url.js" />
+        <option value="$PROJECT_DIR$/stuff_review.html" />
+        <option value="$PROJECT_DIR$/login.html" />
+        <option value="$PROJECT_DIR$/stuff_out.html" />
       </list>
     </option>
   </component>
@@ -219,8 +233,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,17 +243,14 @@
             <path>
               <item name="CTT-MS" type="b2602c69:ProjectViewProjectNode" />
               <item name="CTT-MS" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CTT-MS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CTT-MS" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -422,12 +431,14 @@
       <workItem from="1512452227933" duration="202000" />
       <workItem from="1512637197114" duration="14000" />
       <workItem from="1513481329791" duration="4768000" />
-      <workItem from="1513496832031" duration="12272000" />
+      <workItem from="1513496832031" duration="12329000" />
+      <workItem from="1513737353947" duration="122000" />
+      <workItem from="1513737985877" duration="5922000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="422034000" />
+    <option name="totallyTimeSpent" value="428135000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="-140" width="1456" height="916" extended-state="6" />
@@ -436,13 +447,13 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18194444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917705" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917705" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,7 +472,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="48" />
+      <option name="time" value="49" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -654,15 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="682">
           <caret line="328" column="19" lean-forward="true" selection-start-line="302" selection-start-column="16" selection-end-line="328" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stuff_out.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="246" column="18" lean-forward="true" selection-start-line="246" selection-start-column="18" selection-end-line="246" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -670,7 +672,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
           <caret line="431" column="98" lean-forward="true" selection-start-line="431" selection-start-column="59" selection-end-line="431" selection-end-column="98" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -678,7 +679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="377" column="57" lean-forward="false" selection-start-line="375" selection-start-column="55" selection-end-line="377" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -686,7 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="632">
           <caret line="286" column="57" lean-forward="false" selection-start-line="277" selection-start-column="56" selection-end-line="286" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -694,15 +693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
           <caret line="399" column="63" lean-forward="false" selection-start-line="399" selection-start-column="63" selection-end-line="399" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="7" lean-forward="true" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -710,7 +700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="343" column="86" lean-forward="false" selection-start-line="343" selection-start-column="86" selection-end-line="343" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -718,7 +707,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="962">
           <caret line="302" column="84" lean-forward="false" selection-start-line="302" selection-start-column="84" selection-end-line="302" selection-end-column="84" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -726,7 +714,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="365" column="75" lean-forward="true" selection-start-line="365" selection-start-column="75" selection-end-line="365" selection-end-column="75" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -734,7 +721,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="240" column="50" lean-forward="true" selection-start-line="240" selection-start-column="50" selection-end-line="240" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -742,15 +728,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="276" column="43" lean-forward="true" selection-start-line="276" selection-start-column="43" selection-end-line="276" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stuff_review.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="298" column="79" lean-forward="true" selection-start-line="298" selection-start-column="79" selection-end-line="298" selection-end-column="79" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -758,15 +735,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1824">
           <caret line="278" column="39" lean-forward="false" selection-start-line="278" selection-start-column="39" selection-end-line="278" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/url.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="74" column="32" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -784,21 +752,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="339" column="34" lean-forward="true" selection-start-line="339" selection-start-column="34" selection-end-line="339" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/check_stuff_out_record_not_received.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="161" column="42" lean-forward="false" selection-start-line="161" selection-start-column="42" selection-end-line="161" selection-end-column="42" />
-          <folding>
-            <element signature="e#2736#3734#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -806,7 +763,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="200" column="85" lean-forward="false" selection-start-line="200" selection-start-column="85" selection-end-line="200" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -814,15 +770,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
           <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="81" column="61" lean-forward="false" selection-start-line="81" selection-start-column="61" selection-end-line="81" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -830,25 +777,99 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="68" column="8" lean-forward="true" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check_inventory.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="128" column="5" lean-forward="true" selection-start-line="77" selection-start-column="4" selection-end-line="128" selection-end-column="5" />
+        <state relative-caret-position="240">
+          <caret line="33" column="53" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="53" />
           <folding>
             <element signature="e#2461#3446#0" expanded="false" />
+            <element signature="e#4414#6417#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/url.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="84" column="28" lean-forward="false" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check_inventory_leave_application.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="223" column="22" lean-forward="true" selection-start-line="223" selection-start-column="22" selection-end-line="223" selection-end-column="22" />
+        <state relative-caret-position="204">
+          <caret line="140" column="20" lean-forward="true" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="20" />
+          <folding>
+            <element signature="e#8569#10312#0" expanded="false" />
+            <element signature="e#9509#10276#0" expanded="false" />
+            <element signature="e#10428#15853#0" expanded="false" />
+            <element signature="e#12147#15820#0" expanded="false" />
+            <element signature="e#12189#15796#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="339" column="34" lean-forward="false" selection-start-line="339" selection-start-column="34" selection-end-line="339" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stuff_review.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="176" column="5" lean-forward="true" selection-start-line="139" selection-start-column="4" selection-end-line="176" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#i-button#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#Modal#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#Modal#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#4541#5684#0" expanded="false" />
+            <element signature="e#5711#8063#0" expanded="false" />
+            <element signature="e#8091#9728#0" expanded="false" />
+            <element signature="e#9756#10848#0" expanded="false" />
+            <element signature="e#10875#17679#0" expanded="false" />
+            <element signature="e#17712#25488#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stuff_out.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="138" column="5" lean-forward="true" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#i-button#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#3595#4495#0" expanded="false" />
+            <element signature="e#4543#5683#0" expanded="false" />
+            <element signature="e#6002#8024#0" expanded="false" />
+            <element signature="e#8083#9717#0" expanded="false" />
+            <element signature="e#9745#10834#0" expanded="false" />
+            <element signature="e#10861#17659#0" expanded="false" />
+            <element signature="e#17692#25465#0" expanded="false" />
+            <element signature="e#17734#19350#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

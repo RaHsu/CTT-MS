@@ -39,6 +39,15 @@
         </template>
     </Alert>
 </div>
+
+<div id="search">
+    <i-button type="success" style="margin-left: 30px" @click="confirm_all_application">同意所有申请</i-button>
+    <div class="search-text">
+        <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
+        <span>按装维人员姓名查询：</span>
+        <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 150px"></i-input>
+    </div>
+</div>
 <div id="table">
     <i-table border :columns="header" :data="showData" @on-sort-change="change_sort_data"></i-table>
 </div>
@@ -94,9 +103,9 @@
 <script src="js/check-input.js"></script>
 <script src="js/url.js"></script>
 <script>
-    // 获取各种条件下的管理员数据（排序，查询，页数）
-    function get_stuff_review_page_data(page_count) {
 
+    // 获取各种条件下的数据（排序，查询，页数）
+    function get_stuff_review_page_data() {
         // 发送数据
         jQuery.ajax({
             url: server + url.stuff_review_check,
@@ -128,6 +137,102 @@
         });
     }
 
+    function get_stuff_review_page_data_by_name() {
+        var send_data;
+        if(search.search_text === ""){
+            send_data = send_with_cookie_data();
+        }else {
+            send_data = send_with_cookie_data()+"&staff="+search.search_text;
+        }
+        console.log(send_data);
+        // 发送数据
+        jQuery.ajax({
+            url: server + url.stuff_review_check_by_name,
+            data: send_data,
+            type: 'POST',
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: "json",
+            crossDomain: true,
+            success: function (result) {
+                if(result.state === 'error'){
+                    table.$Message.error(result.message);
+                    setTimeout("jump('login.html')",1500);
+                }else if(result.state === 'warning'){
+                    table.$Message.error(result.message);
+                }
+                else {
+
+                    console.log(result);
+                    table.showData = result;
+
+                }
+
+            },
+            error: function () {
+                table.$Message.warning('连接服务器失败，请检查你的网络连接');
+            }
+        });
+    }
+
+    var search = new Vue({
+        el:"#search",
+        data:{
+            search_text:''
+        },
+        methods:{
+            get_search_result:function () {
+                get_stuff_review_page_data_by_name();
+            },
+            confirm_all_application:function () {
+                search.$Modal.confirm({
+                    title:'确认你的行为',
+                    content:'点击确认按钮后，你将同意目前列表中显示的所有申请，你确定要这样做吗？',
+                    okText:'确认',
+                    cancelText:'取消',
+                    onOk:function () {
+                        var idList = [];
+                        for(var i = 0;i<table.showData.length;i++){
+                            idList.push(table.showData[i].id);
+                        }
+                        console.log(send_with_cookie_data("idList",idList));
+                        // 发送数据
+                        jQuery.ajax({
+                            url: server + url.stuff_review_agree_all,
+                            data: send_with_cookie_data("idList",idList),
+                            type: 'POST',
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            dataType: "json",
+                            crossDomain: true,
+                            success: function (result) {
+                                if(result.state === 'error'){
+                                    search.$Message.error(result.message);
+                                    setTimeout("jump('login.html')",1500);
+                                }else if(result.state === 'warning'){
+                                    search.$Message.error(result.message);
+                                }
+                                else {
+                                    search.$Message.success("操作成功，即将转跳");
+                                    setTimeout("inner_jump('stuff_review.html')",1500);
+                                }
+
+                            },
+                            error: function () {
+                                search.$Message.warning('连接服务器失败，请检查你的网络连接');
+                            }
+                        });
+
+                    },
+                    onCancel:function () {
+                        search.$Message.info('你取消了操作');
+                    }
+                })
+            }
+        }
+    });
     var reason = new Vue({
         el:'#reason',
         data:{
