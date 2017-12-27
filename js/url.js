@@ -2,8 +2,8 @@
 * 这里是所有api的url地址
 * */
 
-var server = 'http://10.2.130.178';
-//var server = 'http://10.0.53.246';
+//var server = 'http://10.2.130.178';
+var server = 'http://10.0.53.230';
 
 var url = {
 	// 登入登出操作
@@ -83,6 +83,7 @@ var url = {
 	stuff_review_change:'/CTT-MS-server/stuffreview/change', // 修改申请
     stuff_review_check_by_name:'/CTT-MS-server/stuffreview/newappbyname',// 按名字查找申请
     stuff_review_agree_all:'/CTT-MS-server/stuffreview/agreeall',// 批量同意
+	stuff_review_get_name:'/CTT-MS-server/stuffreview/staffs',// 获取装维名字
 
 	// 材料第二级审批操作
     stuff_out_count:'/CTT-MS-server/stuffout/newcount', // 待审批的数量
@@ -92,6 +93,8 @@ var url = {
     stuff_out_change:'/CTT-MS-server/stuffout/change', // 修改申请
     stuff_out_check_by_name:'/CTT-MS-server/stuffout/newappbyname',// 按名字查找申请
     stuff_out_agree_all:'/CTT-MS-server/stuffout/agreeall',// 批量同意
+    stuff_out_get_name:'/CTT-MS-server/stuffout/staffs',// 获取装维名字
+
 
 
 

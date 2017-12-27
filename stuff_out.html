@@ -45,7 +45,9 @@
     <div class="search-text">
         <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
         <span>按装维人员姓名查询：</span>
-        <i-input v-model="search_text" placeholder="请输入要查询的字符" style="width: 150px"></i-input>
+        <i-select v-model="search_text" style="width:200px">
+            <i-option v-for="item in stuff_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
     </div>
 </div>
 
@@ -178,7 +180,8 @@
     var search = new Vue({
         el:"#search",
         data:{
-            search_text:''
+            search_text:'',
+            stuff_data:[]
         },
         methods:{
             get_search_result:function () {
@@ -230,6 +233,35 @@
                     }
                 })
             }
+        },
+        created:function () {
+            jQuery.ajax({
+                url: server + url.stuff_out_get_name,
+                data: send_with_cookie_data(),
+                type: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function (result) {
+                    if(result.state === 'error'){
+                        table.$Message.error(result.message);
+                        setTimeout("jump('login.html')",1500);
+                    }else if(result.state === 'warning'){
+                        table.$Message.error(result.message);
+                    }
+                    else {
+                        console.log(result);
+                        search.stuff_data = result;
+
+                    }
+
+                },
+                error: function () {
+                    table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
         }
     });
     var reason = new Vue({
