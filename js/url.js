@@ -2,8 +2,8 @@
 * 这里是所有api的url地址
 * */
 
-//var server = 'http://10.2.130.178';
-var server = 'http://10.0.53.230';
+var server = 'http://10.2.130.178';
+//var server = 'http://10.0.53.230';
 
 var url = {
 	// 登入登出操作
@@ -84,6 +84,10 @@ var url = {
     stuff_review_check_by_name:'/CTT-MS-server/stuffreview/newappbyname',// 按名字查找申请
     stuff_review_agree_all:'/CTT-MS-server/stuffreview/agreeall',// 批量同意
 	stuff_review_get_name:'/CTT-MS-server/stuffreview/staffs',// 获取装维名字
+	stuff_review_get_stuffs:'/CTT-MS-server/stuffreview/stuffs',// 获取所有的物资名称
+	stuff_review_get_types:'/CTT-MS-server/stuffreview/stufftype',// 根据物资名称查型号
+	stuff_review_by_type:'/CTT-MS-server/stuffreview/newappbytype',// 按物资名称和型号查申请
+
 
 	// 材料第二级审批操作
     stuff_out_count:'/CTT-MS-server/stuffout/newcount', // 待审批的数量
@@ -94,6 +98,9 @@ var url = {
     stuff_out_check_by_name:'/CTT-MS-server/stuffout/newappbyname',// 按名字查找申请
     stuff_out_agree_all:'/CTT-MS-server/stuffout/agreeall',// 批量同意
     stuff_out_get_name:'/CTT-MS-server/stuffout/staffs',// 获取装维名字
+    stuff_out_get_stuffs:'/CTT-MS-server/stuffout/stuffs',// 获取所有的物资名称
+    stuff_out_get_types:'/CTT-MS-server/stuffout/stufftype',// 根据物资名称查型号
+    stuff_out_by_type:'/CTT-MS-server/stuffout/newappbytype',// 按物资名称和型号查申请
 
 
 

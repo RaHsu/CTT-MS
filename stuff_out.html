@@ -43,10 +43,16 @@
 <div id="search">
     <i-button type="success" style="margin-left: 30px" @click="confirm_all_application">同意所有申请</i-button>
     <div class="search-text">
-        <i-button type="primary" class="search-button" @click="get_search_result">查询</i-button>
         <span>按装维人员姓名查询：</span>
-        <i-select v-model="search_text" style="width:200px">
+        <i-select v-model="search_text" style="width:200px" @on-change="get_search_result">
             <i-option v-for="item in stuff_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+        <span>按材料名称查询：</span>
+        <i-select v-model="search_stuff_name" style="width:150px" placeholder="请选择物资名称" @on-change="get_type_data_by_stuff_name">
+            <i-option v-for="item in stuff_name_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+        </i-select>
+        <i-select v-model="search_type" style="width:150px" placeholder="请选择物资型号" @on-change="get_app_by_type">
+            <i-option v-for="item in type_data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
         </i-select>
     </div>
 </div>
@@ -181,7 +187,11 @@
         el:"#search",
         data:{
             search_text:'',
-            stuff_data:[]
+            stuff_data:[],
+            search_stuff_name:'',
+            search_type:'',
+            stuff_name_data:[],
+            type_data:[]
         },
         methods:{
             get_search_result:function () {
@@ -232,6 +242,63 @@
                         search.$Message.info('你取消了操作');
                     }
                 })
+            },
+            get_type_data_by_stuff_name:function () {
+                search.search_text = '';
+                jQuery.ajax({
+                    url: server + url.stuff_out_get_types,
+                    data: send_with_cookie_data()+"&stuff_name="+search.search_stuff_name,
+                    type: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            table.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            table.$Message.error(result.message);
+                        }
+                        else {
+                            console.log(result);
+                            search.type_data = result;
+                        }
+
+                    },
+                    error: function () {
+                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    }
+                });
+            },
+            get_app_by_type:function () {
+                jQuery.ajax({
+                    url: server + url.stuff_out_by_type,
+                    data: send_with_cookie_data()+"&stuff_name="+search.search_stuff_name+"&type="+search.search_type,
+                    type: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (result) {
+                        if(result.state === 'error'){
+                            table.$Message.error(result.message);
+                            setTimeout("jump('login.html')",1500);
+                        }else if(result.state === 'warning'){
+                            table.$Message.error(result.message);
+                        }
+                        else {
+                            console.log(result);
+                            table.showData = result;
+                        }
+
+                    },
+                    error: function () {
+                        table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                    }
+                });
             }
         },
         created:function () {
@@ -255,6 +322,33 @@
                         console.log(result);
                         search.stuff_data = result;
 
+                    }
+
+                },
+                error: function () {
+                    table.$Message.warning('连接服务器失败，请检查你的网络连接');
+                }
+            });
+            // 获取材料名称信息
+            jQuery.ajax({
+                url: server + url.stuff_out_get_stuffs,
+                data: send_with_cookie_data(),
+                type: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: "json",
+                crossDomain: true,
+                success: function (result) {
+                    if(result.state === 'error'){
+                        table.$Message.error(result.message);
+                        setTimeout("jump('login.html')",1500);
+                    }else if(result.state === 'warning'){
+                        table.$Message.error(result.message);
+                    }
+                    else {
+                        console.log(result);
+                        search.stuff_name_data = result;
                     }
 
                 },
@@ -432,7 +526,7 @@
                                                 else {
                                                     console.log(result);
                                                     table.$Message.success(result.message+",即将刷新");
-                                                    setTimeout("inner_jump('stuff_review.html')",1500);
+                                                    setTimeout("inner_jump('stuff_out.html')",1500);
                                                 }
 
                                             },
