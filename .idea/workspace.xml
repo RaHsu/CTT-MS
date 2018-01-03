@@ -8,9 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08b0d190-8963-4c21-b1d6-192c6fc5f48d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_stuff_out_record.html" afterPath="$PROJECT_DIR$/check_stuff_out_record.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/check_stuff_out_record_not_received.html" afterPath="$PROJECT_DIR$/check_stuff_out_record_not_received.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
     </list>
     <ignored path="CTT-MS.iws" />
@@ -68,17 +66,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="77" column="144" lean-forward="false" selection-start-line="77" selection-start-column="144" selection-end-line="77" selection-end-column="144" />
+            <state relative-caret-position="396">
+              <caret line="79" column="74" lean-forward="false" selection-start-line="79" selection-start-column="74" selection-end-line="79" selection-end-column="74" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="check_stuff_out_record_not_received.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="check_stuff_out_record_not_received.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check_stuff_out_record_not_received.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="418">
@@ -115,8 +113,8 @@
       <file leaf-file-name="check_stuff_out_record.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check_stuff_out_record.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state relative-caret-position="594">
+              <caret line="27" column="17" lean-forward="true" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -235,9 +233,9 @@
         <option value="$PROJECT_DIR$/js/url.js" />
         <option value="$PROJECT_DIR$/stuff_review.html" />
         <option value="$PROJECT_DIR$/stuff_out.html" />
-        <option value="$PROJECT_DIR$/check_stuff_out_record.html" />
-        <option value="$PROJECT_DIR$/main.html" />
         <option value="$PROJECT_DIR$/check_stuff_out_record_not_received.html" />
+        <option value="$PROJECT_DIR$/main.html" />
+        <option value="$PROJECT_DIR$/check_stuff_out_record.html" />
       </list>
     </option>
   </component>
@@ -475,12 +473,12 @@
       <workItem from="1514361279677" duration="2831000" />
       <workItem from="1514368240135" duration="254000" />
       <workItem from="1514956567951" duration="3467000" />
-      <workItem from="1514964378075" duration="238000" />
+      <workItem from="1514964378075" duration="553000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="435175000" />
+    <option name="totallyTimeSpent" value="435490000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
@@ -894,26 +892,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.html">
+    <entry file="file://$PROJECT_DIR$/check_stuff_out_record_not_received.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="77" column="144" lean-forward="false" selection-start-line="77" selection-start-column="144" selection-end-line="77" selection-end-column="144" />
+        <state relative-caret-position="418">
+          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check_stuff_out_record.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state relative-caret-position="594">
+          <caret line="27" column="17" lean-forward="true" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/check_stuff_out_record_not_received.html">
+    <entry file="file://$PROJECT_DIR$/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        <state relative-caret-position="396">
+          <caret line="79" column="74" lean-forward="false" selection-start-line="79" selection-start-column="74" selection-end-line="79" selection-end-column="74" />
           <folding />
         </state>
       </provider>

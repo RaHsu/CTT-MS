@@ -74,7 +74,7 @@
                             <Icon type="search"></Icon>
                             材料查询
                         </template>
-                        <menu-item name="check_stuff_out_record.html|stuff_out" v-if="auth.stuff_out||auth.stuff_review">查看发放记录（已接受）</menu-item>
+                        <menu-item name="check_stuff_out_record.html|stuff_out" v-if="auth.stuff_out||auth.stuff_review">查看发放记录（已接收）</menu-item>
                         <menu-item name="check_stuff_out_record_not_received.html|stuff_out" v-if="auth.stuff_out||auth.stuff_review">查看发放记录（已审批）</menu-item>
                         <menu-item name="stuff_check.html|stuff_in" v-if="auth.stuff_in">入库记录</menu-item>
                         <menu-item name="check_inventory.html|stuff_count" v-if="auth.stuff_count">库存查询</menu-item>
