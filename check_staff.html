@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/loading.css">
     <script src="js/vue.js"></script>
     <script src="js/iview.js"></script>
+    <script src="js/url.js"></script>
 </head>
 <body>
 <Spin fix id="loading" v-if="show">
@@ -66,9 +67,9 @@
     <p>经办人：{{data.operator}}</p>
     <p>入职时间：{{data.employment_date}}</p>
     <p>备注：{{data.remark}}</p>
-    <p>个人照片:&emsp;&emsp;&emsp;<img :src="data.per_pic"></p>
-    <p>身份证正面照片:<img :src="data.idcard_front_pic"></p>
-    <p>身份证背面照片:<img :src="data.idcard_back_pic"></p>
+    <p>个人照片:&emsp;&emsp;&emsp;<img :src="imgServer+data.per_pic"></p>
+    <p>身份证正面照片:<img :src="imgServer+data.idcard_front_pic"></p>
+    <p>身份证背面照片:<img :src="imgServer+data.idcard_back_pic"></p>
 </Modal>
 
 
@@ -78,7 +79,7 @@
 
 <script src="js/common.js"></script>
 <script src="js/check-input.js"></script>
-<script src="js/url.js"></script>
+
 <script>
 
     // 获取各种条件下的员工数据（排序，查询，页数）
@@ -153,6 +154,7 @@
     var showModel = new Vue({
         el:'#showModel',
         data:{
+            imgServer:server,
             show:false,
             data:{}
         }
@@ -178,6 +180,7 @@
     var table = new Vue({
         el: "#table",
         data:{
+
             order:"",
             header: [
                 {

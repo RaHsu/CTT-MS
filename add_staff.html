@@ -266,7 +266,8 @@
                     formData.append('img[]',add_stuff_form.formItem.per_pic.value);
                     formData.append('img[]',add_stuff_form.formItem.idcard_front_pic.value);
                     formData.append('img[]',add_stuff_form.formItem.idcard_back_pic.value);
-                    console.log(formData.get('area'));
+                    console.log(formData.get('name'));
+                    console.log(formData);
 
                     $.ajax({
                         url:server+url.add_staff,
